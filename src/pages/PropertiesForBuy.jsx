@@ -60,12 +60,39 @@ export default function PropertiesForBuy() {
   return (
     <div className="app-main-bg py-5">
       <div className="container py-3">
-        <div className="d-flex justify-content-between align-items-end mb-4" data-aos="fade-down">
-          <div>
-            <span className="section-subtitle fw-bold tracking-wider text-primary">🌿 FOR BUY / INVESTMENT</span>
-            <h2 className="h4 fw-bold text-dark m-0 mt-1">Properties For Sale</h2>
-          </div>
-        </div>
+       {/* ===== PREVENT TOUCHING OTHER BLOCKS - ONLY HEADING DESIGN RECOGNITION ===== */}
+<div 
+  className="d-flex justify-content-between align-items-center my-5 pb-3 border-bottom border-light" 
+  data-aos="fade-down"
+>
+  <div className="position-relative">
+    <span 
+      className="text-uppercase tracking-widest fw-bold text-primary small d-block mb-1"
+      style={{ letterSpacing: '2.5px', fontSize: '12px' }}
+    >
+      Explore Verified Inventory
+    </span>
+    <h2 
+      className="h3 fw-normal m-0 text-dark position-relative"
+      style={{ fontFamily: "'Playfair Display', Georgia, serif", letterSpacing: '-0.5px' }}
+    >
+      Premium Properties <span className="fw-semibold text-warning" style={{ color: '#d4af37 !important' }}>For Sale</span>
+    </h2>
+    {/* Minimal Aesthetic Underline Matrix */}
+    <div 
+      className="position-absolute bottom-0 start-0 bg-warning mt-2" 
+      style={{ width: '40px', height: '3px', borderRadius: '2px', backgroundColor: '#d4af37', bottom: '-10px' }}
+    ></div>
+  </div>
+  
+  {/* Right Side Stats Counter Badge */}
+  <div className="d-none d-sm-inline-block">
+    <span className="badge bg-dark rounded-pill px-3 py-2 fw-medium tracking-wide text-uppercase" style={{ fontSize: '11px', letterSpacing: '0.5px' }}>
+      {properties.length} Available Listings
+    </span>
+  </div>
+</div>
+{/* ========================================================================= */}
         
         {properties.length === 0 ? (
           <div className="text-center py-5 text-muted">

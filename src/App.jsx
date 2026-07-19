@@ -22,6 +22,7 @@ import JoinAgent from './pages/JoinAgent';
 
 // Main Real Estate Operations Dynamic Panels (Updated Files Linked Here)
 import PropertiesForBuy from './pages/PropertiesForBuy';
+import SellProperties from './pages/SellProperties';
 import FeaturedProperties from './pages/FeaturedProperties';  
 import PropertyPage from './pages/Properties/PropertyPage';
 
@@ -52,6 +53,7 @@ export default function App() {
               
               {/* Sahi Filtered Files Routes setup yahan hai */}
               <Route path="/buy" element={<PropertiesForBuy />} />
+              <Route path="/sell" element={<SellProperties />} />
               <Route path="/featured" element={<FeaturedProperties />} /> 
 
               {/* Live Real Estate Listings Data Streams */}

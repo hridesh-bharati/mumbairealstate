@@ -1,0 +1,134 @@
+/* ==========================================================================
+   AOS ANIMATION DYNAMICS (TOP TO BOTTOM ZOOM-IN)
+   ========================================================================== */
+[data-aos="fade-down"] {
+  transform: translateY(-40px) scale(0.92);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+[data-aos="fade-down"].aos-animate {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   COMPONENT SEGMENTED TABS UTILITIES
+   ========================================================================== */
+.custom-segmented-tabs {
+  width: fit-content;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+}
+
+.tab-node {
+  width: 90px;
+}
+
+.tab-indicator {
+  top: 4px;
+  bottom: 4px;
+  width: 90px;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  z-index: 0;
+}
+
+.slide-to-buy { 
+  transform: translateX(0px); 
+}
+
+.slide-to-sell { 
+  transform: translateX(90px); 
+}
+
+/* ==========================================================================
+   TEXT AND LOOK UTILITIES
+   ========================================================================== */
+.transition-all { 
+  transition: all 0.25s ease-in-out; 
+}
+
+.text-shadow { 
+  text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.35); 
+}
+
+.text-shadow-strong { 
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.8), 0px 4px 20px rgba(0, 0, 0, 0.4); 
+}
+
+/* ==========================================================================
+   SCROLL DOWN INDICATOR (LINE & 3 ARROWS ANIMATION)
+   ========================================================================== */
+.scroll-down-wrapper {
+  margin-top: 4.5rem !important; /* सर्च बार से थोड़ा और नीचे खिसकाने के लिए */
+}
+
+/* लाइन जो नीचे की तरफ पुश करती हुई दिखेगी */
+.push-line {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
+  animation: linePush 2s infinite ease-in-out;
+  transform-origin: top;
+}
+
+/* तीनों ऐरो का कम्प्लीट बाउंसिंग इफ़ेक्ट */
+.scroll-bounce-animation {
+  animation: arrowBounce 2s infinite ease-in-out;
+  filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+/* Keyframes for Line Push */
+@keyframes linePush {
+  0%, 100% {
+    transform: scaleY(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleY(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Keyframes for Arrows Bounce */
+@keyframes arrowBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-4px);
+  }
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE PRESETS (MAX-WIDTH: 767px)
+   ========================================================================== */
+@media (max-width: 767.98px) {
+  .hero-wrapper-node {
+    min-height: calc(100vh - 40px) !important;
+    display: flex;
+    align-items: flex-start !important;
+    padding-top: 25vh !important;
+  }
+
+  .hero-wrapper-node h1.display-3 {
+    font-size: 2.25rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .hero-wrapper-node p.fs-5 {
+    font-size: 0.95rem !important;
+    margin-bottom: 20px !important;
+    padding: 0 10px;
+  }
+
+  .search-container-node {
+    margin-top: 5px !important;
+  }
+  
+  .scroll-down-wrapper {
+    margin-top: 2.5rem !important; /* मोबाइल स्क्रीन पर सही स्पेसिंग के लिए */
+  }
+}

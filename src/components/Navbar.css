@@ -1,215 +1,147 @@
-/* --- Core Engine Utils --- */
+/* ================= CORE CONFIGURATION UTILITIES ================= */
 .cursor-pointer { cursor: pointer; }
 .tracking-wider { letter-spacing: 2px; }
 .transition-all { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
 
-/* Changed position-absolute to position-fixed inside JS for real sticky effect */
+/* Standard structural configurations shared by all default instances */
 .navbar {
-  top: 0;
+  top: 15px;
   left: 0;
-  transition: background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+  right: 0;
+  width: auto !important;
+  margin: 0 24px;
+  border-radius: 20px !important; /* Default 20px Rounded PC Layout */
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, top 0.4s ease, margin 0.4s ease, border-radius 0.4s ease, padding 0.4s ease;
 }
 
-/* ================= SCROLL AFTER ACTION EFFECT ================= */
+/* ================= A. ONLY HOME PAGE ("/") DEFAULT TRANSPARENT + WATER BLUR EFFECT ================= */
+.home-water-nav {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ================= B. ALL OTHER PAGES DEFAULT TRANSPARENT (NO WATER BLUR EFFECT) ================= */
+.other-clear-nav {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid transparent; 
+}
+
+/* ================= C. UNIVERSAL SCROLL EFFECT (PURE SOLID WHITE FOR ALL PAGES) ================= */
 .scrolled-nav {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(10px);
+  top: 0 !important;
+  margin: 0 !important;
+  border-radius: 0px !important; 
+  background-color: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid #eaeaea !important;
   padding-top: 12px !important;
   padding-bottom: 12px !important;
 }
 
-/* ================= PC DESKTOP LINKS HOVER WHITE BACKGROUND ================= */
-.pc-nav-link {
-  background-color: transparent;
+/* Responsive Viewports Overrides */
+@media (max-width: 991.98px) {
+  .navbar:not(.scrolled-nav) { margin: 0 12px; top: 10px; }
+  .scrolled-nav { top: 0 !important; margin: 0 !important; }
 }
-/* When navbar is transparent (Top page) */
-.navbar:not(.scrolled-nav) .pc-nav-link:hover {
-  background-color: rgba(255, 255, 255, 1) !important;
+
+/* ================= LINKS INTERACTION STATES ================= */
+.pc-nav-link { background-color: transparent; position: relative; }
+
+/* Home page standard hover configuration */
+.navbar.home-water-nav .pc-nav-link.text-white:hover {
+  background-color: #ffffff !important;
   color: #000000 !important;
 }
-/* When navbar is scrolled (White background state) */
-.scrolled-nav .pc-nav-link:hover {
+
+/* Other pages / scrolled hover text styling */
+.navbar.other-clear-nav .pc-nav-link.text-dark:hover,
+.navbar.scrolled-nav .pc-nav-link.text-dark:hover {
   background-color: #f1f3f4 !important;
   color: #000000 !important;
 }
 
-/* Register Sign In button extra logic when scrolled */
-.hover-bg-dark:hover {
-  background-color: #000000 !important;
-}
-.text-white-hover:hover {
-  color: #ffffff !important;
-}
-.hover-bg-white:hover { 
-  background-color: #ffffff !important; 
-  color: #000000 !important; 
-}
+/* Active elements validation logic */
+.navbar.home-water-nav .pc-nav-link.active { background-color: rgba(255, 255, 255, 0.2) !important; }
+.navbar:not(.home-water-nav) .pc-nav-link.active { background-color: #f1f3f4 !important; font-weight: 600 !important; }
 
-/* ================= BRAND LOGO IMG CONFIGURATION ================= */
-.brand-logo-img {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-}
-.drawer-logo {
-  height: 48px;
-}
+/* Auth Buttons dynamic configuration rules */
+.hover-bg-dark:hover { background-color: #000000 !important; }
+.text-white-hover:hover { color: #ffffff !important; }
+.hover-bg-white:hover { background-color: #ffffff !important; color: #000000 !important; }
+
+/* LOGO MEASUREMENTS */
+.brand-logo-img { height: 40px; width: auto; object-fit: contain; }
+.drawer-logo { height: 48px; }
 
 /* ================= PC DESKTOP MEGA DROPDOWN SYSTEM ================= */
+.navbar .dropdown {
+  position: static;
+}
+
+/* Bridge creation strictly under the link to fill the hover gap */
+.navbar .dropdown .pc-nav-link::after { 
+  content: ""; 
+  position: absolute; 
+  top: 100%; 
+  left: 0; 
+  width: 100%; 
+  height: 25px; 
+  display: block; 
+  z-index: 1; 
+}
+
 .navbar .mega-menu {
-  display: none;
-  position: absolute !important;
+  display: none; 
+  position: absolute !important; 
   left: 5% !important; 
-  right: 5% !important;
+  right: 5% !important; 
   width: 90% !important; 
   margin: 0 auto !important; 
-  top: 100% !important; /* नव बार के ठीक नीचे लाने के लिए */
-  
-  background-color: #ffffff;
-  border-radius: 16px !important;
+  top: 100% !important;
+  background-color: #ffffff; 
+  border-radius: 16px !important; 
   box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.08) !important;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  pointer-events: none;
+  opacity: 0; 
+  transform: translateY(-10px); 
+  transition: opacity 0.25s ease, transform 0.25s ease; 
+  pointer-events: none; 
   z-index: 1000;
 }
 
-/* Invisible Bridge: गैप के बावजूद कर्सर को जोड़े रखेगा */
-.navbar .dropdown::after {
-  content: "";
-  position: absolute;
-  top: 60%;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  display: block;
-  z-index: 1;
-}
-
-.navbar .dropdown:hover .mega-menu {
+.navbar .dropdown:hover .mega-menu { 
   display: block; 
   opacity: 1; 
   transform: translateY(0); 
-  pointer-events: auto;
+  pointer-events: auto; 
 }
+
 .navbar .dropdown:hover .arrow-icon { transform: rotate(180deg); }
 .arrow-icon { transition: transform 0.2s ease; }
 .mega-item { text-decoration: none; transition: background-color 0.2s ease; }
 .mega-item:hover { background-color: #f8f9fa; border-radius: 8px; }
 .extra-small { font-size: 11px; color: #757575; }
+.pc-badge { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; color: #ffffff; flex-shrink: 0; }
 
-/* ================= MOBILE USER LOGIN NODE BUTTON ================= */
-.mobile-login-btn {
-  background-color: rgba(255, 255, 255, 0.15); 
-  border-radius: 50% !important;
-  width: 40px;
-  height: 40px;
-}
-.mob-btn-scrolled {
-  background-color: rgba(0, 0, 0, 0.05) !important;
-}
-.mobile-login-btn:active {
-  background-color: rgba(255, 255, 255, 0.3);
-}
+/* Colors for specific custom themes */
+.bg-purple { background-color: #6f42c1; }
+.bg-teal { background-color: #20c997; }
+.bg-cyan { background-color: #0dcaf0; }
+.bg-pink { background-color: #d63384; }
+.bg-red { background-color: #dc3545; }
 
-/* ================= WHITE MOBILE DRAWER SYSTEM ================= */
-.android-divider {
-  height: 1px;
-  background-color: #f0f0f0;
-  margin: 4px 0;
-}
-.section-label { 
-  font-size: 11px; 
-  font-weight: 700; 
-  color: #757575; 
-  letter-spacing: 0.6px; 
-  text-transform: uppercase; 
-}
-
-.android-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 8px 16px;
-  margin: 2px 8px;
-  border-radius: 24px; 
-  text-decoration: none;
-  color: #444746;
-  font-size: 14px;
-  font-weight: 500;
-  transition: background-color 0.15s ease, color 0.15s ease;
-}
-.android-item:hover, .android-item:focus {
-  background-color: #f1f3f4;
-  color: #1f1f1f;
-}
-
-.android-item.active {
-  background-color: #e8f0fe !important; 
-  color: #1a73e8 !important;
-  font-weight: 600;
-}
-
-.console-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-.sub-box {
-  width: 30px !important;
-  height: 30px !important;
-  border-radius: 6px !important;
-}
-
-/* Colors System */
-.bg-green { background-color: #4caf50; }
-.bg-blue { background-color: #2196f3; }
-.bg-orange { background-color: #ff9800; }
-.bg-purple { background-color: #9c27b0; }
-.bg-cyan { background-color: #00bcd4; }
-.bg-pink { background-color: #e91e63; }
-.bg-red { background-color: #e53935; }
-.bg-teal { background-color: #009688; }
-.bg-purple-light { background-color: #f3e5f5; }
-.bg-cyan-light { background-color: #e0f7fa; }
-.bg-pink-light { background-color: #fce4ec; }
-
-.text-purple { color: #9c27b0; }
-.text-cyan { color: #00838f; }
-.text-pink { color: #e91e63; }
-
+/* ================= MOBILE CONFIGS ================= */
+.mobile-login-btn { border-radius: 50% !important; width: 40px; height: 40px; }
+.mobile-login-btn.text-white { background-color: rgba(255, 255, 255, 0.15); }
+.mobile-login-btn.text-dark { background-color: rgba(0, 0, 0, 0.05); }
+.android-divider { height: 1px; background-color: #f0f0f0; margin: 4px 0; }
+.section-label { font-size: 11px; font-weight: 700; color: #757575; letter-spacing: 0.6px; text-transform: uppercase; }
+.android-item { display: flex; align-items: center; gap: 14px; padding: 8px 16px; margin: 2px 8px; border-radius: 24px; text-decoration: none; color: #444746; font-size: 14px; font-weight: 500; transition: background-color 0.2s; }
+.android-item:hover { background-color: #f1f3f4; }
+.bg-green { background-color: #4caf50; } .bg-blue { background-color: #2196f3; } .bg-orange { background-color: #ff9800; }
+.console-box { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0; }
 .title-node { flex-grow: 1; }
-
-.android-sub-container {
-  background-color: #f8f9fa;
-  margin: 4px 12px 4px 24px;
-  border-radius: 12px;
-  padding: 4px 0;
-}
-.android-item.sub-item {
-  padding: 6px 12px;
-  margin: 2px 4px;
-  gap: 12px;
-  font-size: 13.5px;
-}
-
-.android-item[aria-expanded="true"] .android-arrow {
-  transform: rotate(180deg);
-}
-.android-arrow { transition: transform 0.2s ease; }
-
-.pc-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  color: #ffffff;
-  flex-shrink: 0;
-}

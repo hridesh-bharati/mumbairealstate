@@ -186,7 +186,7 @@ _Sent via CJ Group Real Estate CRM_`;
       <div className="container-fluid px-2 px-sm-3 p-5">
 
         {/* HEADER HERO AREA */}
-        <div className="p-3 mt-2 mt-md-4 d-flex justify-content-between align-items-center gap-3" style={glassStyles.glassCard}>
+        <div className="p-3 mt-5 mt-md-5 d-flex justify-content-between align-items-center gap-3" style={glassStyles.glassCard}>
           <div>
             <div className="d-flex align-items-center gap-2 mb-1">
               <span className="badge bg-danger text-white rounded-pill px-2.5 py-1 fw-bold small text-uppercase" style={{ letterSpacing: '0.5px', fontSize: '0.62rem' }}>
@@ -324,7 +324,6 @@ _Sent via CJ Group Real Estate CRM_`;
               </div>
             </div>
 
-
             {/* NEIGHBORHOOD REGIONAL MAP CARD */}
             {embeddedMapUrl && (
               <div ref={mapSectionRef} className="p-3 p-md-5 mb-3 mb-md-4 shadow-sm transition-all" style={glassStyles.glassCard}>
@@ -347,30 +346,29 @@ _Sent via CJ Group Real Estate CRM_`;
               </p>
             </div>
 
-
-
             {/* NEW DYNAMIC DETAILED SPECIFICATIONS GRID BLOCK */}
             {selectedProperty.additionalSpecs && selectedProperty.additionalSpecs.length > 0 && (
-              <div className="p-3 p-md-5 mb-3 mb-md-4 shadow-sm" style={glassStyles.glassCard}>
+              <div className="p-3 p-md-5 mb-3 mb-md-4" style={glassStyles.glassCard}>
                 <h4 className="fw-bold text-dark border-bottom pb-2 mb-3 d-flex align-items-center gap-2" style={{ fontSize: '1.05rem' }}>
                   <span className="p-1.5 rounded-3 bg-danger bg-opacity-10 text-danger d-inline-flex" style={{ color: '#f43f5e' }}><ClipboardList size={16} /></span>
                   Detailed Property Attributes & Metrics Matrix
                 </h4>
-                <div className="row g-2 g-md-3">
+                
+                <ul className="list-unstyled ps-0 mb-0">
                   {selectedProperty.additionalSpecs.map((spec, index) => (
-                    <div className="col-md-6" key={index}>
-                      <div className="p-3 shadow-sm border h-100 d-flex align-items-center justify-content-between" style={glassStyles.glassWidget}>
-                        <span className="text-muted small fw-bold d-flex align-items-center text-capitalize" style={{ fontSize: '0.82rem' }}>
-                          <span className="me-2 rounded bg-secondary bg-opacity-10 d-inline-flex align-items-center justify-content-center" style={{ width: '6px', height: '6px', borderRadius: '50%' }}></span>
-                          {spec.key}
-                        </span>
-                        <span className="badge bg-dark bg-opacity-10 text-dark rounded-2 px-3 py-2 fw-bold text-end" style={{ fontSize: '0.72rem', maxWidth: '65%', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                          {spec.value}
-                        </span>
+                    <li key={index} className="d-flex align-items-start mb-2" style={{ fontSize: '0.9rem', color: '#1a1a1a' }}>
+                      {/* Bullet dot */}
+                      <span className="me-2 text-muted" style={{ fontSize: '0.8rem', lineHeight: '1.5' }}>•</span>
+                      
+                      <div>
+                        {/* Key Name */}
+                        <span className="text-muted text-capitalize">{spec.key}: </span>
+                        {/* Value */}
+                        <span className="fw-semibold text-dark">{spec.value}</span>
                       </div>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             )}
 
@@ -446,8 +444,6 @@ _Sent via CJ Group Real Estate CRM_`;
               </div>
             </div>
 
-
-
             {/* EXPANDED PROXIMITY & LOCAL LANDMARKS SECTION */}
             {selectedProperty.landmarks && selectedProperty.landmarks.length > 0 && (
               <div className="p-3 p-md-5 mb-3 mb-md-4 shadow-sm" style={glassStyles.glassCard}>
@@ -492,14 +488,14 @@ _Sent via CJ Group Real Estate CRM_`;
                   <span className="p-1 rounded-3 bg-secondary bg-opacity-10 text-secondary d-inline-flex"><User size={12} /></span> REPRESENTATIVE ASSIGNED AGENT
                 </h5>
                 <div className="p-2.5 shadow-sm border bg-white bg-opacity-50" style={{ borderRadius: '14px' }}>
-                  <div className="d-flex align-items-center gap-2.5">
+                  <div className="d-flex align-items-center gap-2 p-2">
                     <div className="rounded-circle d-flex align-items-center justify-content-center text-white overflow-hidden flex-shrink-0 border border-2 border-white shadow" style={{ width: '48px', height: '48px', backgroundColor: '#ec4899' }}>
                       {selectedProperty.agent?.img ? <img src={selectedProperty.agent.img} alt="agent asset avatar" className="w-100 h-100 object-cover" /> : <User size={20} />}
                     </div>
                     <div className="overflow-hidden">
-                      <h6 className="fw-bold m-0 text-dark small text-truncate">{validate(selectedProperty.agent?.name, "Bharati")}</h6>
+                      <h6 className="fw-bold m-0 text-dark small text-truncate">{validate(selectedProperty.agent?.name, " ")}</h6>
                       <p className="text-muted m-0 text-truncate" style={{ fontSize: '0.68rem' }}>Certified Associate Broker | CJ GROUP CRM</p>
-                      <small className="d-block text-primary fw-bold mt-0.5" style={{ fontSize: '0.7rem' }}>P: {validate(selectedProperty.agent?.phone, "07267995307")}</small>
+                      <small className="d-block text-primary text-opacity-75 fw-bold mt-0.5" style={{ fontSize: '0.7rem' }}>Contact Number: {validate(selectedProperty.agent?.phone, "07267995307")}</small>
                     </div>
                   </div>
                 </div>

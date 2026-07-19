@@ -21,8 +21,8 @@ export default function FeaturedProperties() {
 
     // query setup to sync mixed categories restricted to the last 12 index logs
     const q = query(
-      collection(db, "properties"), 
-      orderBy("createdAt", "desc"), 
+      collection(db, "properties"),
+      orderBy("createdAt", "desc"),
       limit(12) // <-- Restricts response data framework structure payload exactly to 12 documents
     );
 
@@ -65,13 +65,40 @@ export default function FeaturedProperties() {
     <div className="app-main-bg py-5">
       <div className="container py-3">
         {/* Section Header */}
-        <div className="d-flex justify-content-between align-items-end mb-4" data-aos="fade-down">
-          <div>
-            <span className="section-subtitle fw-bold tracking-wider" style={{ color: '#6366f1' }}> RECENT LAUNCHES</span>
-            <h2 className="h4 fw-bold text-dark m-0 mt-1">Top 12 Featured Listings</h2>
+        {/* ===== PREVENT TOUCHING OTHER BLOCKS - ONLY HEADING DESIGN RECOGNITION ===== */}
+        <div
+          className="d-flex justify-content-between align-items-center my-5 pb-3 border-bottom border-light"
+          data-aos="fade-down"
+        >
+          <div className="position-relative">
+            <span
+              className="text-uppercase tracking-widest fw-bold small d-block mb-1"
+              style={{ color: '#6366f1', letterSpacing: '2.5px', fontSize: '12px' }}
+            >
+              Recent Launches
+            </span>
+            <h2
+              className="h3 fw-normal m-0 text-dark position-relative"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif", letterSpacing: '-0.5px' }}
+            >
+              Featured <span className="fw-semibold" style={{ color: '#d4af37' }}>Properties</span>
+            </h2>
+            {/* Minimal Aesthetic Underline Matrix */}
+            <div
+              className="position-absolute bottom-0 start-0 mt-2"
+              style={{ width: '40px', height: '3px', borderRadius: '2px', backgroundColor: '#6366f1', bottom: '-10px' }}
+            ></div>
+          </div>
+
+          {/* Right Side Stats Counter Badge */}
+          <div className="d-none d-sm-inline-block">
+            <span className="badge bg-dark rounded-pill px-3 py-2 fw-medium tracking-wide text-uppercase" style={{ fontSize: '11px', letterSpacing: '0.5px' }}>
+              {properties.length} Featured Assets
+            </span>
           </div>
         </div>
-        
+        {/* ========================================================================= */}
+
         {properties.length === 0 ? (
           <div className="text-center py-5 text-muted">
             <h5>No properties found in the dynamic ledger directory.</h5>
@@ -82,12 +109,12 @@ export default function FeaturedProperties() {
           <div className="row g-4 justify-content-center">
             {properties.map((item, index) => {
               const propertySpecs = parseSpecs(item.specs);
-              
+
               return (
-                <div 
-                  className="col-xl-4 col-md-6 d-flex align-items-stretch" 
-                  key={item.id} 
-                  data-aos="fade-up" 
+                <div
+                  className="col-xl-4 col-md-6 d-flex align-items-stretch"
+                  key={item.id}
+                  data-aos="fade-up"
                   data-aos-delay={index * 50}
                   style={{ cursor: 'pointer' }}
                   onClick={() => navigate(`/property/${item.id}`, { state: { propertyData: item } })}
@@ -102,7 +129,7 @@ export default function FeaturedProperties() {
                           </span>
                         ))}
                       </div>
-                      
+
                       {/* Floating Count Image Metrics */}
                       <div className="app-img-counter">{item.imgCounter}</div>
 
@@ -133,7 +160,7 @@ export default function FeaturedProperties() {
                       <div>
                         <h3 className="fw-bold text-dark mb-1 app-price">{item.price}</h3>
                         <h4 className="h6 text-secondary text-truncate mb-2">{item.title}</h4>
-                        
+
                         <div className="d-flex flex-wrap gap-2 mb-3">
                           <div className="mini-spec-node bg-green-light text-green">
                             <Home size={14} />
