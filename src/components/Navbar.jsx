@@ -64,7 +64,7 @@ export default function Navbar() {
   return (
     <>
       {/* Top Navbar Layer */}
-      <nav className={`navbar navbar-expand-lg position-fixed w-100 px-3 py-3 z-3 bg-primary transition-all ${isScrolled ? 'scrolled-nav shadow-sm' : 'bg-transparent'}`}>
+      <nav className={`navbar navbar-expand-lg position-fixed w-100 px-3 py-3 z-3 transition-all ${isScrolled ? 'scrolled-nav shadow-sm' : 'bg-transparent'}`}>
         <div className="container-fluid px-0 bg-primary ">
           
           {/* Brand Logo Image */}
