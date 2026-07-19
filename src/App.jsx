@@ -1,3 +1,4 @@
+// src/App.jsx
 import React from 'react';
 import { Toaster } from 'sonner'; 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -15,15 +16,13 @@ import SignIn from './pages/Auth/SignIn';
 import Logout from './pages/Auth/Logout';
 
 // Core Services Modules Pages
-import Buy from './pages/Buy';
-import Rent from './pages/Rent';
-import Sell from './pages/Sell';
 import FindAgent from './pages/FindAgent';
 import HelpFindAgent from './pages/HelpFindAgent';
 import JoinAgent from './pages/JoinAgent';
 
-// Main Real Estate Operations Dynamic Panels
-import PropertyListings from './pages/PropertyListings';
+// Main Real Estate Operations Dynamic Panels (Updated Files Linked Here)
+import PropertiesForBuy from './pages/PropertiesForBuy';
+import FeaturedProperties from './pages/FeaturedProperties';  
 import PropertyPage from './pages/Properties/PropertyPage';
 
 // Premium Analytics Admin Controller Dashboard
@@ -50,12 +49,13 @@ export default function App() {
             <Routes>
               {/* Baseline General Public Routes */}
               <Route path="/" element={<Homepage />} />
-              <Route path="/buy" element={<Buy />} />
-              <Route path="/rent" element={<Rent />} />
-              <Route path="/sell" element={<Sell />} />
+              
+              {/* Sahi Filtered Files Routes setup yahan hai */}
+              <Route path="/buy" element={<PropertiesForBuy />} />
+              <Route path="/featured" element={<FeaturedProperties />} /> 
 
               {/* Live Real Estate Listings Data Streams */}
-              <Route path="/listings" element={<PropertyListings />} />
+              <Route path="/listings" element={<PropertiesForBuy />} />
               <Route path="/property/:id" element={<PropertyPage />} />
 
               {/* Compass Exclusives Sub-Routing Links */}

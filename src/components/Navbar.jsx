@@ -1,9 +1,10 @@
+// src/components/Navbar.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { 
-  Menu, X, ChevronDown, ChevronRight, Home, Key, 
+  Menu, ChevronDown, ChevronRight, Home, Key, 
   DollarSign, Sparkles, Building, Users, UserPlus, User,
   Eye, Calendar, Database, Layers, Briefcase, FileText, LogOut, LayoutDashboard
 } from 'lucide-react';
@@ -63,32 +64,34 @@ export default function Navbar() {
   return (
     <>
       {/* Top Navbar Layer */}
-      <nav className={`navbar navbar-expand-lg position-fixed w-100 px-lg-5 px-3 py-3 z-3 transition-all ${isScrolled ? 'scrolled-nav shadow-sm' : 'bg-transparent'}`}>
-        <div className="container-fluid px-0">
+      <nav className={`navbar navbar-expand-lg position-fixed w-100 px-3 py-3 z-3 bg-primary transition-all ${isScrolled ? 'scrolled-nav shadow-sm' : 'bg-transparent'}`}>
+        <div className="container-fluid px-0 bg-primary ">
           
           {/* Brand Logo Image */}
           <Link className="navbar-brand d-flex align-items-center gap-2 m-0 p-0" to="/" onClick={closeDrawer}>
             <img src="images/logo.png" alt="CJ Group Logo" className="brand-logo-img" />
           </Link>
 
-          {/* Action Row for Mobile */}
-          <div className="d-flex align-items-center gap-2 d-lg-none ms-auto">
-            {user ? (
-              <Link 
-                to={isAdmin ? "/admin-dashboard" : "/"} 
-                className={`btn mobile-login-btn p-2 d-flex align-items-center justify-content-center shadow-none border-0 ${isScrolled ? 'text-dark mob-btn-scrolled' : 'text-white'}`}
-                aria-label="Dashboard"
-              >
-                {isAdmin ? <LayoutDashboard size={22} /> : <User size={22} />}
-              </Link>
-            ) : (
-              <Link 
-                to="/login" 
-                className={`btn mobile-login-btn p-2 d-flex align-items-center justify-content-center shadow-none border-0 ${isScrolled ? 'text-dark mob-btn-scrolled' : 'text-white'}`}
-                aria-label="User Login"
-              >
-                <User size={22} />
-              </Link>
+          {/* Action Row for Mobile (Isolated Click Zones) */}
+          <div className="d-flex align-items-center gap-2 d-lg-none ms-auto" style={{ position: 'relative', zIndex: 10 }}>
+            {!loading && (
+              user ? (
+                <Link 
+                  to={isAdmin ? "/admin-dashboard" : "/"} 
+                  className={`btn mobile-login-btn p-2 d-flex align-items-center justify-content-center shadow-none border-0 ${isScrolled ? 'text-dark mob-btn-scrolled' : 'text-white'}`}
+                  aria-label="Dashboard"
+                >
+                  {isAdmin ? <LayoutDashboard size={22} /> : <User size={22} />}
+                </Link>
+              ) : (
+                <Link 
+                  to="/login" 
+                  className={`btn mobile-login-btn p-2 d-flex align-items-center justify-content-center shadow-none border-0 ${isScrolled ? 'text-dark mob-btn-scrolled' : 'text-white'}`}
+                  aria-label="User Login"
+                >
+                  <User size={22} />
+                </Link>
+              )
             )}
 
             <button 
@@ -105,13 +108,10 @@ export default function Navbar() {
           <div className="collapse navbar-collapse justify-content-end d-none d-lg-flex">
             <ul className="navbar-nav align-items-center gap-1">
               <li className="nav-item">
-                <Link className={`nav-link pc-nav-link fw-medium px-3 rounded-2 transition-all ${isScrolled ? 'text-dark' : 'text-white'}`} to="/buy">Buy</Link>
+                <Link className={`nav-link pc-nav-link fw-medium px-3 rounded-2 transition-all ${isScrolled ? 'text-dark' : 'text-white'} ${isActive('/buy') ? 'active' : ''}`} to="/buy">Buy</Link>
               </li>
               <li className="nav-item">
-                <Link className={`nav-link pc-nav-link fw-medium px-3 rounded-2 transition-all ${isScrolled ? 'text-dark' : 'text-white'}`} to="/rent">Rent</Link>
-              </li>
-              <li className="nav-item">
-                <Link className={`nav-link pc-nav-link fw-medium px-3 rounded-2 transition-all ${isScrolled ? 'text-dark' : 'text-white'}`} to="/sell">Sell</Link>
+                <Link className={`nav-link pc-nav-link fw-medium px-3 rounded-2 transition-all ${isScrolled ? 'text-dark' : 'text-white'} ${isActive('/sell') ? 'active' : ''}`} to="/sell">Sell</Link>
               </li>
 
               {/* PC Dropdown: CJ Exclusives */}
@@ -119,7 +119,7 @@ export default function Navbar() {
                 <span className={`nav-link pc-nav-link fw-medium px-3 rounded-2 cursor-pointer d-flex align-items-center gap-1 transition-all ${isScrolled ? 'text-dark' : 'text-white'}`} role="button">
                   CJ Exclusives <ChevronDown size={14} className="arrow-icon" />
                 </span>
-                <div className="dropdown-menu mega-menu border-0 m-0 p-4 shadow-lg position-absolute bg-white row w-100">
+                <div className="dropdown-menu mega-menu border-0 m-0 p-4 shadow-lg bg-white row w-100">
                   <div className="container">
                     <div className="row">
                       <div className="col-md-4 border-end pe-4">
@@ -160,7 +160,7 @@ export default function Navbar() {
                 <span className={`nav-link pc-nav-link fw-medium px-3 rounded-2 cursor-pointer d-flex align-items-center gap-1 transition-all ${isScrolled ? 'text-dark' : 'text-white'}`} role="button">
                   New Development <ChevronDown size={14} className="arrow-icon" />
                 </span>
-                <div className="dropdown-menu mega-menu border-0 m-0 p-4 shadow-lg position-absolute bg-white row w-100">
+                <div className="dropdown-menu mega-menu border-0 m-0 p-4 shadow-lg bg-white row w-100">
                   <div className="container">
                     <div className="row">
                       <div className="col-md-4 border-end pe-4">
@@ -194,7 +194,7 @@ export default function Navbar() {
                 <span className={`nav-link pc-nav-link fw-medium px-3 rounded-2 cursor-pointer d-flex align-items-center gap-1 transition-all ${isScrolled ? 'text-dark' : 'text-white'}`} role="button">
                   Agents <ChevronDown size={14} className="arrow-icon" />
                 </span>
-                <div className="dropdown-menu mega-menu border-0 m-0 p-4 shadow-lg position-absolute bg-white row w-100">
+                <div className="dropdown-menu mega-menu border-0 m-0 p-4 shadow-lg bg-white row w-100">
                   <div className="container">
                     <div className="row">
                       <div className="col-md-4 border-end pe-4">
