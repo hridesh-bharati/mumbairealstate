@@ -1,0 +1,110 @@
+/* src\pages\PropertyListings.css */
+/* --- Background Configuration --- */
+.app-main-bg {
+  background-color: #f8f9fa; /* Safe default app body white */
+}
+.section-subtitle {
+  font-size: 0.72rem;
+  color: #6c757d;
+}
+.tracking-wider {
+  letter-spacing: 1px;
+}
+
+/* ================= ANDROID NATIVE CARD BLUEPRINT ================= */
+.native-app-card {
+  background: #ffffff !important;
+  border-radius: 16px !important; /* Premium system curve shape */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.04) !important; /* Soft premium shadow layout */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+.native-app-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+.app-card-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Floating Elements Layout */
+.app-badge-container {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.app-top-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: #ffffff;
+}
+.app-img-counter {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+/* Native Layout Control Arrows */
+.app-arrow {
+  background: #ffffff !important;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 8px;
+  opacity: 0.9;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+}
+.app-arrow span {
+  filter: invert(1) grayscale(100%) brightness(0%);
+  width: 10px;
+  height: 10px;
+}
+
+.app-price {
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
+}
+
+/* ================= COLORFUL APP MINI SPECIFICATION NODES ================= */
+.mini-spec-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px; /* Smooth Material badge outline */
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Color Palette Constants */
+.bg-green-light { background-color: #e8f5e9; }
+.text-green { color: #4caf50; }
+
+.bg-blue-light { background-color: #e3f2fd; }
+.text-blue { color: #2196f3; }
+
+.bg-orange-light { background-color: #fff3e0; }
+.text-orange { color: #ff9800; }
+
+.bg-purple-light { background-color: #f3e5f5; }
+.text-purple { color: #9c27b0; }
+
+.bg-cyan-light { background-color: #e0f7fa; }
+.text-cyan { color: #00bcd4; }
