@@ -85,7 +85,7 @@ export default function Navbar() {
                 </Link>
               ) : (
                 <Link 
-                  to="/login" 
+                  to="/register" 
                   className={`btn mobile-login-btn p-2 d-flex align-items-center justify-content-center shadow-none border-0 ${isScrolled ? 'text-dark mob-btn-scrolled' : 'text-white'}`}
                   aria-label="User Login"
                 >
@@ -248,7 +248,7 @@ export default function Navbar() {
                       </button>
                     </div>
                   ) : (
-                    <Link className={`nav-link border rounded-0 px-4 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-dark text-dark hover-bg-dark text-white-hover' : 'border-white text-white hover-bg-white'}`} to="/login">
+                    <Link className={`nav-link border rounded-0 px-4 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-dark text-dark hover-bg-dark text-white-hover' : 'border-white text-white hover-bg-white'}`} to="/register">
                       Register / Sign In
                     </Link>
                   )}
