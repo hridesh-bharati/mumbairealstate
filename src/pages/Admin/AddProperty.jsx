@@ -13,7 +13,7 @@ export default function AddProperty() {
     view: 'Ocean', attachedYn: 'false', seniorCommunity: 'No', areaNode: '',
     stories: '', yearBuilt: '', buildingSize: '',
     listingStatus: 'Active Listing', assetClass: 'Single Family Residence',
-    agentName: '', agentPhone: '', agentImg: 'https://randomuser.me/api/portraits/lego/1.jpg'
+    agentName: '', agentPhone: '', agentImg: 'images/avatar.png'
   });
 
   const [landmarks, setLandmarks] = useState([{ name: '', url: '' }]);

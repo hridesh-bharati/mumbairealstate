@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from 'react';
-import { Toaster } from 'sonner'; 
+import { Toaster } from 'sonner';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
@@ -23,7 +23,7 @@ import JoinAgent from './pages/JoinAgent';
 // Main Real Estate Operations Dynamic Panels (Updated Files Linked Here)
 import PropertiesForBuy from './pages/PropertiesForBuy';
 import SellProperties from './pages/SellProperties';
-import FeaturedProperties from './pages/FeaturedProperties';  
+import FeaturedProperties from './pages/FeaturedProperties';
 import PropertyPage from './pages/Properties/PropertyPage';
 
 // Premium Analytics Admin Controller Dashboard
@@ -35,6 +35,7 @@ import ComingSoon from './pages/Exclusives/ComingSoon';
 import CompassListings from './pages/Exclusives/CompassListings';
 import CurrentDevelopments from './pages/Developments/CurrentDevelopments';
 import DevelopmentMarketingGroup from './pages/Developments/DevelopmentMarketingGroup';
+import DevelopmentDetails from './pages/DevelopmentDetails';
 
 export default function App() {
   return (
@@ -42,7 +43,7 @@ export default function App() {
       <AuthProvider>
         <Toaster position="top-center" richColors />
         <div className="d-flex flex-column min-vh-100 bg-white">
-          
+
           {/* Main Top Global Layout Navbar */}
           <Navbar />
 
@@ -50,11 +51,11 @@ export default function App() {
             <Routes>
               {/* Baseline General Public Routes */}
               <Route path="/" element={<Homepage />} />
-              
+
               {/* Sahi Filtered Files Routes setup yahan hai */}
               <Route path="/buy" element={<PropertiesForBuy />} />
               <Route path="/sell" element={<SellProperties />} />
-              <Route path="/featured" element={<FeaturedProperties />} /> 
+              <Route path="/featured" element={<FeaturedProperties />} />
 
               {/* Live Real Estate Listings Data Streams */}
               <Route path="/listings" element={<PropertiesForBuy />} />
@@ -68,6 +69,7 @@ export default function App() {
               {/* New Architectural Development Sub-routes */}
               <Route path="/development/current" element={<CurrentDevelopments />} />
               <Route path="/development/marketing-group" element={<DevelopmentMarketingGroup />} />
+              <Route path="/development/:id" element={<DevelopmentDetails />} />
 
               {/* Agents CRM Operations Channels */}
               <Route path="/find-agent" element={<FindAgent />} />
@@ -80,13 +82,13 @@ export default function App() {
               <Route path="/logout" element={<Logout />} />
 
               {/* Protected Production Level Admin Dashboards */}
-              <Route 
-                path="/admin-dashboard" 
+              <Route
+                path="/admin-dashboard"
                 element={
                   <ProtectedRoute requireAdmin={true}>
                     <AdminDashboard />
                   </ProtectedRoute>
-                } 
+                }
               />
 
               {/* Catch-all Fallback Redirection */}
