@@ -242,16 +242,16 @@ _Sent via CJ Group Real Estate CRM_`;
                   }
                 `}</style>
                 <div className="position-absolute top-0 start-0 z-3 m-2 m-md-3 d-flex flex-wrap gap-1.5">
-                  <span className="text-white font-monospace small px-3 py-2 text-uppercase fw-bold rounded-3 shadow d-flex align-items-center gap-1.5" style={{ fontSize: '0.68rem', letterSpacing: '0.6px', background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)' }}>
+                  <span className="text-white font-monospace small m-1 p-2 text-uppercase fw-bold rounded-3 shadow d-flex align-items-center gap-1.5" style={{ fontSize: '0.68rem', letterSpacing: '0.6px', background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)' }}>
                     <Sparkles size={11} /> For Sale
                   </span>
                   {selectedProperty.view && (
-                    <span className="text-white font-monospace small px-3 py-2 text-uppercase fw-bold rounded-3 shadow bg-dark bg-opacity-70 backdrop-blur-sm" style={{ fontSize: '0.68rem', letterSpacing: '0.6px' }}>
+                    <span className="text-white font-monospace small m-1 p-2 text-uppercase fw-bold rounded-3 shadow bg-dark bg-opacity-70 backdrop-blur-sm" style={{ fontSize: '0.68rem', letterSpacing: '0.6px' }}>
                       ✨ {selectedProperty.view} View
                     </span>
                   )}
                   {propertySpecs.acres && (
-                    <span className="text-white font-monospace small px-3 py-2 text-uppercase fw-bold rounded-3 shadow bg-success" style={{ fontSize: '0.68rem', letterSpacing: '0.6px' }}>
+                    <span className="text-white font-monospace small m-1 p-2 text-uppercase fw-bold rounded-3 shadow bg-success" style={{ fontSize: '0.68rem', letterSpacing: '0.6px' }}>
                       🏡 {propertySpecs.acres.replace(/acres/i, '')} AC
                     </span>
                   )}

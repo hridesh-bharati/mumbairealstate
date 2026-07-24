@@ -128,13 +128,13 @@ export default function Footer() {
   <div className="col-md-4 mb-2 mb-md-0">
     <span>Develop by : </span>
     <a 
-      href="https://awebgrow.vercel.app/" 
+      href="https://awebgrow.com/" 
       target="_blank" 
       rel="noopener noreferrer" 
       className="text-decoration-none fw-medium text-warning transition-all"
       style={{ color: '#fbbf24' }}
     >
-      AWebGrow Company
+      AWebGrow 
     </a>
   </div>
   
