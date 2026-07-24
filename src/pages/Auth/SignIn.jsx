@@ -1,3 +1,4 @@
+// src\pages\Auth\SignIn.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, getRedirectRoute } from '../../services/authServices';
@@ -49,6 +50,22 @@ export default function SignIn() {
                   {loading ? 'Authenticating...' : 'Sign In'}
                 </button>
               </form>
+              <div className="mb-4">
+                <div className="d-flex justify-content-between align-items-center mb-1">
+                  <label className="form-label text-uppercase small fw-bold mb-0">Password</label>
+                  <Link to="/forgot-password" className="text-muted small text-decoration-none">
+                    Forgot Password?
+                  </Link>
+                </div>
+                <input
+                  type="password"
+                  className="form-control rounded-0 form-control-lg"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
               <div className="text-center mt-3">
                 <span className="text-muted">Don't have an account? </span>
                 <Link to="/register" className="text-dark fw-bold text-decoration-none">Register here</Link>

@@ -36,6 +36,7 @@ import CompassListings from './pages/Exclusives/CompassListings';
 import CurrentDevelopments from './pages/Developments/CurrentDevelopments';
 import DevelopmentMarketingGroup from './pages/Developments/DevelopmentMarketingGroup';
 import DevelopmentDetails from './pages/DevelopmentDetails';
+import ForgotPassword from './pages/Auth/ForgotPassword';
 
 export default function App() {
   return (
@@ -80,6 +81,7 @@ export default function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/logout" element={<Logout />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
 
               {/* Protected Production Level Admin Dashboards */}
               <Route
