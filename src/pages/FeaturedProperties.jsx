@@ -23,7 +23,7 @@ export default function FeaturedProperties() {
     const q = query(
       collection(db, "properties"),
       orderBy("createdAt", "desc"),
-      limit(12) // <-- Restricts response data framework structure payload exactly to 12 documents
+      limit(12)  
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {

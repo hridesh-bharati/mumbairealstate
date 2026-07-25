@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import './Neighborhoods.css';
+import { Link } from 'react-router-dom';
 
 const NEIGHBORHOODS_DATA = [
   { id: 1, title: 'New York City', image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80' },
@@ -55,12 +56,12 @@ export default function Neighborhoods() {
 
         {/* Action Button */}
         <div className="text-start">
-          <button className="btn btn-dark view-more-pill d-inline-flex align-items-center gap-3 px-4 py-3 rounded-pill border-0 transition-all">
+          <Link to={'/buy'} className="btn btn-dark view-more-pill d-inline-flex align-items-center gap-3 px-4 py-3 rounded-pill border-0 transition-all">
             <span className="fw-semibold text-uppercase tracking-wider" style={{ fontSize: '13px' }}>
               View More Neighborhoods
             </span>
             <ArrowRight size={18} className="arrow-icon-shift" />
-          </button>
+          </Link>
         </div>
 
       </div>

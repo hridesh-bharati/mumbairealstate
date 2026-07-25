@@ -37,6 +37,7 @@ import CurrentDevelopments from './pages/Developments/CurrentDevelopments';
 import DevelopmentMarketingGroup from './pages/Developments/DevelopmentMarketingGroup';
 import DevelopmentDetails from './pages/DevelopmentDetails';
 import ForgotPassword from './pages/Auth/ForgotPassword';
+import MapViewSearch from './pages/MapViewSearch';
 
 export default function App() {
   return (
@@ -61,6 +62,7 @@ export default function App() {
               {/* Live Real Estate Listings Data Streams */}
               <Route path="/listings" element={<PropertiesForBuy />} />
               <Route path="/property/:id" element={<PropertyPage />} />
+              <Route path="/map-search" element={<MapViewSearch />} />
 
               {/* Compass Exclusives Sub-Routing Links */}
               <Route path="/exclusives/private" element={<PrivateExclusives />} />

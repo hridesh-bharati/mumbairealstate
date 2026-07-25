@@ -50,12 +50,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/rent" className="footer-android-link d-inline-flex align-items-center gap-2 py-1 px-2 rounded text-decoration-none text-white-50">
-                  <span className="text-primary d-flex align-items-center"><Key size={14} /></span>
-                  <span>Rent</span>
-                </Link>
-              </li>
-              <li>
                 <Link to="/sell" className="footer-android-link d-inline-flex align-items-center gap-2 py-1 px-2 rounded text-decoration-none text-white-50">
                   <span className="text-warning d-flex align-items-center"><DollarSign size={14} /></span>
                   <span>Sell</span>

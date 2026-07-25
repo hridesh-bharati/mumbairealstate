@@ -1,3 +1,4 @@
+// src\pages\Admin\AddProperty.jsx
 import React, { useState } from 'react';
 import { db } from '../../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';

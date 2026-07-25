@@ -6,6 +6,7 @@ import { collection, onSnapshot, query, orderBy, where } from 'firebase/firestor
 import { Home, Bath, Square, MapPin, Layers } from 'lucide-react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import PopularMarkets from './PopularMarkets';
 
 export default function PropertiesForBuy() {
   const navigate = useNavigate();
@@ -143,6 +144,7 @@ export default function PropertiesForBuy() {
           </div>
         )}
       </div>
+      <PopularMarkets />
     </div>
   );
 }
