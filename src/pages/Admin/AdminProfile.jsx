@@ -1,5 +1,4 @@
-// src/components/Admin/AdminProfile.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { sendResetEmail } from '../../services/authServices';
 import { updateProfile } from 'firebase/auth';
@@ -9,16 +8,16 @@ import {
   User, Mail, Phone, KeyRound, ShieldCheck, CheckCircle2, 
   Lock, Edit3, Camera, Save, X, Loader2 
 } from 'lucide-react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function AdminProfile() {
   const { currentUser } = useAuth();
   
-  // Edit State Controls
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
 
-  // Form Fields
   const [displayName, setDisplayName] = useState(currentUser?.displayName || 'System Admin');
   const [phone, setPhone] = useState(currentUser?.phoneNumber || '+91 98765 43210');
   const [photoURL, setPhotoURL] = useState(currentUser?.photoURL || '/images/logo.png');
@@ -26,7 +25,10 @@ export default function AdminProfile() {
   const [newImageFile, setNewImageFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
-  // Profile Image Selection
+  useEffect(() => {
+    AOS.init({ duration: 600, once: true });
+  }, []);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -35,7 +37,6 @@ export default function AdminProfile() {
     }
   };
 
-  // Save Updated Profile
   const handleSaveProfile = async (e) => {
     e.preventDefault();
     if (!currentUser) return;
@@ -46,7 +47,6 @@ export default function AdminProfile() {
     try {
       let finalPhotoUrl = photoURL;
 
-      // Upload new image to Cloudinary if selected
       if (newImageFile) {
         const uploadedUrls = await uploadImagesToCloudinary([newImageFile]);
         if (uploadedUrls && uploadedUrls.length > 0) {
@@ -54,7 +54,6 @@ export default function AdminProfile() {
         }
       }
 
-      // Update Firebase User Profile
       await updateProfile(currentUser, {
         displayName: displayName.trim(),
         photoURL: finalPhotoUrl
@@ -74,7 +73,6 @@ export default function AdminProfile() {
     }
   };
 
-  // Cancel Editing
   const handleCancel = () => {
     setDisplayName(currentUser?.displayName || 'System Admin');
     setPhone(currentUser?.phoneNumber || '+91 98765 43210');
@@ -83,7 +81,6 @@ export default function AdminProfile() {
     setIsEditing(false);
   };
 
-  // Forgot / Reset Password Handler
   const handlePasswordReset = async () => {
     if (!currentUser?.email) {
       toast.error('Email address not found!');
@@ -103,105 +100,111 @@ export default function AdminProfile() {
   };
 
   return (
-    <div className="text-start">
-      {/* Header with Edit Button */}
-      <div className="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
-        <div className="d-flex align-items-center gap-3">
-          <div className="bg-primary bg-opacity-10 text-primary p-3 rounded-3">
-            <User size={24} />
+    <div className="p-0 text-start">
+      
+      {/* Header */}
+      <div className="app-card bg-gradient-blue mb-4 text-white" data-aos="fade-down">
+        <div className="card-inner-padding d-flex align-items-center justify-content-between gap-3">
+          <div className="d-flex align-items-center gap-3">
+            <div className="glass-icon-box p-3 rounded-4 d-flex align-items-center justify-content-center">
+              <User size={22} className="text-white" />
+            </div>
+            <div>
+              <p className="text-uppercase tracking-wider text-white-50 small fw-bold mb-0" style={{ fontSize: '0.7rem' }}>
+                ADMIN PORTAL
+              </p>
+              <h5 className="fw-bold mb-0">Profile Settings</h5>
+            </div>
           </div>
-          <div>
-            <h4 className="fw-bold mb-0 text-dark">Admin Account Profile</h4>
-            <small className="text-muted">Manage your administrator credentials and security settings</small>
-          </div>
-        </div>
 
-        {!isEditing && (
-          <button 
-            type="button" 
-            className="btn btn-primary d-flex align-items-center gap-2 px-3 py-2 rounded-3 fw-bold shadow-sm"
-            onClick={() => setIsEditing(true)}
-          >
-            <Edit3 size={16} /> Edit Profile
-          </button>
-        )}
+          {!isEditing && (
+            <button 
+              type="button" 
+              className="btn text-white glass-icon-box px-3 py-2 rounded-3 fw-bold border-0 d-flex align-items-center gap-2"
+              onClick={() => setIsEditing(true)}
+            >
+              <Edit3 size={16} /> <span className="d-none d-sm-inline">Edit</span>
+            </button>
+          )}
+        </div>
       </div>
 
       <form onSubmit={handleSaveProfile}>
-        <div className="row g-4">
+        <div className="row g-3">
           
-          {/* Left Column: Avatar & System Status */}
-          <div className="col-md-4">
-            <div className="card border-0 bg-light p-4 text-center rounded-4 shadow-sm">
-              <div className="position-relative d-inline-block mx-auto mb-3">
-                <img 
-                  src={previewImage || photoURL} 
-                  alt="Admin Profile" 
-                  className="rounded-circle border border-3 border-white shadow object-fit-cover"
-                  width="110"
-                  height="110"
-                  onError={(e) => { e.target.src = '/images/logo.png'; }}
-                />
+          {/* Profile Card */}
+          <div className="col-lg-4" data-aos="fade-right">
+            <div className="app-card bg-gradient-purple text-center">
+              <div className="p-4">
+                <div className="position-relative d-inline-block mx-auto mb-3">
+                  <img 
+                    src={previewImage || photoURL} 
+                    alt="Admin Profile" 
+                    className="rounded-circle border border-3 border-white border-opacity-75 shadow-sm object-fit-cover"
+                    width="100"
+                    height="100"
+                    onError={(e) => { e.target.src = '/images/logo.png'; }}
+                  />
+                  
+                  {isEditing ? (
+                    <label 
+                      htmlFor="profileImgInput" 
+                      className="position-absolute bottom-0 end-0 bg-white text-dark p-2 rounded-circle shadow cursor-pointer border border-2 border-white"
+                      title="Change Profile Picture"
+                    >
+                      <Camera size={15} />
+                      <input 
+                        type="file" 
+                        id="profileImgInput" 
+                        accept="image/*" 
+                        className="d-none" 
+                        onChange={handleImageChange}
+                      />
+                    </label>
+                  ) : (
+                    <span className="position-absolute bottom-0 end-0 bg-success text-white p-1 rounded-circle border border-2 border-white" title="Active">
+                      <ShieldCheck size={15} />
+                    </span>
+                  )}
+                </div>
+
+                <h5 className="fw-bold mb-1 text-white">{displayName}</h5>
                 
-                {/* Upload Image Overlay Button during Edit mode */}
-                {isEditing ? (
-                  <label 
-                    htmlFor="profileImgInput" 
-                    className="position-absolute bottom-0 end-0 bg-primary text-white p-2 rounded-circle shadow cursor-pointer border border-2 border-white"
-                    title="Change Profile Picture"
-                  >
-                    <Camera size={16} />
-                    <input 
-                      type="file" 
-                      id="profileImgInput" 
-                      accept="image/*" 
-                      className="d-none" 
-                      onChange={handleImageChange}
-                    />
-                  </label>
-                ) : (
-                  <span className="position-absolute bottom-0 end-0 bg-success text-white p-1 rounded-circle border border-2 border-white" title="Active">
-                    <ShieldCheck size={16} />
+                <div className="d-flex justify-content-center my-2">
+                  <span className="glass-icon-box text-white px-3 py-1 rounded-pill small fw-semibold">
+                    Super Admin
                   </span>
-                )}
-              </div>
+                </div>
 
-              <h5 className="fw-bold text-dark mb-1">
-                {displayName}
-              </h5>
-              <span className="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-1.5 rounded-pill mb-3 mx-auto d-inline-block">
-                Super Admin
-              </span>
-
-              <div className="d-flex align-items-center justify-content-center gap-2 text-muted small">
-                <CheckCircle2 size={14} className="text-success" /> System Verified
+                <div className="d-flex align-items-center justify-content-center gap-2 text-white-50 small mt-3">
+                  <CheckCircle2 size={15} className="text-success" /> System Verified
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Editable Information & Security */}
-          <div className="col-md-8">
-            <div className="card border-0 bg-white p-4 rounded-4 border shadow-sm">
+          {/* Details Form Section */}
+          <div className="col-lg-8" data-aos="fade-left">
+            <div className="card border-0 rounded-4 p-3 p-md-4 shadow-sm bg-white">
               <div className="d-flex justify-content-between align-items-center mb-3">
-                <h6 className="fw-bold text-dark mb-0">Personal & Contact Details</h6>
+                <h6 className="fw-bold text-dark mb-0">Personal Details</h6>
                 {isEditing && (
-                  <span className="badge bg-warning text-dark px-2.5 py-1">
-                    Editing Mode Active
+                  <span className="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold small">
+                    Editing Mode
                   </span>
                 )}
               </div>
               
-              <div className="row g-3 mb-4">
-                {/* Full Name */}
+              <div className="row g-3 mb-3">
                 <div className="col-12">
-                  <label className="text-muted small fw-semibold d-block mb-1">Full Name</label>
+                  <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Full Name</label>
                   <div className="input-group">
-                    <span className="input-group-text bg-light border-end-0">
-                      <User size={16} className="text-muted" />
+                    <span className="input-group-text bg-light border-0 rounded-start-3">
+                      <User size={18} className="text-secondary" />
                     </span>
                     <input 
                       type="text" 
-                      className={`form-control ${isEditing ? 'bg-white border-primary' : 'bg-light border-start-0'}`}
+                      className={`form-control app-input ${isEditing ? 'bg-white border-primary' : 'bg-light border-0'}`}
                       value={displayName} 
                       onChange={(e) => setDisplayName(e.target.value)}
                       readOnly={!isEditing} 
@@ -210,34 +213,32 @@ export default function AdminProfile() {
                   </div>
                 </div>
 
-                {/* Email Address (Read-Only) */}
                 <div className="col-md-6">
-                  <label className="text-muted small fw-semibold d-block mb-1">
-                    Email Address <small className="text-muted">(System Protected)</small>
+                  <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>
+                    Email Address
                   </label>
                   <div className="input-group">
-                    <span className="input-group-text bg-light border-end-0">
-                      <Mail size={16} className="text-muted" />
+                    <span className="input-group-text bg-light border-0 rounded-start-3">
+                      <Mail size={18} className="text-secondary" />
                     </span>
                     <input 
                       type="email" 
-                      className="form-control bg-light border-start-0" 
+                      className="form-control app-input bg-light border-0" 
                       value={currentUser?.email || 'info@namoproperties.com'} 
                       readOnly 
                     />
                   </div>
                 </div>
 
-                {/* Mobile Number */}
                 <div className="col-md-6">
-                  <label className="text-muted small fw-semibold d-block mb-1">Mobile Number</label>
+                  <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Mobile Number</label>
                   <div className="input-group">
-                    <span className="input-group-text bg-light border-end-0">
-                      <Phone size={16} className="text-muted" />
+                    <span className="input-group-text bg-light border-0 rounded-start-3">
+                      <Phone size={18} className="text-secondary" />
                     </span>
                     <input 
                       type="text" 
-                      className={`form-control ${isEditing ? 'bg-white border-primary' : 'bg-light border-start-0'}`}
+                      className={`form-control app-input ${isEditing ? 'bg-white border-primary' : 'bg-light border-0'}`}
                       value={phone} 
                       onChange={(e) => setPhone(e.target.value)}
                       readOnly={!isEditing} 
@@ -246,12 +247,11 @@ export default function AdminProfile() {
                 </div>
               </div>
 
-              {/* Action Buttons for Edit Mode */}
               {isEditing && (
-                <div className="d-flex gap-2 mb-4">
+                <div className="d-flex gap-2 mb-3">
                   <button 
                     type="submit" 
-                    className="btn btn-success px-4 py-2 rounded-3 fw-bold d-inline-flex align-items-center gap-2"
+                    className="btn bg-gradient-blue text-white app-btn px-4 py-2 d-inline-flex align-items-center gap-2 shadow-sm"
                     disabled={saving}
                   >
                     {saving ? <Loader2 size={16} className="spinner-border spinner-border-sm" /> : <Save size={16} />}
@@ -259,7 +259,7 @@ export default function AdminProfile() {
                   </button>
                   <button 
                     type="button" 
-                    className="btn btn-outline-secondary px-4 py-2 rounded-3 fw-bold d-inline-flex align-items-center gap-2"
+                    className="btn btn-light app-btn px-4 py-2 d-inline-flex align-items-center gap-2 border"
                     onClick={handleCancel}
                     disabled={saving}
                   >
@@ -268,26 +268,30 @@ export default function AdminProfile() {
                 </div>
               )}
 
-              <hr className="my-4 text-muted opacity-25" />
+              <hr className="my-3 text-muted opacity-25" />
 
-              {/* Security & Password Reset Section */}
-              <div>
-                <h6 className="fw-bold text-dark mb-2 d-flex align-items-center gap-2">
-                  <Lock size={16} className="text-danger" /> Security & Account Access
-                </h6>
-                <p className="text-muted small mb-3">
-                  Need to update your password? Click below to send an official password reset link directly to your registered email.
-                </p>
-
-                <button 
-                  type="button" 
-                  className="btn btn-outline-danger px-4 py-2 rounded-3 fw-bold d-inline-flex align-items-center gap-2 shadow-sm"
-                  onClick={handlePasswordReset}
-                  disabled={resetLoading}
-                >
-                  <KeyRound size={16} />
-                  {resetLoading ? 'Sending Reset Link...' : 'Send Password Reset Link'}
-                </button>
+              {/* Security Card */}
+              <div className="app-card bg-gradient-orange text-white" data-aos="zoom-in">
+                <div className="card-inner-padding d-flex align-items-start gap-3">
+                  <div className="glass-icon-box p-3 rounded-3 d-flex align-items-center justify-content-center">
+                    <Lock size={20} className="text-white" />
+                  </div>
+                  <div className="flex-grow-1">
+                    <h6 className="fw-bold mb-1">Security & Password</h6>
+                    <p className="small text-white-50 mb-3" style={{ fontSize: '0.8rem' }}>
+                      Send an official password reset link to your registered email address.
+                    </p>
+                    <button 
+                      type="button" 
+                      className="btn text-white glass-icon-box px-3 py-2 app-btn border-0 d-inline-flex align-items-center gap-2 shadow-sm"
+                      onClick={handlePasswordReset}
+                      disabled={resetLoading}
+                    >
+                      <KeyRound size={15} />
+                      {resetLoading ? 'Sending...' : 'Reset Password'}
+                    </button>
+                  </div>
+                </div>
               </div>
 
             </div>

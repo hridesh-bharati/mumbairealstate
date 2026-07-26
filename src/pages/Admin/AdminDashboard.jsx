@@ -1,10 +1,9 @@
-// src/components/Admin/AdminDashboard.js
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { db } from '../../config/firebase';
 import { collection, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
-import { 
-  Home, PlusCircle, Users, Trash2, Eye, TrendingUp, 
+import {
+  Home, PlusCircle, Users, Trash2, Eye, TrendingUp,
   LogOut, Menu, Sparkles, Building2, Bell, RefreshCw, Activity,
   MapPin, ChevronLeft, ChevronRight, IndianRupee, User, PieChart as PieIcon
 } from 'lucide-react';
@@ -14,11 +13,45 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, ComposedChart
 } from 'recharts';
-import AddProperty from './AddProperty';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+import AddProperty from '../../pages/Admin/AddProperty';
 import AddDevelopment from './AddDevelopment';
 import ManageDevelopments from './ManageDevelopments';
 import AdminProfile from './AdminProfile';
-import './AdminDashboard.css';
+
+const NAV_SECTIONS = [
+  {
+    category: 'MANAGEMENT',
+    items: [
+      { id: 'overview', label: 'Home Control', mobileLabel: 'Home', icon: Home, bgClass: 'bg-icon-green' },
+      { id: 'add', label: 'Add Property', mobileLabel: 'Add', icon: PlusCircle, bgClass: 'bg-icon-blue' },
+      { id: 'manage', label: 'Manage Directory', mobileLabel: 'Assets', icon: Building2, bgClass: 'bg-icon-orange' },
+    ]
+  },
+  {
+    category: 'NEW DEVELOPMENT',
+    items: [
+      { id: 'add-development', label: 'Add Development', mobileLabel: 'New Dev', icon: Building2, bgClass: 'bg-icon-purple' },
+      { id: 'manage-developments', label: 'Manage Developments', mobileLabel: 'Development', icon: Sparkles, bgClass: 'bg-icon-cyan' },
+    ]
+  },
+  {
+    category: 'ACCOUNT SETTINGS',
+    items: [
+      { id: 'profile', label: 'Admin Profile', mobileLabel: 'Profile', icon: User, bgClass: 'bg-icon-red' },
+    ]
+  }
+];
+
+const MOBILE_NAV_ITEMS = [
+  NAV_SECTIONS[0].items[0],
+  NAV_SECTIONS[0].items[2],
+  NAV_SECTIONS[0].items[1],
+  NAV_SECTIONS[1].items[1],
+  NAV_SECTIONS[2].items[0]
+];
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -33,7 +66,6 @@ export default function AdminDashboard() {
   const [propertyTypeDistribution, setPropertyTypeDistribution] = useState([]);
   const [monthlyTrend, setMonthlyTrend] = useState([]);
 
-  // Modal State for Properties Viewing
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [activePropImgIdx, setActivePropImgIdx] = useState(0);
 
@@ -49,6 +81,10 @@ export default function AdminDashboard() {
   });
 
   const COLORS = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#06b6d4', '#ef4444'];
+
+  useEffect(() => {
+    AOS.init({ duration: 600, once: true });
+  }, []);
 
   const getPropImages = (prop) => {
     if (prop?.images && Array.isArray(prop.images) && prop.images.length > 0) return prop.images;
@@ -96,7 +132,7 @@ export default function AdminDashboard() {
         if (data.agent?.name) {
           agentsSet.add(data.agent.name);
         }
-        
+
         if (data.listingStatus) {
           if (data.listingStatus === 'Pending') pending++;
           else if (data.listingStatus === 'Sold' || data.listingStatus === 'Sold Asset') sold++;
@@ -153,7 +189,7 @@ export default function AdminDashboard() {
   // Sync Status Distribution
   useEffect(() => {
     const statusCount = {};
-    
+
     properties.forEach(prop => {
       const status = prop.listingStatus || prop.status || 'Active Listing';
       statusCount[status] = (statusCount[status] || 0) + 1;
@@ -175,7 +211,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (properties.length > 0) {
       const monthlyData = {};
-      
+
       properties.forEach(prop => {
         const price = parseInt(prop.price?.replace(/[^0-9]/g, '') || '0', 10);
 
@@ -238,9 +274,9 @@ export default function AdminDashboard() {
   };
 
   const formatCurrency = (num) => {
-    return new Intl.NumberFormat('en-IN', { 
-      style: 'currency', 
-      currency: 'INR', 
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
       maximumFractionDigits: 0,
       minimumFractionDigits: 0
     }).format(num);
@@ -269,44 +305,37 @@ export default function AdminDashboard() {
     return classes[status] || 'bg-secondary text-white';
   };
 
-  // SIDEBAR NAVIGATION
+  const handleTabSelect = (tabId) => {
+    setActiveTab(tabId);
+    if (tabId === 'add-development' || tabId === 'manage-developments') {
+      setDevelopmentToEdit(null);
+    }
+  };
+
   const renderSidebarContent = () => (
-    <div className="d-flex flex-column py-5">
-      <div className="sidebar-category-title mt-3">MANAGEMENT</div>
-      <button className={`nav-item-btn ${activeTab === 'overview' ? 'active-tab' : ''}`} data-bs-dismiss="offcanvas" onClick={() => setActiveTab('overview')}>
-        <div className="theme-icon-box bg-icon-green"><TrendingUp size={18} /></div>
-        <span>Overview Control</span>
-      </button>
-      <button className={`nav-item-btn ${activeTab === 'add' ? 'active-tab' : ''}`} data-bs-dismiss="offcanvas" onClick={() => setActiveTab('add')}>
-        <div className="theme-icon-box bg-icon-blue"><PlusCircle size={18} /></div>
-        <span>Add Property</span>
-      </button>
-      <button className={`nav-item-btn ${activeTab === 'manage' ? 'active-tab' : ''}`} data-bs-dismiss="offcanvas" onClick={() => setActiveTab('manage')}>
-        <div className="theme-icon-box bg-icon-orange"><Home size={18} /></div>
-        <span>Manage Directory</span>
-      </button>
-
-      <div className="sidebar-category-title mt-3">NEW DEVELOPMENT</div>
-      <button className={`nav-item-btn ${activeTab === 'add-development' ? 'active-tab' : ''}`} data-bs-dismiss="offcanvas" onClick={() => {
-        setActiveTab('add-development');
-        setDevelopmentToEdit(null);
-      }}>
-        <div className="theme-icon-box bg-icon-purple"><Building2 size={18} /></div>
-        <span>Add Development</span>
-      </button>
-      <button className={`nav-item-btn ${activeTab === 'manage-developments' ? 'active-tab' : ''}`} data-bs-dismiss="offcanvas" onClick={() => {
-        setActiveTab('manage-developments');
-        setDevelopmentToEdit(null);
-      }}>
-        <div className="theme-icon-box bg-icon-cyan"><Sparkles size={18} /></div>
-        <span>Manage Developments</span>
-      </button>
-
-      <div className="sidebar-category-title mt-3">ACCOUNT SETTINGS</div>
-      <button className={`nav-item-btn ${activeTab === 'profile' ? 'active-tab' : ''}`} data-bs-dismiss="offcanvas" onClick={() => setActiveTab('profile')}>
-        <div className="theme-icon-box bg-icon-red"><User size={18} /></div>
-        <span>Admin Profile</span>
-      </button>
+    <div className="d-flex flex-column py-1 py-lg-3 h-100">
+      {NAV_SECTIONS.map((section, idx) => (
+        <React.Fragment key={idx}>
+          <div className="sidebar-category-title mt-1 mt-lg-5">{section.category}</div>
+          {section.items.map((item) => {
+            const IconComp = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                className={`nav-item-btn ${isActive ? 'active-tab' : ''}`}
+                data-bs-dismiss="offcanvas"
+                onClick={() => handleTabSelect(item.id)}
+              >
+                <div className={`theme-icon-box ${item.bgClass}`}>
+                  <IconComp size={18} />
+                </div>
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
+        </React.Fragment>
+      ))}
 
       <div className="pt-3 border-top border-light mt-auto">
         <button className="nav-item-btn p-2 w-100 border-0 bg-transparent text-start" onClick={() => navigate('/logout')}>
@@ -326,17 +355,26 @@ export default function AdminDashboard() {
       {/* MOBILE HEADER */}
       <div className="d-flex d-lg-none justify-content-between align-items-center bg-white border-bottom p-3 sticky-top shadow-sm z-3">
         <div className="d-flex align-items-center p-0 m-0">
-          <span className="fw-bold fs-5 text-dark">Admin Hub</span>
+          <span className="fw-bold fs-5 text-dark">CJ Groups Admin Hub</span>
         </div>
-        <button className="btn p-1 border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminMobileMenu">
-          <Menu size={24} />
-        </button>
+
+        <div className="d-flex align-items-center gap-2">
+          {/* HOME BUTTON */}
+          <Link to="/" className="btn p-1 border-0 text-dark" title="Home">
+            <Home size={24} />
+          </Link>
+
+          {/* MENU BUTTON */}
+          <button className="btn p-1 border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminMobileMenu">
+            <Menu size={24} />
+          </button>
+        </div>
       </div>
 
       {/* MOBILE OFFCANVAS DRAWER */}
-      <div className="offcanvas offcanvas-start border-0" tabIndex="-1" id="adminMobileMenu" style={{ width: '280px', backgroundColor: '#ffffff' }}>
-        <div className="offcanvas-header border-bottom py-3">
-          <h5 className="offcanvas-title fw-bold">Menu Navigation</h5>
+      <div className="offcanvas offcanvas-start border-0 bg-white w-100" tabIndex="-1" id="adminMobileMenu" >
+        <div className="offcanvas-header bg-primary border-bottom py-3">
+          <h5 className="offcanvas-title fw-bold text-white">Menu Navigation</h5>
           <button type="button" className="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div className="offcanvas-body p-0">
@@ -346,92 +384,107 @@ export default function AdminDashboard() {
 
       <div className="row g-0">
         {/* DESKTOP SIDEBAR */}
-        <aside className="col-lg-2 d-none d-lg-flex flex-column layout-sidebar-node p-0 pt-4">
+        <aside className="col-lg-2 d-none d-lg-flex flex-column layout-sidebar-node p-0 pt-md-5">
           {renderSidebarContent()}
         </aside>
 
-        {/* WORKSPACE MAIN CONTENT (Margin Top Added to prevent Header overlap) */}
-        <main className="col-lg-10 p-3 p-md-4 overflow-auto dashboard-main-content">
+        {/* WORKSPACE MAIN CONTENT */}
+        <main className="col-lg-10 p-1 p-md-4 overflow-auto dashboard-main-content">
 
           {/* TOP HEADER CONTROL MANAGEMENT HUB */}
-          <header className="main-control-header d-none d-lg-flex justify-content-between align-items-center my-4">
-            <div className="text-start">
-              <h2 className="header-main-title">Control Management Hub</h2>
-              <small style={{ color: '#94a3b8', fontSize: '0.8rem' }}>Live system monitors metrics</small>
+          <header className="main-control-header d-none d-lg-flex justify-content-between align-items-center p-4 m-0 my-4 text-white" data-aos="fade-down">
+            <div className="d-flex align-items-center gap-3 text-start position-relative z-1">
+              <div className="glass-box p-3 rounded-4 d-flex align-items-center justify-content-center">
+                <Sparkles size={24} className="text-white" />
+              </div>
+              <div>
+                <p className="text-uppercase tracking-wider text-white-50 small fw-bold mb-0" style={{ fontSize: '0.7rem', letterSpacing: '1px' }}>
+                  CONTROL MANAGEMENT HUB
+                </p>
+                <h3 className="fw-bold mb-0">System Control Dashboard</h3>
+              </div>
             </div>
-            <div className="d-flex align-items-center gap-3">
-              <button className="btn btn-light btn-sm rounded-circle p-2 position-relative">
+
+            <div className="d-flex align-items-center gap-3 position-relative z-1">
+              <Link to="/" className="btn text-dark" title="Home">
+                <Home size={24} />
+              </Link>
+
+              {/* Notification Button */}
+              <button className="btn btn-light border-dark rounded-circle p-2 d-flex align-items-center justify-content-center position-relative shadow-sm" title="System Alerts">
                 <Bell size={18} />
-                <span className="position-absolute top-0 end-0 translate-middle badge rounded-circle bg-danger p-1" style={{ fontSize: '8px', width: '16px', height: '16px' }}>
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-2 border-white" style={{ fontSize: '0.65rem' }}>
                   {properties.length + developments.length}
                 </span>
               </button>
-              <button className="btn exit-btn-custom px-4 py-2 fw-bold transition-all" onClick={() => navigate('/')}>
-                Exit Dashboard
+
+              {/* Exit Dashboard Button */}
+              <button className="btn btn-warning p-2 rounded-3 fw-bold small d-flex align-items-center gap-2 shadow-sm app-btn" onClick={() => navigate('/')}>
+                <LogOut size={16} /> Exit Dashboard
               </button>
             </div>
           </header>
 
           {activeTab === 'overview' && (
-            <div className="fade-in-scope text-start">
+            <div className="text-start">
+
               {/* TOP METRIC CARDS */}
-              <div className="row g-3 g-xl-4 mb-4">
-                <div className="col-12 col-sm-6 col-xl-3">
+              <div className="row row-cols-2 row-cols-sm-2 row-cols-xl-4 g-2 g-md-3 g-xl-4 mb-4" data-aos="fade-up">
+                <div className="col">
                   <div className="metric-card metric-blue">
                     <div className="water-drop-ripple"></div>
-                    <div>
-                      <span className="metric-caption">TOTAL ACTIVE LISTINGS</span>
+                    <div className="pe-1">
+                      <span className="metric-caption">TOTAL LISTINGS</span>
                       <h2 className="metric-value">{stats.totalListings}</h2>
                       <small className="metric-sub">Active listings</small>
                     </div>
-                    <div className="metric-icon-wrapper"><Home size={22} /></div>
+                    <div className="metric-icon-wrapper"><Home size={20} /></div>
                   </div>
                 </div>
 
-                {/* FIXED SECOND CARD FOR PORTFOLIO VALUATION */}
-                <div className="col-12 col-sm-6 col-xl-3">
+                <div className="col">
                   <div className="metric-card metric-green">
                     <div className="water-drop-ripple"></div>
-                    <div className="w-100 pe-2">
+                    <div className="pe-1">
                       <span className="metric-caption">PORTFOLIO VALUATION</span>
                       <h2 className="metric-value text-nowrap d-flex align-items-baseline gap-1" title={formatCurrency(stats.totalValuation)}>
                         {formatCompactCurrency(stats.totalValuation)}
                       </h2>
                       <small className="metric-sub">Avg: {formatCompactCurrency(stats.avgPrice)}</small>
                     </div>
-                    <div className="metric-icon-wrapper"><IndianRupee size={22} /></div>
+                    <div className="metric-icon-wrapper"><IndianRupee size={20} /></div>
                   </div>
                 </div>
 
-                <div className="col-12 col-sm-6 col-xl-3">
+                <div className="col">
                   <div className="metric-card metric-purple">
                     <div className="water-drop-ripple"></div>
-                    <div>
-                      <span className="metric-caption">ACTIVE SYSTEM AGENTS</span>
+                    <div className="pe-1">
+                      <span className="metric-caption">ACTIVE AGENTS</span>
                       <h2 className="metric-value">{stats.uniqueAgents}</h2>
                       <small className="metric-sub">Active partners</small>
                     </div>
-                    <div className="metric-icon-wrapper"><Users size={22} /></div>
+                    <div className="metric-icon-wrapper"><Users size={20} /></div>
                   </div>
                 </div>
 
-                <div className="col-12 col-sm-6 col-xl-3">
+                <div className="col">
                   <div className="metric-card metric-orange">
                     <div className="water-drop-ripple"></div>
-                    <div>
-                      <span className="metric-caption">TOTAL DEVELOPMENTS</span>
+                    <div className="pe-1">
+                      <span className="metric-caption">DEVELOPMENTS</span>
                       <h2 className="metric-value">{stats.totalDevelopments}</h2>
                       <small className="metric-sub">Ongoing projects</small>
                     </div>
-                    <div className="metric-icon-wrapper"><Sparkles size={22} /></div>
+                    <div className="metric-icon-wrapper"><Sparkles size={20} /></div>
                   </div>
                 </div>
               </div>
 
               {/* CHARTS ROW 1 */}
               <div className="row g-3 g-xl-4 mb-4">
-                <div className="col-12 col-xl-6">
-                  <div className="content-panel-card p-4">
+                <div className="col-12 col-xl-6" data-aos="fade-right">
+                  <div className="content-panel-card p-3 p-md-4">
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <h4 className="chart-card-title m-0">Monthly Trend</h4>
                       <span className="chart-badge">Last 6 months</span>
@@ -460,8 +513,8 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div className="col-12 col-xl-6">
-                  <div className="content-panel-card p-4">
+                <div className="col-12 col-xl-6" data-aos="fade-left">
+                  <div className="content-panel-card p-3 p-md-4">
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <h4 className="chart-card-title m-0">Status Breakdown</h4>
                       <span className="chart-badge">All Assets & Feed</span>
@@ -500,8 +553,8 @@ export default function AdminDashboard() {
 
               {/* CHARTS ROW 2 */}
               <div className="row g-3 g-xl-4 mb-4">
-                <div className="col-12 col-xl-6">
-                  <div className="content-panel-card p-4">
+                <div className="col-12 col-xl-6" data-aos="fade-right">
+                  <div className="content-panel-card p-3 p-md-4">
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <h4 className="chart-card-title m-0">Price Range Distribution</h4>
                       <span className="chart-badge">Properties</span>
@@ -531,8 +584,8 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div className="col-12 col-xl-6">
-                  <div className="content-panel-card p-4">
+                <div className="col-12 col-xl-6" data-aos="fade-left">
+                  <div className="content-panel-card p-3 p-md-4">
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <div className="d-flex align-items-center gap-2">
                         <PieIcon size={18} className="text-primary" />
@@ -573,7 +626,7 @@ export default function AdminDashboard() {
               </div>
 
               {/* RECENT ACTIVITY FEED */}
-              <div className="content-panel-card p-4">
+              <div className="content-panel-card p-3 p-md-4" data-aos="fade-up">
                 <div className="d-flex justify-content-between align-items-center mb-4">
                   <h4 className="fw-bold mb-0 text-dark fs-5">Recent Activity Feed</h4>
                   <button className="btn btn-sm btn-outline-secondary rounded-pill px-3">
@@ -607,10 +660,10 @@ export default function AdminDashboard() {
                           <tr key={item.id} className="border-bottom border-light">
                             <td className="py-3">
                               <div className="d-flex align-items-center gap-3">
-                                <img 
-                                  src={item.image || 'https://via.placeholder.com/48x36'} 
-                                  alt={item.title} 
-                                  className="rounded flex-shrink-0 shadow-sm cursor-pointer border" 
+                                <img
+                                  src={item.image || 'https://via.placeholder.com/48x36'}
+                                  alt={item.title}
+                                  className="rounded flex-shrink-0 shadow-sm cursor-pointer border"
                                   style={{ width: '48px', height: '36px', objectFit: 'cover' }}
                                   onClick={() => item.type === 'property' && openPropertyModal(item.rawObj)}
                                 />
@@ -629,13 +682,13 @@ export default function AdminDashboard() {
                               {new Date(item.timestamp).toLocaleDateString()}
                             </td>
                             <td className="text-end text-nowrap">
-                              <button 
+                              <button
                                 className="btn btn-sm text-primary p-1 me-2 border-0 bg-transparent"
                                 onClick={() => item.type === 'property' && openPropertyModal(item.rawObj)}
                               >
                                 <Eye size={18} />
                               </button>
-                              <button 
+                              <button
                                 className="btn btn-sm text-danger p-1 border-0 bg-transparent"
                                 onClick={() => handleDelete(item.id, item.type === 'property' ? 'properties' : 'developments')}
                               >
@@ -653,13 +706,13 @@ export default function AdminDashboard() {
           )}
 
           {activeTab === 'add' && (
-            <div className="fade-in-scope content-panel-card p-4">
+            <div className="content-panel-card p-3 p-md-4" data-aos="fade-up">
               <AddProperty />
             </div>
           )}
 
           {activeTab === 'manage' && (
-            <div className="fade-in-scope content-panel-card p-4 text-start">
+            <div className="content-panel-card p-3 p-md-4 text-start" data-aos="fade-up">
               <h4 className="fw-bold mb-4 text-dark fs-5">Entire Assets Inventory Directory</h4>
               {properties.length === 0 ? (
                 <p className="text-muted small m-0">No entries recorded in storage buckets.</p>
@@ -668,10 +721,10 @@ export default function AdminDashboard() {
                   <table className="table table-borderless align-middle small m-0">
                     <thead>
                       <tr className="text-dark fw-bold border-bottom" style={{ fontSize: '0.85rem' }}>
-                        <th className="pb-3">Showcase Pic</th>
+                        <th className="pb-3">Picture</th>
                         <th className="pb-3">Title Info</th>
                         <th className="pb-3">Price Index</th>
-                        <th className="text-end pb-3">Action Rules</th>
+                        <th className="text-end pb-3">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -681,8 +734,8 @@ export default function AdminDashboard() {
                           <tr key={prop.id} className="border-bottom border-light">
                             <td className="py-3">
                               <div className="position-relative d-inline-block">
-                                <img 
-                                  src={imgs[0]} 
+                                <img
+                                  src={imgs[0]}
                                   alt={prop.title}
                                   className="rounded shadow-sm cursor-pointer border"
                                   width="60"
@@ -703,14 +756,14 @@ export default function AdminDashboard() {
                             </td>
                             <td className="fw-bold text-success text-nowrap py-3">{prop.price}</td>
                             <td className="text-end text-nowrap py-3">
-                              <button 
-                                className="btn btn-sm text-primary p-1 me-2 border-0 bg-transparent" 
+                              <button
+                                className="btn btn-sm text-primary p-1 me-2 border-0 bg-transparent"
                                 onClick={() => openPropertyModal(prop)}
                               >
                                 <Eye size={18} />
                               </button>
-                              <button 
-                                className="btn btn-sm text-danger p-1 border-0 bg-transparent" 
+                              <button
+                                className="btn btn-sm text-danger p-1 border-0 bg-transparent"
                                 onClick={() => handleDelete(prop.id, "properties")}
                               >
                                 <Trash2 size={18} />
@@ -727,8 +780,8 @@ export default function AdminDashboard() {
           )}
 
           {activeTab === 'add-development' && (
-            <div className="fade-in-scope content-panel-card p-4">
-              <AddDevelopment 
+            <div className="content-panel-card p-3 p-md-4" data-aos="fade-up">
+              <AddDevelopment
                 onSuccess={() => {
                   toast.success('✨ Development added successfully!');
                   setActiveTab('manage-developments');
@@ -740,8 +793,8 @@ export default function AdminDashboard() {
           )}
 
           {activeTab === 'manage-developments' && (
-            <div className="fade-in-scope content-panel-card p-4 text-start">
-              <ManageDevelopments 
+            <div className="content-panel-card p-3 p-md-4 text-start" data-aos="fade-up">
+              <ManageDevelopments
                 developments={developments}
                 onEdit={(dev) => {
                   setDevelopmentToEdit(dev);
@@ -753,62 +806,39 @@ export default function AdminDashboard() {
           )}
 
           {activeTab === 'profile' && (
-            <div className="fade-in-scope content-panel-card p-4">
+            <div className="content-panel-card p-3 p-md-4" data-aos="fade-up">
               <AdminProfile />
             </div>
           )}
         </main>
       </div>
 
-      {/* MOBILE APP BOTTOM NAVIGATION BAR */}
-      <div className="d-lg-none position-fixed bottom-0 start-0 end-0 bg-white border-top d-flex justify-content-around py-2 shadow-lg z-3">
-        <button 
-          className={`btn btn-link p-0 text-center text-decoration-none ${activeTab === 'overview' ? 'text-primary' : 'text-muted'}`}
-          onClick={() => setActiveTab('overview')}
-        >
-          <TrendingUp size={20} className="d-block mx-auto mb-1" />
-          <span style={{ fontSize: '10px' }} className="fw-semibold">Overview</span>
-        </button>
-
-        <button 
-          className={`btn btn-link p-0 text-center text-decoration-none ${activeTab === 'manage' ? 'text-primary' : 'text-muted'}`}
-          onClick={() => setActiveTab('manage')}
-        >
-          <Home size={20} className="d-block mx-auto mb-1" />
-          <span style={{ fontSize: '10px' }} className="fw-semibold">Assets</span>
-        </button>
-
-        <button 
-          className={`btn btn-link p-0 text-center text-decoration-none ${activeTab === 'add' ? 'text-primary' : 'text-muted'}`}
-          onClick={() => setActiveTab('add')}
-        >
-          <PlusCircle size={20} className="d-block mx-auto mb-1" />
-          <span style={{ fontSize: '10px' }} className="fw-semibold">Add</span>
-        </button>
-
-        <button 
-          className={`btn btn-link p-0 text-center text-decoration-none ${activeTab === 'manage-developments' ? 'text-primary' : 'text-muted'}`}
-          onClick={() => setActiveTab('manage-developments')}
-        >
-          <Sparkles size={20} className="d-block mx-auto mb-1" />
-          <span style={{ fontSize: '10px' }} className="fw-semibold">Projects</span>
-        </button>
-
-        <button 
-          className={`btn btn-link p-0 text-center text-decoration-none ${activeTab === 'profile' ? 'text-primary' : 'text-muted'}`}
-          onClick={() => setActiveTab('profile')}
-        >
-          <User size={20} className="d-block mx-auto mb-1" />
-          <span style={{ fontSize: '10px' }} className="fw-semibold">Profile</span>
-        </button>
-      </div>
+      {/* MOBILE BOTTOM NAVIGATION BAR */}
+      <nav className="d-lg-none position-fixed bottom-0 start-0 end-0 bg-white border-top d-flex justify-content-around py-2 px-1 shadow-lg z-3 mobile-bottom-bar">
+        {MOBILE_NAV_ITEMS.map((item) => {
+          const IconComp = item.icon;
+          const isActive = activeTab === item.id;
+          return (
+            <button
+              key={item.id}
+              className={`btn btn-link p-1 text-center text-decoration-none border-0 mobile-tab-btn ${isActive ? 'active-mobile-tab' : ''}`}
+              onClick={() => handleTabSelect(item.id)}
+            >
+              <div className={`mobile-icon-box ${item.bgClass} ${isActive ? 'active-icon-glow' : 'inactive-icon'}`}>
+                <IconComp size={18} />
+              </div>
+              <span className="mobile-tab-label">{item.mobileLabel}</span>
+            </button>
+          );
+        })}
+      </nav>
 
       {/* DETAILED PROPERTY MODAL */}
       {selectedProperty && (() => {
         const pImgs = getPropImages(selectedProperty);
         return (
           <div className="modal fade show d-block bg-dark bg-opacity-75" tabIndex="-1" style={{ zIndex: 1060 }}>
-            <div className="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+            <div className="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" data-aos="zoom-in">
               <div className="modal-content rounded-4 overflow-hidden border-0">
                 <div className="modal-header bg-dark text-white p-3 px-4">
                   <div className="d-flex align-items-center gap-2">
@@ -825,20 +855,20 @@ export default function AdminDashboard() {
                   <div className="row g-4">
                     <div className="col-lg-6">
                       <div className="position-relative bg-light rounded-3 overflow-hidden mb-2 shadow-sm" style={{ height: '320px' }}>
-                        <img 
-                          src={pImgs[activePropImgIdx]} 
-                          alt={selectedProperty.title} 
+                        <img
+                          src={pImgs[activePropImgIdx]}
+                          alt={selectedProperty.title}
                           className="w-100 h-100 object-fit-cover"
                         />
                         {pImgs.length > 1 && (
                           <>
-                            <button 
+                            <button
                               className="btn btn-dark btn-sm rounded-circle position-absolute top-50 start-0 translate-middle-y ms-2 opacity-75"
                               onClick={() => setActivePropImgIdx(p => p === 0 ? pImgs.length - 1 : p - 1)}
                             >
                               <ChevronLeft size={16} />
                             </button>
-                            <button 
+                            <button
                               className="btn btn-dark btn-sm rounded-circle position-absolute top-50 end-0 translate-middle-y me-2 opacity-75"
                               onClick={() => setActivePropImgIdx(p => p === pImgs.length - 1 ? 0 : p + 1)}
                             >
@@ -862,11 +892,11 @@ export default function AdminDashboard() {
                           ))}
                         </div>
                       )}
-                      
+
                       {selectedProperty.agent?.name && (
                         <div className="p-3 bg-light rounded-3 border mt-3 d-flex align-items-center gap-3">
-                          <img 
-                            src={selectedProperty.agent.img || '/images/avatar.png'} 
+                          <img
+                            src={selectedProperty.agent.img || '/images/avatar.png'}
                             alt={selectedProperty.agent.name}
                             className="rounded-circle border object-fit-cover"
                             width="48"

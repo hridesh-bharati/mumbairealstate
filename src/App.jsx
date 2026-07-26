@@ -71,7 +71,9 @@ export default function App() {
         <div className="d-flex flex-column min-vh-100 bg-white position-relative">
 
           {/* Main Top Global Layout Navbar */}
-          <Navbar />
+          <div className="d-none d-md-block">
+            <Navbar />
+          </div>
 
           <main className="flex-grow-1">
             <Routes>
@@ -141,7 +143,7 @@ export default function App() {
               aria-label="Scroll to top"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 15l-6-6-6 6"/>
+                <path d="M18 15l-6-6-6 6" />
               </svg>
             </button>
           )}

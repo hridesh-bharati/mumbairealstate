@@ -1,17 +1,14 @@
-// src/components/Admin/AddDevelopment.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { db } from '../../config/firebase';
 import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
 import { uploadImagesToCloudinary } from '../../services/cloudinary';
 import { toast } from 'sonner';
 import { 
   Upload, X, Plus, Loader2, Sparkles, Edit2, CheckCircle,
-  Building2, MapPin, DollarSign, Home, Bath, Square, 
-  Calendar, Users, Clock, Shield, Wifi, Coffee, Dumbbell,
-  TreePine, Car, Tv, Lock, Flame, Snowflake, Sun, Waves,
-  UtensilsCrossed, Gem, Star, Award, Heart, Maximize, Ruler,
-  Image as ImageIcon, Trash2, Move, Search, Globe, Layers, Sliders
+  Building2, Search, Globe, Move
 } from 'lucide-react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const STATUS_OPTIONS = [
   { value: 'pre-construction', label: 'Pre-Construction' },
@@ -40,28 +37,11 @@ const FEATURES_LIST = [
 export default function AddDevelopment({ onSuccess, editData = null, onCancel }) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    title: '',
-    location: '',
-    price: '',
-    beds: '',
-    baths: '',
-    sqft: '',
-    status: 'pre-construction',
-    description: '',
-    features: [],
-    images: [],
-    totalUnits: '',
-    completionDate: '',
-    neighborhood: '',
-    nearby: '',
-    type: 'Luxury Residence',
-    yearBuilt: '',
-    floors: '',
-    parkingSpots: '',
-    petPolicy: 'Pets Allowed',
-    occupancyDate: '',
-    latitude: '',
-    longitude: ''
+    title: '', location: '', price: '', beds: '', baths: '', sqft: '',
+    status: 'pre-construction', description: '', features: [], images: [],
+    totalUnits: '', completionDate: '', neighborhood: '', nearby: '',
+    type: 'Luxury Residence', yearBuilt: '', floors: '', parkingSpots: '',
+    petPolicy: 'Pets Allowed', occupancyDate: '', latitude: '', longitude: ''
   });
 
   const [featureInput, setFeatureInput] = useState('');
@@ -78,6 +58,7 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
   const [draggingIndex, setDraggingIndex] = useState(null);
 
   useEffect(() => {
+    AOS.init({ duration: 600, once: true });
     if (editData) {
       setIsEditing(true);
       setFormData({
@@ -445,48 +426,61 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
   );
 
   return (
-    <div className="add-development-container p-2 p-md-4 text-start">
-      <div className="card border-0 shadow-sm p-3 p-md-4 rounded-3 bg-white">
-        
-        {/* Header Section */}
-        <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 pb-3 border-bottom gap-2">
-          <div>
-            <h4 className="fw-bold text-dark mb-0 d-flex align-items-center gap-2 fs-5">
-              <Sparkles size={20} className="text-primary" />
-              {isEditing ? 'Edit Development' : 'Add New Development'}
-            </h4>
-            <small className="text-muted d-block mt-1">
-              {isEditing ? 'Update existing development details' : 'Create a new luxury development listing'}
-            </small>
+    <div className="p-0 text-start">
+      
+      {/* Top Banner Header */}
+      <div className="app-card bg-gradient-purple mb-4 text-white" data-aos="fade-down">
+        <div className="card-inner-padding d-flex align-items-center justify-content-between gap-3">
+          <div className="d-flex align-items-center gap-3">
+            <div className="glass-icon-box p-3 rounded-4 d-flex align-items-center justify-content-center">
+              <Building2 size={22} className="text-white" />
+            </div>
+            <div>
+              <p className="text-uppercase tracking-wider text-white-50 small fw-bold mb-0" style={{ fontSize: '0.7rem' }}>
+                DEVELOPMENT MANAGEMENT
+              </p>
+              <h5 className="fw-bold mb-0">
+                {isEditing ? 'Edit Development' : 'Add New Development'}
+              </h5>
+            </div>
           </div>
           {isEditing && (
-            <span className="badge bg-warning text-dark px-3 py-2 flex-shrink-0">
-              <Edit2 size={13} className="me-1" />
-              Editing Mode
+            <span className="glass-icon-box text-white px-3 py-1 rounded-pill small fw-semibold">
+              <Edit2 size={13} className="me-1" /> Editing Mode
             </span>
           )}
         </div>
+      </div>
 
+      {/* Main Form Body */}
+      <div className="card border-0 rounded-4 p-3 p-md-4 shadow-sm bg-white" data-aos="fade-up">
         <form onSubmit={handleSubmit}>
           
-          {/* STEP 1: IMAGE UPLOADS */}
+          {/* STEP 1 */}
+          <div className="section-pill-header text-primary mt-0 mb-3">
+            <span className="p-2 rounded-3 bg-primary bg-opacity-10 d-inline-flex text-primary align-items-center justify-content-center">
+              <Upload size={18} />
+            </span>
+            1. Development Showcase Images <span className="text-danger ms-1">*</span>
+          </div>
+
           <div className="mb-4">
-            <label className="form-label fw-bold text-dark small mb-2 d-block">
-              Development Showcase Images <span className="text-danger">*</span>
-            </label>
-            
             <div className="image-upload-area mb-3">
-              <label className="d-flex flex-column align-items-center justify-content-center border-2 border-dashed rounded-3 p-3 p-md-4 text-center" 
-                style={{ minHeight: '110px', borderColor: '#cbd5e1', cursor: 'pointer', background: '#f8fafc' }}>
+              <label 
+                className="d-flex flex-column align-items-center justify-content-center border border-2 border-dashed rounded-4 p-4 text-center cursor-pointer" 
+                style={{ minHeight: '120px', borderColor: '#cbd5e1', background: '#f8fafc' }}
+              >
                 <input type="file" multiple accept="image/*" onChange={handleImageUpload} className="d-none" />
-                <Upload size={28} className="text-primary mb-1" />
-                <span className="fw-semibold small text-dark">Click to upload showcase photos</span>
-                <small className="text-muted fs-7">JPG, PNG, WebP allowed (Drag and drop to reorder)</small>
+                <Upload size={26} className="text-primary mb-2" />
+                <span className="fw-bold small text-dark">Click to upload showcase photos</span>
+                <small className="text-muted" style={{ fontSize: '0.75rem' }}>
+                  JPG, PNG, WebP allowed (Drag and drop thumbnails to reorder)
+                </small>
               </label>
             </div>
 
             {imagePreviews.length > 0 && (
-              <div className="image-preview-grid p-2 border rounded-3 bg-light">
+              <div className="p-2 border rounded-4 bg-light shadow-sm" data-aos="fade-in">
                 <div className="row g-2">
                   {imagePreviews.map((url, index) => (
                     <div 
@@ -497,17 +491,14 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
                       onDragOver={handleDragOver}
                       onDrop={(e) => handleDrop(e, index)}
                       onDragEnd={handleDragEnd}
-                      style={{ 
-                        opacity: draggingIndex === index ? 0.4 : 1,
-                        cursor: 'grab'
-                      }}
+                      style={{ opacity: draggingIndex === index ? 0.4 : 1, cursor: 'grab' }}
                     >
-                      <div className="position-relative overflow-hidden rounded-2 shadow-sm bg-white border">
+                      <div className="position-relative overflow-hidden rounded-3 border bg-white shadow-sm">
                         <img 
                           src={url} 
                           alt={`Preview ${index + 1}`} 
-                          className="w-100"
-                          style={{ height: '100px', objectFit: 'cover' }}
+                          className="w-100 object-fit-cover"
+                          style={{ height: '90px' }}
                         />
                         <button 
                           type="button" 
@@ -517,31 +508,40 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
                         >
                           <X size={12} />
                         </button>
-                        <div className="position-absolute bottom-0 start-0 end-0 bg-dark bg-opacity-60 text-white text-center py-0.5">
+                        <div className="position-absolute bottom-0 start-0 end-0 bg-dark bg-opacity-60 text-white text-center py-1">
                           <small style={{ fontSize: '0.65rem' }}>#{index + 1}</small>
                         </div>
                         <div className="position-absolute top-50 start-0 translate-middle-y ms-1">
-                          <Move size={14} className="text-white bg-dark bg-opacity-50 rounded p-0.5" />
+                          <Move size={14} className="text-white bg-dark bg-opacity-50 rounded p-1" />
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
-                <small className="text-muted d-block mt-2 text-center fs-7">
-                  {imagePreviews.length} images uploaded. Reorder by dragging thumbs.
+                <small className="text-muted d-block mt-2 text-center" style={{ fontSize: '0.75rem' }}>
+                  {imagePreviews.length} images selected. Reorder by dragging thumbs.
                 </small>
               </div>
             )}
           </div>
 
-          {/* STEP 2: CORE INFO */}
+          <hr className="my-4 text-muted opacity-25" />
+
+          {/* STEP 2 */}
+          <div className="section-pill-header text-info mb-3">
+            <span className="p-2 rounded-3 bg-info bg-opacity-10 d-inline-flex text-info align-items-center justify-content-center">
+              <Building2 size={18} />
+            </span>
+            2. Core Information
+          </div>
+
           <div className="row g-3 mb-4">
             <div className="col-12 col-md-6">
-              <label className="form-label fw-bold text-secondary small mb-1">Development Name *</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Development Name *</label>
               <input
                 type="text"
                 name="title"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 placeholder="e.g., The Grand Waterfront"
                 value={formData.title}
                 onChange={handleChange}
@@ -549,13 +549,12 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
               />
             </div>
 
-            {/* Location Autocomplete */}
             <div className="col-12 col-md-6">
               <div className="d-flex justify-content-between align-items-center mb-1">
-                <label className="form-label fw-bold text-secondary small mb-0">Location *</label>
+                <label className="text-muted small fw-bold text-uppercase mb-0" style={{ fontSize: '0.72rem' }}>Location *</label>
                 <button 
                   type="button" 
-                  className="btn btn-xs text-primary p-0 bg-transparent border-0 fw-semibold d-flex align-items-center gap-1"
+                  className="btn btn-link text-primary p-0 text-decoration-none fw-semibold d-flex align-items-center gap-1"
                   onClick={getCurrentLocation}
                   style={{ fontSize: '0.75rem' }}
                 >
@@ -564,12 +563,12 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
               </div>
               <div className="position-relative">
                 <div className="input-group">
-                  <span className="input-group-text bg-light border-end-0">
-                    <Search size={16} className="text-muted" />
+                  <span className="input-group-text bg-light border-0 rounded-start-3">
+                    <Search size={16} className="text-secondary" />
                   </span>
                   <input
                     type="text"
-                    className="form-control border-start-0"
+                    className="form-control app-input border bg-light"
                     placeholder="Search building address..."
                     value={locationSearch || formData.location}
                     onChange={(e) => {
@@ -591,18 +590,18 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
                       <button
                         key={index}
                         type="button"
-                        className="suggestion-item d-flex flex-column align-items-start p-2.5 w-100 border-bottom border-light bg-hover-light text-start border-0"
+                        className="p-2 w-100 border-bottom border-light bg-white text-start border-0 d-flex flex-column align-items-start"
                         onClick={() => getPlaceDetails(suggestion.placeId)}
                       >
                         <span className="fw-semibold small text-dark">{suggestion.mainText}</span>
-                        <span className="text-muted fs-7">{suggestion.secondaryText}</span>
+                        <span className="text-muted" style={{ fontSize: '0.72rem' }}>{suggestion.secondaryText}</span>
                       </button>
                     ))}
                   </div>
                 )}
                 
                 {searchingLocation && (
-                  <div className="p-2 small text-muted position-absolute bg-white border rounded mt-1 shadow-sm">
+                  <div className="p-2 small text-muted position-absolute bg-white border rounded-3 mt-1 shadow-sm">
                     <Loader2 size={14} className="spinner-border spinner-border-sm me-1 text-primary" />
                     Searching...
                   </div>
@@ -611,11 +610,11 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-12 col-sm-6 col-md-4">
-              <label className="form-label fw-bold text-secondary small mb-1">Price *</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Price *</label>
               <input
                 type="text"
                 name="price"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 placeholder="e.g., $1.2M+"
                 value={formData.price}
                 onChange={handleChange}
@@ -624,10 +623,10 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-6 col-sm-3 col-md-2">
-              <label className="form-label fw-bold text-secondary small mb-1">Beds *</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Beds *</label>
               <select
                 name="beds"
-                className="form-select"
+                className="form-select app-input border bg-light"
                 value={formData.beds}
                 onChange={handleChange}
                 required
@@ -640,10 +639,10 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-6 col-sm-3 col-md-2">
-              <label className="form-label fw-bold text-secondary small mb-1">Baths *</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Baths *</label>
               <select
                 name="baths"
-                className="form-select"
+                className="form-select app-input border bg-light"
                 value={formData.baths}
                 onChange={handleChange}
                 required
@@ -656,11 +655,11 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-6 col-sm-6 col-md-2">
-              <label className="form-label fw-bold text-secondary small mb-1">Sq Ft *</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Sq Ft *</label>
               <input
                 type="text"
                 name="sqft"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 placeholder="1,200"
                 value={formData.sqft}
                 onChange={handleChange}
@@ -669,10 +668,10 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-6 col-sm-6 col-md-2">
-              <label className="form-label fw-bold text-secondary small mb-1">Status *</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Status *</label>
               <select
                 name="status"
-                className="form-select"
+                className="form-select app-input border bg-light"
                 value={formData.status}
                 onChange={handleChange}
                 required
@@ -684,18 +683,23 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
           </div>
 
-          {/* STEP 3: STRUCTURAL METRICS */}
-          <h6 className="fw-bold text-dark mt-4 mb-3 fs-6 border-bottom pb-2 d-flex align-items-center gap-2">
-            <Building2 size={16} className="text-primary" /> Structural Specifications
-          </h6>
+          <hr className="my-4 text-muted opacity-25" />
+
+          {/* STEP 3 */}
+          <div className="section-pill-header mb-3" style={{ color: '#7c3aed' }}>
+            <span className="p-2 rounded-3 bg-opacity-10 d-inline-flex align-items-center justify-content-center" style={{ color: '#7c3aed', background: 'rgba(124, 58, 237, 0.1)' }}>
+              <Building2 size={18} />
+            </span>
+            3. Structural Specifications
+          </div>
 
           <div className="row g-3 mb-4">
             <div className="col-12 col-sm-6 col-md-4">
-              <label className="form-label fw-bold text-secondary small mb-1">Property Type</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Property Type</label>
               <input
                 type="text"
                 name="type"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 placeholder="e.g., Luxury Residence"
                 value={formData.type}
                 onChange={handleChange}
@@ -703,11 +707,11 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-6 col-sm-6 col-md-4">
-              <label className="form-label fw-bold text-secondary small mb-1">Total Units</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Total Units</label>
               <input
                 type="number"
                 name="totalUnits"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 placeholder="120"
                 value={formData.totalUnits}
                 onChange={handleChange}
@@ -715,11 +719,11 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-6 col-sm-6 col-md-4">
-              <label className="form-label fw-bold text-secondary small mb-1">Year Built</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Year Built</label>
               <input
                 type="text"
                 name="yearBuilt"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 placeholder="2024"
                 value={formData.yearBuilt}
                 onChange={handleChange}
@@ -727,11 +731,11 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-6 col-sm-6 col-md-4">
-              <label className="form-label fw-bold text-secondary small mb-1">Number of Floors</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Number of Floors</label>
               <input
                 type="number"
                 name="floors"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 placeholder="25"
                 value={formData.floors}
                 onChange={handleChange}
@@ -739,11 +743,11 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-6 col-sm-6 col-md-4">
-              <label className="form-label fw-bold text-secondary small mb-1">Parking Spots</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Parking Spots</label>
               <input
                 type="number"
                 name="parkingSpots"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 placeholder="200"
                 value={formData.parkingSpots}
                 onChange={handleChange}
@@ -751,10 +755,10 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-12 col-sm-6 col-md-4">
-              <label className="form-label fw-bold text-secondary small mb-1">Pet Policy</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Pet Policy</label>
               <select
                 name="petPolicy"
-                className="form-select"
+                className="form-select app-input border bg-light"
                 value={formData.petPolicy}
                 onChange={handleChange}
               >
@@ -765,33 +769,33 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-12 col-sm-6">
-              <label className="form-label fw-bold text-secondary small mb-1">Expected Completion</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Expected Completion</label>
               <input
                 type="date"
                 name="completionDate"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 value={formData.completionDate}
                 onChange={handleChange}
               />
             </div>
 
             <div className="col-12 col-sm-6">
-              <label className="form-label fw-bold text-secondary small mb-1">Occupancy Date</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Occupancy Date</label>
               <input
                 type="date"
                 name="occupancyDate"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 value={formData.occupancyDate}
                 onChange={handleChange}
               />
             </div>
 
             <div className="col-12 col-md-6">
-              <label className="form-label fw-bold text-secondary small mb-1">Neighborhood</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Neighborhood</label>
               <input
                 type="text"
                 name="neighborhood"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 placeholder="e.g., Upper East Side"
                 value={formData.neighborhood}
                 onChange={handleChange}
@@ -799,11 +803,11 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-12 col-md-6">
-              <label className="form-label fw-bold text-secondary small mb-1">Nearby Attractions</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Nearby Attractions</label>
               <input
                 type="text"
                 name="nearby"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 placeholder="Central Park, Museums..."
                 value={formData.nearby}
                 onChange={handleChange}
@@ -811,10 +815,10 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
 
             <div className="col-12">
-              <label className="form-label fw-bold text-secondary small mb-1">Detailed Description</label>
+              <label className="text-muted small fw-bold text-uppercase mb-1" style={{ fontSize: '0.72rem' }}>Detailed Description</label>
               <textarea
                 name="description"
-                className="form-control"
+                className="form-control app-input border bg-light"
                 rows="4"
                 placeholder="Write architectural highlights and building specifics..."
                 value={formData.description}
@@ -823,10 +827,15 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
             </div>
           </div>
 
-          {/* STEP 4: AMENITIES & FEATURES */}
-          <h6 className="fw-bold text-dark mt-4 mb-3 fs-6 border-bottom pb-2 d-flex align-items-center gap-2">
-            <Sparkles size={16} className="text-primary" /> Amenities & Features
-          </h6>
+          <hr className="my-4 text-muted opacity-25" />
+
+          {/* STEP 4 */}
+          <div className="section-pill-header text-success mb-3">
+            <span className="p-2 rounded-3 bg-success bg-opacity-10 d-inline-flex text-success align-items-center justify-content-center">
+              <Sparkles size={18} />
+            </span>
+            4. Amenities & Features
+          </div>
 
           <div className="row g-3 mb-4">
             <div className="col-12">
@@ -834,7 +843,7 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
                 <div className="d-flex gap-2">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control app-input border bg-light"
                     placeholder="Search feature or type new..."
                     value={featureInput}
                     onChange={(e) => {
@@ -845,7 +854,7 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
                     onFocus={() => setShowFeatureSuggestions(true)}
                     onBlur={() => setTimeout(() => setShowFeatureSuggestions(false), 200)}
                   />
-                  <button type="button" className="btn btn-primary px-3 flex-shrink-0" onClick={handleAddFeature}>
+                  <button type="button" className="btn bg-gradient-blue text-white app-btn px-3 flex-shrink-0" onClick={handleAddFeature}>
                     <Plus size={18} />
                   </button>
                 </div>
@@ -856,7 +865,7 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
                       <button
                         key={index}
                         type="button"
-                        className="suggestion-item p-2 w-100 text-start border-0 bg-hover-light small text-dark border-bottom border-light"
+                        className="p-2 w-100 text-start border-0 bg-white small text-dark border-bottom border-light"
                         onClick={() => {
                           setFeatureInput(feature);
                           setTimeout(handleAddFeature, 100);
@@ -869,53 +878,54 @@ export default function AddDevelopment({ onSuccess, editData = null, onCancel })
                 )}
               </div>
 
-              <div className="d-flex flex-wrap gap-1.5 mt-2.5">
+              <div className="d-flex flex-wrap gap-2 mt-3">
                 {formData.features.map((feature, index) => (
-                  <span key={index} className="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 d-inline-flex align-items-center gap-1 px-2.5 py-1.5 rounded-2 small">
+                  <span key={index} className="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 d-inline-flex align-items-center gap-1 px-3 py-2 rounded-3 small">
                     {feature}
-                    <button type="button" className="btn btn-link text-danger p-0 ms-1 d-flex align-items-center" onClick={() => handleRemoveFeature(index)}>
-                      <X size={12} />
+                    <button type="button" className="btn btn-link text-danger p-0 ms-1 d-flex align-items-center text-decoration-none" onClick={() => handleRemoveFeature(index)}>
+                      <X size={13} />
                     </button>
                   </span>
                 ))}
               </div>
               {formData.features.length === 0 && (
-                <small className="text-muted fs-7 d-block mt-1">No amenities selected. Search above to append list.</small>
+                <small className="text-muted d-block mt-2" style={{ fontSize: '0.75rem' }}>No amenities selected. Search above to append list.</small>
               )}
             </div>
           </div>
 
-          {/* ACTION BUTTONS */}
-          <div className="d-flex flex-column flex-sm-row gap-2 mt-4 pt-3 border-top">
+          <hr className="my-4 text-muted opacity-25" />
+
+          {/* ACTIONS */}
+          <div className="d-flex flex-column flex-sm-row gap-2 mt-4">
             <button 
               type="submit" 
-              className="btn btn-primary px-4 py-2.5 fw-bold text-uppercase tracking-wider flex-grow-1 d-flex align-items-center justify-content-center gap-2 shadow-sm"
+              className="btn bg-gradient-purple text-white app-btn px-4 py-3 border-0 flex-grow-1 d-flex align-items-center justify-content-center gap-2 shadow-sm"
               disabled={loading}
-              style={{ fontSize: '0.8rem' }}
+              style={{ fontSize: '0.9rem' }}
             >
               {loading ? (
                 <>
-                  <Loader2 size={16} className="spinner-border spinner-border-sm" />
+                  <Loader2 size={18} className="spinner-border spinner-border-sm" />
                   <span>{isEditing ? 'Updating...' : 'Adding...'}</span>
                 </>
               ) : (
                 <>
-                  <CheckCircle size={16} />
+                  <CheckCircle size={18} />
                   <span>{isEditing ? 'Update Development' : 'Add Development'}</span>
                 </>
               )}
             </button>
             <button 
               type="button" 
-              className="btn btn-outline-secondary px-4 py-2.5 fw-semibold"
+              className="btn btn-light app-btn px-4 py-3 border"
               onClick={handleCancel}
-              style={{ fontSize: '0.8rem' }}
+              style={{ fontSize: '0.9rem' }}
             >
               Cancel
             </button>
           </div>
         </form>
-
       </div>
     </div>
   );
