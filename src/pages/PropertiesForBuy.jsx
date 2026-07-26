@@ -52,7 +52,7 @@ export default function PropertiesForBuy() {
     return (
       <div className="container py-5 text-center my-5" style={{ color: '#000' }}>
         <div className="spinner-border spinner-border-sm me-2" role="status"></div>
-        <span>Loading properties for Sale from Firestore...</span>
+        <span>Loading properties...</span>
       </div>
     );
   }

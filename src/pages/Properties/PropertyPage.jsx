@@ -45,7 +45,7 @@ export default function PropertyPage() {
           if (docSnap.exists()) {
             setSelectedProperty({ id: docSnap.id, ...docSnap.data() });
           } else {
-            console.error("Document target missing from Firestore index logs.");
+            console.error("Document target missing from DB index logs.");
           }
         } catch (err) {
           console.error("Context parsing aborted:", err);
