@@ -24,8 +24,12 @@ export async function sendResetEmail(email) {
 
 export function getRedirectRoute(user) {
   if (!user) return "/login";
-  if (user.email === "hridesh027@gmail.com") {
+  
+  const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
+  
+  if (user.email === adminEmail) {
     return "/admin-dashboard";
   }
-  return "/"; // Default home ya client dashboard route
+  
+  return "/"; 
 }

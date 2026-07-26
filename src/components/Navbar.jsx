@@ -1,7 +1,8 @@
+// src/components/Navbar.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { auth } from '../config/firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { logoutUser } from '../services/authServices';
+import { useAuth } from '../context/AuthContext';
 import {
   Menu, ChevronDown, Home, Key, DollarSign, Users,
   UserPlus, User, Eye, Calendar, Database, Layers, Briefcase, FileText,
@@ -13,16 +14,7 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
+  const { currentUser: user, isAdmin, loading } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,18 +39,17 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      await logoutUser();
       closeDrawer();
-      navigate('/login');
+      navigate('/signin', { replace: true });
     } catch (error) {
       console.error("Logout error: ", error);
     }
   };
 
   const isActive = (path) => location.pathname === path;
-  const isAdmin = user && user.email === "hridesh027@gmail.com";
 
-  // Dark Hero Page Logic: Pure dark background Hero pages standard
+  // Dark Hero Page Logic
   const isDarkHeroPage = location.pathname === '/'
     || location.pathname === '/sell'
     || location.pathname === '/exclusives/private'
@@ -80,24 +71,40 @@ export default function Navbar() {
       <nav className={`navbar navbar-expand-lg position-fixed px-3 py-3 z-3 w-100 ${getNavbarClasses()}`}>
         <div className="container-fluid px-0">
 
-          {/* Absolute logo route fix */}
           <Link className="navbar-brand d-flex align-items-center gap-2 m-0 p-0" to="/" onClick={closeDrawer}>
             <img src="/images/logo.png" alt="CJ Group Logo" className="brand-logo-img bg-white rounded" />
           </Link>
 
+          {/* MOBILE BUTTONS - ADMIN PIC / AVATAR */}
           <div className="d-flex align-items-center gap-2 d-lg-none ms-auto" style={{ position: 'relative', zIndex: 10 }}>
             {!loading && (
               user ? (
                 <Link
                   to={isAdmin ? "/admin-dashboard" : "/"}
-                  className={`btn mobile-login-btn p-2 d-flex align-items-center justify-content-center shadow-none border-0 ${getTextColor()}`}
+                  className="p-0 border-0 bg-transparent text-decoration-none d-flex align-items-center"
                   aria-label="Dashboard"
                 >
-                  {isAdmin ? <LayoutDashboard size={22} /> : <User size={22} />}
+                  {isAdmin ? (
+                    <div className="position-relative d-inline-block">
+                      <img 
+                        src={user.photoURL || '/images/logo.png'} 
+                        alt="Admin Profile" 
+                        className="rounded-circle border border-2 border-primary shadow-sm object-fit-cover"
+                        width="36"
+                        height="36"
+                        onError={(e) => { e.target.src = '/images/logo.png'; }}
+                      />
+                      <span className="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle p-1" style={{ width: '10px', height: '10px' }}></span>
+                    </div>
+                  ) : (
+                    <div className={`btn mobile-login-btn p-2 d-flex align-items-center justify-content-center shadow-none border-0 ${getTextColor()}`}>
+                      <User size={22} />
+                    </div>
+                  )}
                 </Link>
               ) : (
                 <Link
-                  to="/register"
+                  to="/signin"
                   className={`btn mobile-login-btn p-2 d-flex align-items-center justify-content-center shadow-none border-0 ${getTextColor()}`}
                   aria-label="User Login"
                 >
@@ -242,24 +249,40 @@ export default function Navbar() {
                 </div>
               </li>
 
+              {/* USER / ADMIN DASHBOARD AVATAR PIC & LOGOUT BUTTONS */}
               {!loading && (
                 <li className="nav-item ms-2">
                   {user ? (
                     <div className="d-flex align-items-center gap-2">
                       {isAdmin && (
-                        <Link className={`nav-link border rounded-0 px-3 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-primary text-primary' : (isDarkHeroPage ? 'border-info text-info' : 'border-primary text-primary')}`} to="/admin-dashboard">
-                          Admin Panel
+                        <Link
+                          className="d-flex align-items-center gap-2 text-decoration-none px-2 py-1 rounded-pill bg-light border shadow-sm transition-all hover-scale"
+                          to="/admin-dashboard"
+                          title="Admin Dashboard"
+                        >
+                          <img 
+                            src={user.photoURL || '/images/logo.png'} 
+                            alt="Admin" 
+                            className="rounded-circle border border-primary object-fit-cover"
+                            width="34"
+                            height="34"
+                            onError={(e) => { e.target.src = '/images/logo.png'; }}
+                          />
+                          <span className="fw-bold text-dark small pe-2 d-none d-xl-inline">
+                            {user.displayName || 'Admin'}
+                          </span>
                         </Link>
                       )}
+
                       <button
-                        className={`nav-link border rounded-0 px-4 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-danger text-danger hover-bg-danger text-white-hover' : (isDarkHeroPage ? 'border-white text-white hover-bg-white' : 'border-dark text-dark hover-bg-dark text-white-hover')}`}
+                        className={`nav-link border rounded-0 px-3 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-danger text-danger hover-bg-danger text-white-hover' : (isDarkHeroPage ? 'border-white text-white hover-bg-white' : 'border-dark text-dark hover-bg-dark text-white-hover')}`}
                         onClick={handleLogout}
                       >
                         <div className="d-flex align-items-center gap-1"><LogOut size={14} /> Sign Out</div>
                       </button>
                     </div>
                   ) : (
-                    <Link className={`nav-link border rounded-0 px-4 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-dark text-dark hover-bg-dark text-white-hover' : (isDarkHeroPage ? 'border-white text-white hover-bg-white' : 'border-dark text-dark hover-bg-dark text-white-hover')}`} to="/register">
+                    <Link className={`nav-link border rounded-0 px-4 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-dark text-dark hover-bg-dark text-white-hover' : (isDarkHeroPage ? 'border-white text-white hover-bg-white' : 'border-dark text-dark hover-bg-dark text-white-hover')}`} to="/signin">
                       Register / Sign In
                     </Link>
                   )}
@@ -285,7 +308,7 @@ export default function Navbar() {
             <div className="section-label px-4 py-1 mb-1">Core Actions</div>
             <Link to="/buy" className="android-item" onClick={closeDrawer}><div className="console-box bg-green text-white"><Home size={18} /></div><span className="title-node">Buy Properties</span></Link>
             <Link to="/sell" className="android-item" onClick={closeDrawer}><div className="console-box bg-orange text-white"><DollarSign size={18} /></div><span className="title-node">New Sales Request</span></Link>
-            <Link to="/rent" className="android-item" onClick={closeDrawer}><div className="console-box bg-blue text-white"><Key size={18} /></div><span className="title-node">Rent Spaces</span></Link>
+            <Link to="/buy" className="android-item" onClick={closeDrawer}><div className="console-box bg-blue text-white"><Key size={18} /></div><span className="title-node">Rent Spaces</span></Link>
           </div>
 
           <div className="android-divider"></div>
@@ -319,8 +342,20 @@ export default function Navbar() {
               <div className="android-divider"></div>
               <div className="py-2 px-3">
                 {isAdmin && (
-                  <Link to="/admin-dashboard" className="btn btn-primary w-100 mb-2 rounded-3 py-2 text-uppercase small tracking-wider fw-bold" onClick={closeDrawer}>
-                    Admin Panel
+                  <Link 
+                    to="/admin-dashboard" 
+                    className="btn btn-primary w-100 mb-2 rounded-3 py-2 text-uppercase small tracking-wider fw-bold d-flex align-items-center justify-content-center gap-2" 
+                    onClick={closeDrawer}
+                  >
+                    <img 
+                      src={user.photoURL || '/images/logo.png'} 
+                      alt="Admin Avatar" 
+                      className="rounded-circle border border-white object-fit-cover"
+                      width="24"
+                      height="24"
+                      onError={(e) => { e.target.src = '/images/logo.png'; }}
+                    />
+                    Admin Console
                   </Link>
                 )}
                 <button className="btn btn-outline-danger w-100 rounded-3 py-2 text-uppercase small tracking-wider fw-bold" onClick={handleLogout}>

@@ -1,13 +1,20 @@
-// src\pages\Auth\Logout.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../services/authServices';
+import { toast } from 'sonner';
 
 export default function Logout() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    alert("You have successfully logged out.");
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      toast.success('Successfully logged out.');
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to logout. Please try again.');
+    }
   };
 
   return (

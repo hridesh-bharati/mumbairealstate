@@ -1,5 +1,7 @@
+// src/context/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const AuthContext = createContext();
 
@@ -9,19 +11,34 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const rawAdminEmail = import.meta.env.VITE_ADMIN_EMAIL || "";
+    const formattedAdminEmail = rawAdminEmail.trim().toLowerCase();
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-      setIsAdmin(user?.email === "hridesh027@gmail.com");
+      if (user && user.email) {
+        const userEmail = user.email.trim().toLowerCase();
+        setIsAdmin(userEmail === formattedAdminEmail);
+      } else {
+        setIsAdmin(false);
+      }
       setLoading(false);
     });
-    return unsubscribe;
+
+    return () => unsubscribe();
   }, []);
 
-  const value = { currentUser, isAdmin };
+  const value = { currentUser, isAdmin, loading };
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {!loading ? children : (
+        <div className="vh-100 d-flex align-items-center justify-content-center bg-white">
+          <div className="spinner-border text-dark" role="status">
+            <span className="visually-hidden">Initializing System...</span>
+          </div>
+        </div>
+      )}
     </AuthContext.Provider>
   );
 }

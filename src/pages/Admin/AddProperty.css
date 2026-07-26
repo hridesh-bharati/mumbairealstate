@@ -14,7 +14,6 @@
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.9) !important;
   box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.06), 0 8px 24px -10px rgba(15, 23, 42, 0.04);
-  border-radius: 24px !important;
 }
 
 .form-category-title {

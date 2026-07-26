@@ -172,9 +172,9 @@ export default function AddProperty() {
     : null;
 
   return (
-    <div className="main-admin-wrapper py-4 text-start">
-      <div className="container px-2 px-md-3">
-        <div className="card p-4 custom-glass-form-card border-0">
+    <div className="main-admin-wrapper  text-start">
+      <div className="container p-0 m-0">
+        <div className="card rounded-0 p-4 custom-glass-form-card border-0">
 
           {/* Main Top Header Block */}
           <div className="d-flex align-items-center gap-3 mb-1 border-bottom border-light pb-3">

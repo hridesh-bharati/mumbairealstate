@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { sendResetEmail } from '../../services/authServices';
+import { toast } from 'sonner';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleReset = async (e) => {
     e.preventDefault();
-    setMessage('');
-    setError('');
     setLoading(true);
 
     try {
       await sendResetEmail(email);
-      setMessage('✅ Reset link has been sent to your email. Check your inbox!');
+      toast.success('Reset link sent! Please check your email inbox.');
       setEmail('');
     } catch (err) {
       console.error(err);
-      setError('❌ Failed to send password reset email. Please check the email address.');
+      toast.error('Failed to send reset email. Please check the email address.');
     } finally {
       setLoading(false);
     }
@@ -36,9 +33,6 @@ export default function ForgotPassword() {
               <p className="text-muted text-center small mb-4">
                 Enter your registered email address to receive a password reset link.
               </p>
-
-              {message && <div className="alert alert-success small py-2">{message}</div>}
-              {error && <div className="alert alert-danger small py-2">{error}</div>}
 
               <form onSubmit={handleReset}>
                 <div className="mb-4">

@@ -1,28 +1,47 @@
-// src\pages\Auth\SignIn.jsx
+// src/pages/Auth/SignIn.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser, getRedirectRoute } from '../../services/authServices';
+import { loginUser, logoutUser } from '../../services/authServices';
+import { toast } from 'sonner';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setError('');
+    if (loading) return;
     setLoading(true);
 
+    const rawAdminEmail = import.meta.env.VITE_ADMIN_EMAIL || '';
+    const formattedAdminEmail = rawAdminEmail.trim().toLowerCase();
+    const inputEmail = email.trim().toLowerCase();
+
     try {
-      const userCredential = await loginUser(email, password);
-      const targetPath = getRedirectRoute(userCredential.user);
-      navigate(targetPath); // Agar "hridesh027@gmail.com" hai toh automatic admin dashboard pe redirect hoga
+      const userCredential = await loginUser(inputEmail, password);
+      const user = userCredential.user;
+      const authenticatedEmail = user.email ? user.email.trim().toLowerCase() : '';
+
+      // Strict Admin Access Assertion
+      if (authenticatedEmail !== formattedAdminEmail) {
+        await logoutUser();
+        toast.error('Access Denied: You do not have administrator permissions.');
+        setLoading(false);
+        return;
+      }
+
+      toast.success('Welcome back, Admin!');
+      // Explicit slight delay ensures Firebase Auth Observer syncs state globally before router navigation
+      setTimeout(() => {
+        navigate('/admin-dashboard', { replace: true });
+      }, 100);
+
     } catch (err) {
-      console.error(err);
-      setError('❌ Invalid email or password configuration credentials.');
-    } finally {
+      console.error("Authentication Error:", err);
+      toast.error('Invalid credentials or unauthorized login request.');
       setLoading(false);
     }
   };
@@ -35,37 +54,63 @@ export default function SignIn() {
             <div className="card-body">
               <h2 className="fw-bold mb-4 text-center">Welcome back</h2>
 
-              {error && <div className="alert alert-danger small py-2">{error}</div>}
-
               <form onSubmit={handleSignIn}>
                 <div className="mb-3">
                   <label className="form-label text-uppercase small fw-bold">Email address</label>
-                  <input type="email" className="form-control rounded-0 form-control-lg" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@example.com" required />
+                  <input 
+                    type="email" 
+                    className="form-control rounded-0 form-control-lg" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    placeholder="name@example.com" 
+                    required 
+                  />
                 </div>
+
                 <div className="mb-4">
-                  <label className="form-label text-uppercase small fw-bold">Password</label>
-                  <input type="password" className="form-control rounded-0 form-control-lg" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
+                  <div className="d-flex justify-content-between align-items-center mb-1">
+                    <label className="form-label text-uppercase small fw-bold mb-0">Password</label>
+                    <Link to="/forgot-password" className="text-muted small text-decoration-none">
+                      Forgot Password?
+                    </Link>
+                  </div>
+                  
+                  <div className="input-group">
+                    <input 
+                      type={showPassword ? 'text' : 'password'} 
+                      className="form-control rounded-0 form-control-lg" 
+                      value={password} 
+                      onChange={(e) => setPassword(e.target.value)} 
+                      placeholder="••••••••" 
+                      required 
+                    />
+                    <button 
+                      type="button" 
+                      className="btn btn-outline-secondary rounded-0 px-3 d-flex align-items-center"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                          <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
+                          <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
+                          <path d="M3.35 5.47c-.18.158-.351.321-.516.486C1.481 7.218 1 8 1 8s3 5.5 8 5.5c1.037 0 1.996-.26 2.85-.688l.71.71A8.04 8.04 0 0 1 8 14.5c-5 0-8-5.5-8-5.5a13.133 13.133 0 0 1 1.672-2.198l1.678 1.668z"/>
+                          <path d="M13.646 14.354l-12-12 .708-.708 12 12-.708.708z"/>
+                        </svg>
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                          <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                          <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                        </svg>
+                      )}
+                    </button>
+                  </div>
                 </div>
+
                 <button className="btn btn-dark w-100 py-3 rounded-0 text-uppercase fw-bold mb-3" type="submit" disabled={loading}>
                   {loading ? 'Authenticating...' : 'Sign In'}
                 </button>
               </form>
-              <div className="mb-4">
-                <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label className="form-label text-uppercase small fw-bold mb-0">Password</label>
-                  <Link to="/forgot-password" className="text-muted small text-decoration-none">
-                    Forgot Password?
-                  </Link>
-                </div>
-                <input
-                  type="password"
-                  className="form-control rounded-0 form-control-lg"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
+
               <div className="text-center mt-3">
                 <span className="text-muted">Don't have an account? </span>
                 <Link to="/register" className="text-dark fw-bold text-decoration-none">Register here</Link>
