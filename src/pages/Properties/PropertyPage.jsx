@@ -1,3 +1,4 @@
+// src\pages\Properties\PropertyPage.jsx
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { db } from '../../config/firebase';

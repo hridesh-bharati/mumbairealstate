@@ -74,7 +74,7 @@ export default function CurrentDevelopments() {
       <div className="developments-hero">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-lg-8 text-center">
+            <div className="col-lg-8 text-center mt-4">
               <span className="badge-hero">
                 <Sparkles size={14} className="me-1" />
                 Luxury Collection

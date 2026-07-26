@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { 
-  Menu, ChevronDown, Home, Key, DollarSign, Users, 
-  UserPlus, User, Eye, Calendar, Database, Layers, Briefcase, FileText, 
+import {
+  Menu, ChevronDown, Home, Key, DollarSign, Users,
+  UserPlus, User, Eye, Calendar, Database, Layers, Briefcase, FileText,
   LogOut, LayoutDashboard
 } from 'lucide-react';
 import './Navbar.css';
@@ -57,8 +57,13 @@ export default function Navbar() {
 
   const isActive = (path) => location.pathname === path;
   const isAdmin = user && user.email === "hridesh027@gmail.com";
-  
-  const isDarkHeroPage = location.pathname === '/' || location.pathname === '/sell';
+
+  // Dark Hero Page Logic: Pure dark background Hero pages standard
+  const isDarkHeroPage = location.pathname === '/'
+    || location.pathname === '/sell'
+    || location.pathname === '/exclusives/private'
+    || location.pathname === '/development/marketing-group'
+    || location.pathname === '/development/current';
 
   const getNavbarClasses = () => {
     if (isScrolled) return 'scrolled-nav shadow-sm';
@@ -72,26 +77,27 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`navbar navbar-expand-lg position-fixed px-3 py-3 z-3 ${getNavbarClasses()}`}>
+      <nav className={`navbar navbar-expand-lg position-fixed px-3 py-3 z-3 w-100 ${getNavbarClasses()}`}>
         <div className="container-fluid px-0">
-          
+
+          {/* Absolute logo route fix */}
           <Link className="navbar-brand d-flex align-items-center gap-2 m-0 p-0" to="/" onClick={closeDrawer}>
-            <img src="images/logo.png" alt="CJ Group Logo" className="brand-logo-img bg-white" />
+            <img src="/images/logo.png" alt="CJ Group Logo" className="brand-logo-img bg-white rounded" />
           </Link>
 
           <div className="d-flex align-items-center gap-2 d-lg-none ms-auto" style={{ position: 'relative', zIndex: 10 }}>
             {!loading && (
               user ? (
-                <Link 
-                  to={isAdmin ? "/admin-dashboard" : "/"} 
+                <Link
+                  to={isAdmin ? "/admin-dashboard" : "/"}
                   className={`btn mobile-login-btn p-2 d-flex align-items-center justify-content-center shadow-none border-0 ${getTextColor()}`}
                   aria-label="Dashboard"
                 >
                   {isAdmin ? <LayoutDashboard size={22} /> : <User size={22} />}
                 </Link>
               ) : (
-                <Link 
-                  to="/register" 
+                <Link
+                  to="/register"
                   className={`btn mobile-login-btn p-2 d-flex align-items-center justify-content-center shadow-none border-0 ${getTextColor()}`}
                   aria-label="User Login"
                 >
@@ -100,11 +106,11 @@ export default function Navbar() {
               )
             )}
 
-            <button 
-              className={`btn p-2 shadow-none border-0 ${getTextColor()}`} 
-              type="button" 
-              data-bs-toggle="offcanvas" 
-              data-bs-target="#cjGroupOffcanvas" 
+            <button
+              className={`btn p-2 shadow-none border-0 ${getTextColor()}`}
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#cjGroupOffcanvas"
             >
               <Menu size={26} />
             </button>
@@ -241,12 +247,12 @@ export default function Navbar() {
                   {user ? (
                     <div className="d-flex align-items-center gap-2">
                       {isAdmin && (
-                        <Link className={`nav-link border rounded-0 px-3 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-primary text-primary' : (isDarkHeroPage ? 'border-info text-info' : 'border-dark text-dark')}`} to="/admin-dashboard">
+                        <Link className={`nav-link border rounded-0 px-3 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-primary text-primary' : (isDarkHeroPage ? 'border-info text-info' : 'border-primary text-primary')}`} to="/admin-dashboard">
                           Admin Panel
                         </Link>
                       )}
-                      <button 
-                        className={`nav-link border rounded-0 px-4 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-danger text-danger hover-bg-danger text-white-hover' : (isDarkHeroPage ? 'border-white text-white hover-bg-white' : 'border-dark text-dark hover-bg-dark text-white-hover')}`} 
+                      <button
+                        className={`nav-link border rounded-0 px-4 py-2 text-uppercase small tracking-wider fw-bold transition-all ${isScrolled ? 'border-danger text-danger hover-bg-danger text-white-hover' : (isDarkHeroPage ? 'border-white text-white hover-bg-white' : 'border-dark text-dark hover-bg-dark text-white-hover')}`}
                         onClick={handleLogout}
                       >
                         <div className="d-flex align-items-center gap-1"><LogOut size={14} /> Sign Out</div>
@@ -268,13 +274,13 @@ export default function Navbar() {
       <div className="offcanvas offcanvas-start bg-white w-100 border-0" tabIndex="-1" id="cjGroupOffcanvas">
         <div className="bg-white px-4 pt-4 pb-3 d-flex flex-column gap-2">
           <div className="d-flex align-items-center justify-content-between">
-            <img src="images/logo.png" alt="CJ Group Menu Logo" className="brand-logo-img drawer-logo" />
+            <img src="/images/logo.png" alt="CJ Group Menu Logo" className="brand-logo-img drawer-logo" />
             <button type="button" className="btn-close shadow-none p-2 m-0" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
         </div>
         <div className="offcanvas-body p-0 overflow-y-auto">
           <div className="android-divider"></div>
-          
+
           <div className="py-2">
             <div className="section-label px-4 py-1 mb-1">Core Actions</div>
             <Link to="/buy" className="android-item" onClick={closeDrawer}><div className="console-box bg-green text-white"><Home size={18} /></div><span className="title-node">Buy Properties</span></Link>

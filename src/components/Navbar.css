@@ -16,18 +16,19 @@
 
 /* ================= A. ONLY HOME PAGE ("/") DEFAULT TRANSPARENT + WATER BLUR EFFECT ================= */
 .home-water-nav {
-  background-color: rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(0, 0, 0, 0.25) !important;
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* ================= B. ALL OTHER PAGES DEFAULT TRANSPARENT (NO WATER BLUR EFFECT) ================= */
+/* ================= B. ALL OTHER PAGES SOLID WHITE (NO BACKGROUND PIC) ================= */
 .other-clear-nav {
-  background-color: transparent !important;
+  background-color: #ffffff !important; /* Transparent hata kar Solid White kiya */
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid transparent; 
+  border: 1px solid #eaeaea !important; /* Halka border taaki page se mix na ho */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05) !important; /* Halki shadow look ke liye */
 }
 
 /* ================= C. UNIVERSAL SCROLL EFFECT (PURE SOLID WHITE FOR ALL PAGES) ================= */
@@ -69,6 +70,12 @@
 .navbar.home-water-nav .pc-nav-link.active { background-color: rgba(255, 255, 255, 0.2) !important; }
 .navbar:not(.home-water-nav) .pc-nav-link.active { background-color: #f1f3f4 !important; font-weight: 600 !important; }
 
+/* Dynamic state for mega menu on hover - forces text readable dark */
+.navbar .dropdown:hover > .pc-nav-link {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
 /* Auth Buttons dynamic configuration rules */
 .hover-bg-dark:hover { background-color: #000000 !important; }
 .text-white-hover:hover { color: #ffffff !important; }
@@ -105,7 +112,7 @@
   top: 100% !important;
   background-color: #ffffff; 
   border-radius: 16px !important; 
-  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.12) !important;
   opacity: 0; 
   transform: translateY(-10px); 
   transition: opacity 0.25s ease, transform 0.25s ease; 
@@ -127,11 +134,21 @@
 .extra-small { font-size: 11px; color: #757575; }
 .pc-badge { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; color: #ffffff; flex-shrink: 0; }
 
-/* Colors for specific custom themes */
+/* Custom Badge background colors */
 .bg-purple { background-color: #6f42c1; }
+.bg-purple-light { background-color: #f3ebf9; }
+.text-purple { color: #6f42c1; }
+
 .bg-teal { background-color: #20c997; }
+
 .bg-cyan { background-color: #0dcaf0; }
+.bg-cyan-light { background-color: #e6f9fc; }
+.text-cyan { color: #0aa2c0; }
+
 .bg-pink { background-color: #d63384; }
+.bg-pink-light { background-color: #fce8f3; }
+.text-pink { color: #d63384; }
+
 .bg-red { background-color: #dc3545; }
 
 /* ================= MOBILE CONFIGS ================= */

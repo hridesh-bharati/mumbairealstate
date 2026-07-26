@@ -294,6 +294,7 @@ export default function AddProperty() {
                 <select name="listingStatus" className="form-select input-control-custom border-success border-opacity-50" value={formData.listingStatus} onChange={handleChange} style={{ background: '#f0fdf4' }}>
                   <option value="Active Listing">Active Listing</option>
                   <option value="Pending">Pending</option>
+                  <option value="Coming soon">Coming soon</option>
                   <option value="Sold Asset">Sold Asset</option>
                   <option value="Off Market">Off Market</option>
                 </select>

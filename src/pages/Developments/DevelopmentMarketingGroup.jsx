@@ -17,7 +17,7 @@ export default function DevelopmentMarketingGroup() {
     });
   }, []);
 
-  // Dynamic Carousel Data Mapped to Selected City
+  // Unique Image Database for EVERY City Link
   const cityData = {
     'Chicago': [
       {
@@ -84,9 +84,96 @@ export default function DevelopmentMarketingGroup() {
         sub: 'California • Hollywood',
         img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80'
       }
+    ],
+    'Florida': [
+      {
+        title: 'Miami Beach Luxury Waterfront Towers',
+        sub: 'Florida • South Beach',
+        img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=80'
+      },
+      {
+        title: 'Brickell Avenue Financial Towers',
+        sub: 'Florida • Downtown Miami',
+        img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80'
+      },
+      {
+        title: 'Palm Beach Coastal Condominiums',
+        sub: 'Florida • Palm Beach',
+        img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80'
+      },
+      {
+        title: 'Sunny Isles High-Rise Marvels',
+        sub: 'Florida • Sunny Isles',
+        img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80'
+      }
+    ],
+    'Tennessee': [
+      {
+        title: 'Nashville Downtown Skyline Suites',
+        sub: 'Tennessee • Nashville Center',
+        img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=80'
+      },
+      {
+        title: 'Gulch District High-Rise Penthouses',
+        sub: 'Tennessee • The Gulch',
+        img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80'
+      }
+    ],
+    'Georgia': [
+      {
+        title: 'Atlanta Buckhead Luxury Towers',
+        sub: 'Georgia • Buckhead District',
+        img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80'
+      },
+      {
+        title: 'Midtown High-Rise Condos',
+        sub: 'Georgia • Midtown Atlanta',
+        img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80'
+      }
+    ],
+    'Montana': [
+      {
+        title: 'Big Sky Mountain Retreats & Condos',
+        sub: 'Montana • Big Sky',
+        img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80'
+      }
+    ],
+    'Hawaii': [
+      {
+        title: 'Honolulu Oceanfront High-Rise',
+        sub: 'Hawaii • Waikiki Beach',
+        img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=80'
+      }
+    ],
+    'Texas': [
+      {
+        title: 'Austin Downtown Riverfront Towers',
+        sub: 'Texas • Austin City Center',
+        img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80'
+      },
+      {
+        title: 'Dallas Uptown Luxury Residences',
+        sub: 'Texas • Dallas Uptown',
+        img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80'
+      }
+    ],
+    'Southern California': [
+      {
+        title: 'San Diego Coastal Skyline Towers',
+        sub: 'Southern California • San Diego',
+        img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=80'
+      }
+    ],
+    'Washington': [
+      {
+        title: 'Seattle Waterfront Skyline Condos',
+        sub: 'Washington • Seattle Downtown',
+        img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80'
+      }
     ]
   };
 
+  // Get current active city slides
   const currentSlides = cityData[activeTab] || cityData['Chicago'];
 
   const cityColumns = [
@@ -121,9 +208,9 @@ export default function DevelopmentMarketingGroup() {
 
   return (
     <div className="bg-dark text-white font-sans overflow-hidden">
-      
+
       {/* ================= 1. HERO SECTION ================= */}
-      <section 
+      <section
         className="position-relative min-vh-100 d-flex align-items-end p-4 p-md-5"
         style={{
           backgroundImage: 'linear-gradient(to top, rgba(10,14,18,0.95), rgba(10,14,18,0.3)), url("https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80")',
@@ -133,15 +220,14 @@ export default function DevelopmentMarketingGroup() {
       >
         <div className="container py-5 text-center position-relative z-1">
           <div className="mx-auto" style={{ maxWidth: '850px' }}>
-            <p 
-              className="fs-5 text-white-50 leading-relaxed mb-4" 
-              style={{ fontFamily: "'Playfair Display', serif" }}
+            <p
+              className="fs-5 text-white-50 leading-relaxed mb-4"
               data-aos="fade-down"
             >
               At <strong className="text-white">CJ Group Development Marketing Group</strong>, we elevate modern real estate through strategic design, bespoke marketing, and unmatched developer services. Leveraging decades of experience and innovation, we transform developments into dynamic communities.
             </p>
-            <button 
-              className="btn text-white rounded-0 px-4 py-2.5 text-uppercase fw-semibold tracking-wider border-0" 
+            <button
+              className="btn text-white rounded-0 px-4 py-2.5 text-uppercase fw-semibold tracking-wider border-0"
               style={{ backgroundColor: '#583beb', fontSize: '12px' }}
               data-aos="zoom-in"
               data-aos-delay="200"
@@ -152,18 +238,17 @@ export default function DevelopmentMarketingGroup() {
         </div>
       </section>
 
-      {/* ================= 2. NATIONAL PRESENCE ================= */}
+      {/* ================= 2. NATIONAL PRESENCE (DYNAMIC CITY LINK SYNCED CAROUSEL) ================= */}
       <section className="bg-white text-dark py-5 px-3 px-md-5">
         <div className="container py-4">
-          <h2 
-            className="display-5 fw-normal mb-3" 
-            style={{ fontFamily: "'Playfair Display', serif" }}
+          <h2
+            className="display-5 fw-normal mb-3"
             data-aos="fade-right"
           >
-            An Established National Presence in <span className="fst-italic text-primary">{activeTab}</span>
+            An Established National Presence in <span className="fst-italic" style={{ color: '#583beb' }}>{activeTab}</span>
           </h2>
-          <p 
-            className="text-muted mb-4" 
+          <p
+            className="text-muted mb-4"
             style={{ maxWidth: '780px' }}
             data-aos="fade-right"
             data-aos-delay="100"
@@ -171,18 +256,20 @@ export default function DevelopmentMarketingGroup() {
             CJ Group has the largest digital and agent reach of any brokerage firm in the United States. We activate that advantage to deliver value to our clients every day.
           </p>
 
-          {/* Cities Selector */}
+          {/* Dynamic Cities Grid Selector */}
           <div className="row g-3 my-4 fs-6" data-aos="fade-up" data-aos-delay="200">
             {cityColumns.map((col, idx) => (
               <div key={idx} className="col-6 col-sm-3 d-flex flex-column gap-2">
                 {col.map((cityName) => (
-                  <span 
+                  <span
                     key={cityName}
                     onClick={() => setActiveTab(cityName)}
-                    className={`user-select-none ${
-                      activeTab === cityName ? 'fw-bold text-primary' : 'text-muted'
-                    }`}
-                    style={{ cursor: 'pointer' }}
+                    className={`user-select-none transition-all ${activeTab === cityName ? 'fw-bold' : 'text-muted'
+                      }`}
+                    style={{
+                      cursor: 'pointer',
+                      color: activeTab === cityName ? '#583beb' : ''
+                    }}
                   >
                     {cityName}
                   </span>
@@ -191,22 +278,23 @@ export default function DevelopmentMarketingGroup() {
             ))}
           </div>
 
-          {/* Dynamic Carousel */}
-          <div 
-            id="luxuryResidencesCarousel" 
-            className="carousel slide shadow-lg rounded-0 overflow-hidden mt-5" 
+          {/* Dynamic Carousel Instance re-rendered using key={activeTab} */}
+          <div
+            key={activeTab}
+            id="luxuryResidencesCarousel"
+            className="carousel slide shadow-lg rounded-0 overflow-hidden mt-5"
             data-bs-ride="carousel"
             data-aos="zoom-in"
             data-aos-delay="300"
           >
             <div className="carousel-indicators mb-3">
               {currentSlides.map((_, index) => (
-                <button 
+                <button
                   key={index}
-                  type="button" 
-                  data-bs-target="#luxuryResidencesCarousel" 
-                  data-bs-slide-to={index} 
-                  className={index === 0 ? 'active' : ''} 
+                  type="button"
+                  data-bs-target="#luxuryResidencesCarousel"
+                  data-bs-slide-to={index}
+                  className={index === 0 ? 'active' : ''}
                   aria-current={index === 0 ? 'true' : 'false'}
                 ></button>
               ))}
@@ -214,13 +302,13 @@ export default function DevelopmentMarketingGroup() {
 
             <div className="carousel-inner">
               {currentSlides.map((slide, index) => (
-                <div 
-                  key={index} 
-                  className={`carousel-item ${index === 0 ? 'active' : ''}`} 
+                <div
+                  key={index}
+                  className={`carousel-item ${index === 0 ? 'active' : ''}`}
                   data-bs-interval="4000"
                 >
-                  <div 
-                    className="d-flex align-items-end p-4 p-md-5"
+                  <div
+                    className="d-flex align-items-end p-4 p-md-5 transition-all"
                     style={{
                       minHeight: '480px',
                       backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.1)), url("${slide.img}")`,
@@ -230,7 +318,7 @@ export default function DevelopmentMarketingGroup() {
                   >
                     <div className="text-white z-1">
                       <span className="text-uppercase tracking-widest text-white-50 small">{slide.sub}</span>
-                      <h3 className="fw-normal my-1" style={{ fontFamily: "'Playfair Display', serif" }}>{slide.title}</h3>
+                      <h3 className="fw-normal my-1">{slide.title}</h3>
                     </div>
                   </div>
                 </div>
@@ -255,12 +343,12 @@ export default function DevelopmentMarketingGroup() {
         </div>
       </section>
 
-      {/* ================= 3. DELIVERING THE NUMBERS ================= */}
+      {/* ================= 3. DELIVERING THE NUMBERS (GAP-FREE SLANTED STRIP) ================= */}
       <section className="bg-light text-dark py-5 border-top border-bottom overflow-hidden">
         <div className="container py-4">
           <div className="row align-items-center mb-5" data-aos="fade-up">
             <div className="col-md-6">
-              <h2 className="display-5 fw-normal mb-0" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <h2 className="display-5 fw-normal mb-0" >
                 <span className="fst-italic">Delivering</span> <strong className="fw-semibold">The Numbers</strong>
               </h2>
             </div>
@@ -306,18 +394,17 @@ export default function DevelopmentMarketingGroup() {
         </div>
       </section>
 
-      {/* ================= 4. A DEPTH OF EXPERTISE ================= */}
+      {/* ================= 4. A DEPTH OF EXPERTISE (GLASS OVERLAY & SLIDE UP) ================= */}
       <section className="bg-black text-white py-5">
         <div className="container py-5 text-center">
-          <h2 
-            className="display-4 fw-normal mb-3" 
-            style={{ fontFamily: "'Playfair Display', serif" }}
+          <h2
+            className="display-4 fw-normal mb-3"
             data-aos="fade-up"
           >
             A Depth of <span className="fst-italic">Expertise</span>
           </h2>
-          <p 
-            className="text-white-50 mb-4 mx-auto" 
+          <p
+            className="text-white-50 mb-4 mx-auto"
             style={{ maxWidth: '680px', fontSize: '1.05rem' }}
             data-aos="fade-up"
             data-aos-delay="100"
@@ -325,8 +412,8 @@ export default function DevelopmentMarketingGroup() {
             Led by industry experts with decades of collective experience, CJ Group combines an entrepreneurial mindset with the wisdom gained from years in the field.
           </p>
 
-          <button 
-            className="btn text-white rounded-0 px-4 py-2.5 text-uppercase fw-semibold tracking-wider mb-5 border-0" 
+          <button
+            className="btn text-white rounded-0 px-4 py-2.5 text-uppercase fw-semibold tracking-wider mb-5 border-0"
             style={{ backgroundColor: '#583beb', fontSize: '12px' }}
             data-aos="zoom-in"
             data-aos-delay="200"
@@ -334,7 +421,7 @@ export default function DevelopmentMarketingGroup() {
             VIEW SERVICES
           </button>
 
-          <div 
+          <div
             className="position-relative border border-white border-opacity-25 rounded-0 overflow-hidden my-4"
             style={{
               backgroundImage: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80")',
@@ -347,17 +434,16 @@ export default function DevelopmentMarketingGroup() {
           >
             <div className="row g-0 h-100 position-relative z-1" style={{ minHeight: '600px' }}>
               {expertiseItems.map((item, index) => (
-                <div 
-                  key={item.id} 
-                  className={`col-12 col-md-6 p-0 expertise-grid-item ${
-                    index % 2 === 0 ? 'border-end-md' : ''
-                  } ${index < 2 ? 'border-bottom-md' : ''}`}
+                <div
+                  key={item.id}
+                  className={`col-12 col-md-6 p-0 expertise-grid-item ${index % 2 === 0 ? 'border-end-md' : ''
+                    } ${index < 2 ? 'border-bottom-md' : ''}`}
                   style={{ minHeight: '300px' }}
                   data-aos="fade-up"
                   data-aos-delay={index * 150}
                 >
                   <div className="expertise-card-inner w-100 h-100 p-4 p-lg-5 d-flex flex-column align-items-center justify-content-center text-center position-relative overflow-hidden">
-                    
+
                     <h4 className="fw-semibold tracking-widest text-uppercase mb-0 default-title">
                       {item.title}
                     </h4>
@@ -386,7 +472,7 @@ export default function DevelopmentMarketingGroup() {
         <div className="container py-4">
           <div className="row align-items-center mb-4">
             <div className="col-md-5" data-aos="fade-right">
-              <h2 className="display-5 fw-normal" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <h2 className="display-5 fw-bold" >
                 In <span className="fst-italic">Good</span> Company
               </h2>
               <p className="text-muted">
@@ -399,12 +485,12 @@ export default function DevelopmentMarketingGroup() {
 
             <div className="col-md-7 mt-5 mt-md-0" data-aos="fade-left" data-aos-delay="200">
               <div className="row g-4 align-items-center text-center opacity-75">
-                <div className="col-6 col-sm-4 p-3"><div className="fw-bold tracking-widest text-uppercase fs-5" style={{ letterSpacing: '3px', fontFamily: 'serif' }}>OPTIMUM</div></div>
-                <div className="col-6 col-sm-4 p-3"><div className="fw-bold fs-4" style={{ fontFamily: "'Playfair Display', serif" }}>Rudin</div></div>
-                <div className="col-6 col-sm-4 p-3"><div className="fw-light tracking-widest text-uppercase" style={{ fontSize: '13px', letterSpacing: '4px' }}>SILVERSTEIN</div></div>
+                <div className="col-6 col-sm-4 p-3"><div className="fw-bold tracking-widest text-uppercase fs-5" style={{ letterSpacing: '3px' }}>OPTIMUM</div></div>
+                <div className="col-6 col-sm-4 p-3"><div className="fw-bold fs-4" >Rudin</div></div>
+                <div className="col-6 col-sm-4 p-3"><div className="fw-light tracking-widest text-uppercase" style={{  letterSpacing: '4px' }}>SILVERSTEIN</div></div>
                 <div className="col-6 col-sm-4 p-3"><div className="fw-bold text-uppercase fs-5" style={{ letterSpacing: '2px' }}>BLACKSTONE</div></div>
                 <div className="col-6 col-sm-4 p-3"><div className="fw-bold tracking-wider fs-4" style={{ letterSpacing: '3px' }}>EXTELL</div></div>
-                <div className="col-6 col-sm-4 p-3"><div className="fw-bold fs-4" style={{ fontFamily: 'monospace' }}>GLUCK+</div></div>
+                <div className="col-6 col-sm-4 p-3"><div className="fw-bold fs-4">GLUCK+</div></div>
               </div>
             </div>
           </div>
@@ -412,20 +498,20 @@ export default function DevelopmentMarketingGroup() {
       </section>
 
       {/* ================= 6. EXPERIENCE THE DIFFERENCE ================= */}
-      <section 
+      <section
         className="text-white py-5 text-center position-relative dotted-cta-bg"
         style={{ minHeight: '320px' }}
       >
         <div className="container py-5 d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '260px' }}>
-          <h2 
-            className="display-4 fw-normal mb-4" 
+          <h2
+            className="display-4 fw-normal mb-4"
             style={{ fontFamily: "'Playfair Display', serif", letterSpacing: '0.5px' }}
             data-aos="fade-up"
           >
             <span className="fst-italic">Experience</span> the Difference
           </h2>
-          <button 
-            className="btn text-white rounded-0 px-4 py-3 text-uppercase fw-semibold tracking-widest border-0" 
+          <button
+            className="btn text-white rounded-0 px-4 py-3 text-uppercase fw-semibold tracking-widest border-0"
             style={{ backgroundColor: '#583beb', fontSize: '12px' }}
             data-aos="zoom-in"
             data-aos-delay="200"
@@ -453,21 +539,21 @@ export default function DevelopmentMarketingGroup() {
             {/* Facebook */}
             <a href="#facebook" className="text-dark opacity-75 hover-opacity-100 text-decoration-none">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.6 13.77 5.6c1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 3h-2.33v6.8c4.56-.93 8-4.96 8-9.8z"/>
+                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.6 13.77 5.6c1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 3h-2.33v6.8c4.56-.93 8-4.96 8-9.8z" />
               </svg>
             </a>
 
             {/* LinkedIn */}
             <a href="#linkedin" className="text-dark opacity-75 hover-opacity-100 text-decoration-none">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.72a1.4 1.4 0 1 0 1.4 1.4 1.4 1.4 0 0 0-1.4-1.4z"/>
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.72a1.4 1.4 0 1 0 1.4 1.4 1.4 1.4 0 0 0-1.4-1.4z" />
               </svg>
             </a>
           </div>
         </div>
       </footer>
 
-      {/* ================= MINIMAL ESSENTIAL STYLES ================= */}
+      {/* ================= COMPONENT CSS ================= */}
       <style>{`
         /* Slanted Numbers Section (Gap-Free) */
         .numbers-slanted-wrapper {
@@ -568,7 +654,7 @@ export default function DevelopmentMarketingGroup() {
           transform: translate(4px, -4px);
         }
 
-        /* Dotted Pattern */
+        /* Dotted CTA Pattern */
         .dotted-cta-bg {
           background-color: #080a0d;
           background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
