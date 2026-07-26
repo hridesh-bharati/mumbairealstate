@@ -354,9 +354,14 @@ export default function AdminDashboard() {
 
       {/* MOBILE HEADER */}
       <div className="d-flex d-lg-none justify-content-between align-items-center bg-white border-bottom p-3 sticky-top shadow-sm z-3">
-        <div className="d-flex align-items-center p-0 m-0">
-          <span className="fw-bold fs-5 text-dark">CJ Groups Admin Hub</span>
-        </div>
+     <div className="d-flex align-items-center p-0 m-0">
+  <span 
+    className="fw-bold fs-5 admin-hub-gradient"
+     
+  >
+    CJ Groups Admin Hub
+  </span>
+</div>
 
         <div className="d-flex align-items-center gap-2">
           {/* HOME BUTTON */}
@@ -397,8 +402,8 @@ export default function AdminDashboard() {
               <div className="glass-box p-3 rounded-4 d-flex align-items-center justify-content-center">
                 <Sparkles size={24} className="text-white" />
               </div>
-              <div>
-                <p className="text-uppercase tracking-wider text-white-50 small fw-bold mb-0" style={{ fontSize: '0.7rem', letterSpacing: '1px' }}>
+              <div >
+                <p className="text-uppercase tracking-wider text-white small fw-bold mb-0" style={{ fontSize: '0.7rem', letterSpacing: '1px' }}>
                   CONTROL MANAGEMENT HUB
                 </p>
                 <h3 className="fw-bold mb-0">System Control Dashboard</h3>

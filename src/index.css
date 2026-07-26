@@ -468,3 +468,12 @@
   margin-top: 1.5rem;
   margin-bottom: 1rem;
 }
+
+
+.admin-hub-gradient {
+  background: linear-gradient(135deg, #8A2BE2 0%, #007bff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}

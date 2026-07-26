@@ -1,7 +1,7 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { Toaster } from 'sonner';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 
@@ -39,6 +39,33 @@ import DevelopmentDetails from './pages/DevelopmentDetails';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import MapViewSearch from './pages/MapViewSearch';
 
+// Route change hone par auto top scroll karne ke liye minimal handler
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [pathname]);
+
+  return null;
+}
+
+// Conditional Navbar Component:
+function ConditionalNavbar() {
+  const location = useLocation();
+  const isAdminPage = location.pathname === '/admin-dashboard';
+
+  return (
+    <div className={isAdminPage ? 'd-none d-md-block' : 'd-block'}>
+      <Navbar />
+    </div>
+  );
+}
+
 export default function App() {
   const [showScrollBtn, setShowScrollBtn] = useState(false);
 
@@ -66,14 +93,15 @@ export default function App() {
 
   return (
     <Router>
+      {/* Route badalne par smooth scroll to top trigger karega */}
+      <ScrollToTop />
+      
       <AuthProvider>
         <Toaster position="top-center" richColors />
         <div className="d-flex flex-column min-vh-100 bg-white position-relative">
 
-          {/* Main Top Global Layout Navbar */}
-          <div className="d-none d-md-block">
-            <Navbar />
-          </div>
+          {/* Dynamic Navbar based on current Route */}
+          <ConditionalNavbar />
 
           <main className="flex-grow-1">
             <Routes>
@@ -130,11 +158,12 @@ export default function App() {
           {showScrollBtn && (
             <button
               onClick={scrollToTop}
-              className="btn btn-dark position-fixed bottom-0 end-0 m-4 rounded-circle shadow-lg d-flex align-items-center justify-content-center p-0"
+              className="btn btn-dark position-fixed end-0 m-2 rounded-circle shadow-lg d-flex align-items-center justify-content-center p-0"
               style={{
                 width: '45px',
                 height: '45px',
                 zIndex: 1050,
+                bottom:"45px",
                 border: '1px solid rgba(255,255,255,0.2)',
                 backgroundColor: '#181b1f',
                 transition: 'all 0.3s ease'
