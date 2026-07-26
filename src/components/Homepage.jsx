@@ -7,7 +7,6 @@ import './Homepage.css';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import PopularMarkets from '../pages/PopularMarkets';
 
 export default function Homepage() {
   const [tab, setTab] = useState('buy');
@@ -264,7 +263,6 @@ export default function Homepage() {
 
       {/* Neighborhood Profiles */}
       <Neighborhoods />
-      <PopularMarkets />
     </div>
   );
 }

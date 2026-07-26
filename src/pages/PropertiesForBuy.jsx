@@ -5,8 +5,7 @@ import { db } from '../config/firebase';
 import { collection, onSnapshot, query, orderBy, where } from 'firebase/firestore';
 import { Home, Bath, Square, MapPin, Layers } from 'lucide-react';
 import AOS from 'aos';
-import 'aos/dist/aos.css';
-import PopularMarkets from './PopularMarkets';
+import 'aos/dist/aos.css';  
 
 export default function PropertiesForBuy() {
   const navigate = useNavigate();
@@ -144,7 +143,6 @@ export default function PropertiesForBuy() {
           </div>
         )}
       </div>
-      <PopularMarkets />
     </div>
   );
 }
