@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, ArrowRight, ChevronDown } from 'lucide-react';
-import FeaturedProperties from '../pages/FeaturedProperties';
-import Neighborhoods from '../pages/Neighborhoods';
+import FeaturedProperties from '../pages/FeaturedProperties'; 
 import './Homepage.css';
 
 import AOS from 'aos';
@@ -262,7 +261,6 @@ export default function Homepage() {
       </div>
 
       {/* Neighborhood Profiles */}
-      <Neighborhoods />
     </div>
   );
 }
