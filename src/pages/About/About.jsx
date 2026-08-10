@@ -55,6 +55,34 @@ const About = () => {
   // ============ STATE FOR VIDEO MODAL ============
   const [showVideo, setShowVideo] = useState(false);
 
+  // ============ DYNAMIC AOS INJECTION & INIT ============
+  useEffect(() => {
+    // Inject AOS CSS
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/aos@next/dist/aos.css';
+    document.head.appendChild(link);
+
+    // Inject AOS JS
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/aos@next/dist/aos.js';
+    script.onload = () => {
+      if (window.AOS) {
+        window.AOS.init({
+          duration: 800,
+          once: true,
+          easing: 'ease-in-out'
+        });
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      document.head.removeChild(link);
+      document.body.removeChild(script);
+    };
+  }, []);
+
   // ============ COUNTER ANIMATION EFFECT ============
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -291,7 +319,7 @@ const About = () => {
       <div className="container position-relative z-1 py-3">
 
         {/* SECTION HEADER */}
-        <div className="text-center mb-5">
+        <div className="text-center mb-5" data-aos="fade-up">
           <span
             className="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill text-uppercase fw-bold small mb-3 shadow-sm text-white glass-badge"
             style={{
@@ -313,7 +341,7 @@ const About = () => {
 
         {/* MAIN CONTENT - IMAGE + INFO */}
         <div className="row align-items-center g-5 mb-5">
-          <div className="col-lg-6">
+          <div className="col-lg-6" data-aos="fade-right">
             <div className="position-relative">
               <div className="rounded-4 overflow-hidden shadow-lg border border-4 border-white position-relative">
                 <img
@@ -392,7 +420,7 @@ const About = () => {
             </div>
           </div>
 
-          <div className="col-lg-6">
+          <div className="col-lg-6" data-aos="fade-left">
             <h3 className="h2 fw-bold mb-3" style={{ color: '#0f172a' }}>
               We Build Iconic Structures That Express <span style={{ color: '#2563eb' }}>Elegance</span> & <span style={{ color: '#16a34a' }}>Durability</span>
             </h3>
@@ -402,7 +430,7 @@ const About = () => {
 
             {/* GLASSMORPHISM 2x2 Feature Cards */}
             <div className="row g-3 mb-4">
-              <div className="col-sm-6">
+              <div className="col-sm-6" data-aos="zoom-in" data-aos-delay="100">
                 <div className="p-3 rounded-4 glass-card shadow-sm border-0 h-100 d-flex align-items-center gap-3 transition-all">
                   <div className="p-3 rounded-3 text-white d-flex align-items-center justify-content-center shadow-sm" style={{ background: 'linear-gradient(135deg, #16a34a, #15803d)', width: '48px', height: '48px' }}>
                     <Building2 size={24} />
@@ -413,7 +441,7 @@ const About = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-sm-6">
+              <div className="col-sm-6" data-aos="zoom-in" data-aos-delay="200">
                 <div className="p-3 rounded-4 glass-card shadow-sm border-0 h-100 d-flex align-items-center gap-3 transition-all">
                   <div className="p-3 rounded-3 text-white d-flex align-items-center justify-content-center shadow-sm" style={{ background: 'linear-gradient(135deg, #ea580c, #c2410c)', width: '48px', height: '48px' }}>
                     <Award size={24} />
@@ -424,7 +452,7 @@ const About = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-sm-6">
+              <div className="col-sm-6" data-aos="zoom-in" data-aos-delay="300">
                 <div className="p-3 rounded-4 glass-card shadow-sm border-0 h-100 d-flex align-items-center gap-3 transition-all">
                   <div className="p-3 rounded-3 text-white d-flex align-items-center justify-content-center shadow-sm" style={{ background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', width: '48px', height: '48px' }}>
                     <Users size={24} />
@@ -435,7 +463,7 @@ const About = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-sm-6">
+              <div className="col-sm-6" data-aos="zoom-in" data-aos-delay="400">
                 <div className="p-3 rounded-4 glass-card shadow-sm border-0 h-100 d-flex align-items-center gap-3 transition-all">
                   <div className="p-3 rounded-3 text-white d-flex align-items-center justify-content-center shadow-sm" style={{ background: 'linear-gradient(135deg, #9333ea, #7e22ce)', width: '48px', height: '48px' }}>
                     <ShieldCheck size={24} />
@@ -477,6 +505,7 @@ const About = () => {
         {/* COUNTER BAR */}
         <div
           ref={counterRef}
+          data-aos="fade-up"
           className="p-4 rounded-4 shadow text-white mt-5 glass-dark"
           style={{
             background: 'rgba(15, 23, 42, 0.85)',
@@ -513,7 +542,7 @@ const About = () => {
         </div>
 
         {/* PROCESS STEPS */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="fade-up">
           <div className="text-center mb-4">
             <h3 className="h2 fw-bold text-dark">
               Our <span style={{ color: '#2563eb' }}>Process</span>
@@ -521,8 +550,8 @@ const About = () => {
             <p className="text-muted">How we bring your dream project to life</p>
           </div>
           <div className="row g-4">
-            {processSteps.map((step) => (
-              <div key={step.id} className="col-md-3 col-6">
+            {processSteps.map((step, idx) => (
+              <div key={step.id} className="col-md-3 col-6" data-aos="fade-up" data-aos-delay={idx * 100}>
                 <div className="text-center p-3 glass-card rounded-4 shadow-sm h-100 border-0 position-relative">
                   <div className="position-absolute top-0 start-50 translate-middle rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-sm" style={{ width: '32px', height: '32px', background: step.color }}>
                     {step.id}
@@ -541,14 +570,14 @@ const About = () => {
         </div>
 
         {/* WHY CHOOSE US */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="fade-up">
           <div className="text-center mb-4">
             <h3 className="h2 fw-bold text-dark">
               Why Choose <span style={{ color: '#7c3aed' }}>CJ Group</span>?
             </h3>
           </div>
           <div className="row g-4">
-            <div className="col-md-3 col-6">
+            <div className="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="100">
               <div className="text-center p-3 glass-card rounded-4 shadow-sm h-100 border-0">
                 <div className="p-3 rounded-circle text-white d-inline-flex align-items-center justify-content-center mb-2 shadow-sm" style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)', width: '56px', height: '56px' }}>
                   <Trophy size={26} />
@@ -557,7 +586,7 @@ const About = () => {
                 <small className="text-muted">25+ National Awards</small>
               </div>
             </div>
-            <div className="col-md-3 col-6">
+            <div className="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="200">
               <div className="text-center p-3 glass-card rounded-4 shadow-sm h-100 border-0">
                 <div className="p-3 rounded-circle text-white d-inline-flex align-items-center justify-content-center mb-2 shadow-sm" style={{ background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', width: '56px', height: '56px' }}>
                   <Clock size={26} />
@@ -566,7 +595,7 @@ const About = () => {
                 <small className="text-muted">100% Track Record</small>
               </div>
             </div>
-            <div className="col-md-3 col-6">
+            <div className="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="300">
               <div className="text-center p-3 glass-card rounded-4 shadow-sm h-100 border-0">
                 <div className="p-3 rounded-circle text-white d-inline-flex align-items-center justify-content-center mb-2 shadow-sm" style={{ background: 'linear-gradient(135deg, #06b6d4, #0891b2)', width: '56px', height: '56px' }}>
                   <Globe size={26} />
@@ -575,7 +604,7 @@ const About = () => {
                 <small className="text-muted">International Quality</small>
               </div>
             </div>
-            <div className="col-md-3 col-6">
+            <div className="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="400">
               <div className="text-center p-3 glass-card rounded-4 shadow-sm h-100 border-0">
                 <div className="p-3 rounded-circle text-white d-inline-flex align-items-center justify-content-center mb-2 shadow-sm" style={{ background: 'linear-gradient(135deg, #9333ea, #7e22ce)', width: '56px', height: '56px' }}>
                   <Layers size={26} />
@@ -588,7 +617,7 @@ const About = () => {
         </div>
 
         {/* OUR TEAM */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="fade-up">
           <div className="text-center mb-4">
             <h3 className="h2 fw-bold text-dark">
               Meet Our <span style={{ color: '#0284c7' }}>Leadership Team</span>
@@ -596,8 +625,8 @@ const About = () => {
             <p className="text-muted">Visionaries behind CJ Group's success</p>
           </div>
           <div className="row g-4">
-            {teamMembers.map((member) => (
-              <div key={member.id} className="col-md-3 col-6">
+            {teamMembers.map((member, idx) => (
+              <div key={member.id} className="col-md-3 col-6" data-aos="flip-left" data-aos-delay={idx * 100}>
                 <div className="text-center p-3 glass-card rounded-4 shadow-sm h-100 border-0">
                   <img src={member.image} alt={member.name} className="rounded-circle mb-2 shadow-sm" style={{ width: '80px', height: '80px', objectFit: 'cover' }} />
                   <h6 className="fw-bold mb-0 text-dark">{member.name}</h6>
@@ -611,15 +640,15 @@ const About = () => {
         </div>
 
         {/* AWARDS & CERTIFICATIONS */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="fade-up">
           <div className="text-center mb-4">
             <h3 className="h2 fw-bold text-dark">
               Awards & <span style={{ color: '#ea580c' }}>Certifications</span>
             </h3>
           </div>
           <div className="row g-3">
-            {awards.map((award) => (
-              <div key={award.id} className="col-md-4 col-6">
+            {awards.map((award, idx) => (
+              <div key={award.id} className="col-md-4 col-6" data-aos="fade-up" data-aos-delay={idx * 100}>
                 <div className="d-flex align-items-center gap-3 p-3 glass-card rounded-4 shadow-sm border-0 h-100">
                   <div className="p-3 rounded-3 text-white d-flex align-items-center justify-content-center shadow-sm" style={{ background: award.color, width: '48px', height: '48px' }}>
                     <award.icon size={22} />
@@ -635,7 +664,7 @@ const About = () => {
         </div>
 
         {/* SUSTAINABILITY COMMITMENT */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="zoom-in">
           <div className="p-4 glass-card rounded-4 shadow-sm border-0">
             <div className="text-center mb-3">
               <div className="p-3 rounded-circle text-white d-inline-flex align-items-center justify-content-center mb-2 shadow-sm" style={{ background: 'linear-gradient(135deg, #10b981, #059669)', width: '64px', height: '64px' }}>
@@ -679,7 +708,7 @@ const About = () => {
         </div>
 
         {/* PARTNERS / ASSOCIATES */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="fade-up">
           <div className="text-center mb-4">
             <h3 className="h2 fw-bold text-dark">
               Our <span style={{ color: '#2563eb' }}>Partners</span>
@@ -697,7 +726,7 @@ const About = () => {
         </div>
 
         {/* TESTIMONIALS SLIDER */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="fade-up">
           <div className="text-center mb-4">
             <h3 className="h2 fw-bold text-dark">
               What Our <span style={{ color: '#d97706' }}>Clients Say</span>
@@ -740,7 +769,7 @@ const About = () => {
         </div>
 
         {/* FAQ / ACCORDION */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="fade-up">
           <div className="text-center mb-4">
             <h3 className="h2 fw-bold text-dark">
               Frequently Asked <span style={{ color: '#2563eb' }}>Questions</span>
@@ -769,32 +798,32 @@ const About = () => {
         </div>
 
         {/* TIMELINE / JOURNEY */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="fade-up">
           <div className="text-center mb-4">
             <h3 className="h2 fw-bold text-dark">
               Our <span style={{ color: '#9333ea' }}>Journey</span>
             </h3>
           </div>
           <div className="row g-3">
-            <div className="col-md-3 col-6">
+            <div className="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="100">
               <div className="text-center p-3 glass-card rounded-4 shadow-sm border-0">
                 <div className="fw-bold display-6 text-primary">2015</div>
                 <small className="text-muted">Founded with Vision</small>
               </div>
             </div>
-            <div className="col-md-3 col-6">
+            <div className="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="200">
               <div className="text-center p-3 glass-card rounded-4 shadow-sm border-0">
                 <div className="fw-bold display-6 text-success">2017</div>
                 <small className="text-muted">First Major Project</small>
               </div>
             </div>
-            <div className="col-md-3 col-6">
+            <div className="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="300">
               <div className="text-center p-3 glass-card rounded-4 shadow-sm border-0">
                 <div className="fw-bold display-6 text-warning">2020</div>
                 <small className="text-muted">Pan-India Expansion</small>
               </div>
             </div>
-            <div className="col-md-3 col-6">
+            <div className="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="400">
               <div className="text-center p-3 glass-card rounded-4 shadow-sm border-0">
                 <div className="fw-bold display-6 text-danger">2024</div>
                 <small className="text-muted">Global Recognition</small>
@@ -804,14 +833,14 @@ const About = () => {
         </div>
 
         {/* PRESS COVERAGE */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="fade-up">
           <div className="text-center mb-4">
             <h3 className="h2 fw-bold text-dark">
               In The <span style={{ color: '#2563eb' }}>News</span>
             </h3>
           </div>
           <div className="row g-3">
-            <div className="col-md-4 col-6">
+            <div className="col-md-4 col-6" data-aos="fade-right">
               <div className="p-3 glass-card rounded-4 shadow-sm text-center border-0 h-100">
                 <div className="p-2 rounded-circle text-white d-inline-flex align-items-center justify-content-center mb-2 shadow-sm" style={{ background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', width: '48px', height: '48px' }}>
                   <Newspaper size={24} />
@@ -820,7 +849,7 @@ const About = () => {
                 <p className="small text-muted mb-0">"CJ Group sets new benchmark in luxury real estate"</p>
               </div>
             </div>
-            <div className="col-md-4 col-6">
+            <div className="col-md-4 col-6" data-aos="fade-up">
               <div className="p-3 glass-card rounded-4 shadow-sm text-center border-0 h-100">
                 <div className="p-2 rounded-circle text-white d-inline-flex align-items-center justify-content-center mb-2 shadow-sm" style={{ background: 'linear-gradient(135deg, #10b981, #059669)', width: '48px', height: '48px' }}>
                   <Newspaper size={24} />
@@ -829,7 +858,7 @@ const About = () => {
                 <p className="small text-muted mb-0">"Sustainable living redefined by CJ Group"</p>
               </div>
             </div>
-            <div className="col-md-4 col-6">
+            <div className="col-md-4 col-6" data-aos="fade-left">
               <div className="p-3 glass-card rounded-4 shadow-sm text-center border-0 h-100">
                 <div className="p-2 rounded-circle text-white d-inline-flex align-items-center justify-content-center mb-2 shadow-sm" style={{ background: 'linear-gradient(135deg, #7c3aed, #6d28d9)', width: '48px', height: '48px' }}>
                   <Newspaper size={24} />
@@ -878,7 +907,7 @@ const About = () => {
         )}
 
         {/* ADDITIONAL CTA / BROCHURE DOWNLOAD */}
-        <div className="mt-5 pt-4">
+        <div className="mt-5 pt-4" data-aos="zoom-in">
           <div
             className="p-4 rounded-4 text-center text-white glass-dark"
             style={{

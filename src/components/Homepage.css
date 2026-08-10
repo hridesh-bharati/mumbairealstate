@@ -48,14 +48,29 @@
 }
 
 /* ==========================================================================
-   1. HERO BANNER - SIMPLE FLUID ASPECT RATIO (NO HARDCODED HEIGHT HACKS)
+   1. HERO BANNER - PC ME NORMAL, ONLY MOBILE ME SPACE FIX
    ========================================================================== */
 .hero-banner-section {
   width: 100%;
   background-color: #ffffff;
+  margin-top: 0;
+  /* PC me standard rakha h */
 }
 
-/* 1920x1080 Image dynamic fluid scaling */
+/* SIRF MOBILE SCREEN KE LIYE NAVBAR OVERLAP FIX */
+@media (max-width: 767.98px) {
+  .hero-banner-section {
+    margin-top: 65px;
+    /* Mobile navbar ke piche nhi chhupega */
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-banner-section {
+    margin-top: 60px;
+  }
+}
+
 .hero-banner-image {
   width: 100%;
   height: auto;

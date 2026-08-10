@@ -1,22 +1,33 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Home, Building2, Landmark, Briefcase, ArrowRight } from 'lucide-react';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Home,
+  Building2,
+  Landmark,
+  Briefcase,
+  ArrowRight
+} from 'lucide-react';
 import FeaturedProperties from '../pages/FeaturedProperties';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './Homepage.css';
-import CoreServices from "./CoreServices"
+import CoreServices from "./CoreServices";
 import About from './About';
+
 export default function Homepage() {
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
   }, []);
 
   return (
     <div className="bg-white min-vh-100 text-dark overflow-x-hidden">
-
-      {/* 1. HERO BANNER CAROUSEL (SIMPLE FLUID 1920x1080 FIT) */}
-      <section className="hero-banner-section p-0 m-0 w-100 bg-white">
+      {/* 1. HERO BANNER CAROUSEL */}
+      <section className="hero-banner-section p-0 w-100 bg-white">
         <div
           id="heroBannerCarousel"
           className="carousel slide carousel-fade w-100"
@@ -24,7 +35,6 @@ export default function Homepage() {
           data-bs-interval="5000"
         >
           <div className="carousel-inner w-100">
-
             {/* Slide 1 */}
             <div className="carousel-item active w-100">
               <img
@@ -33,7 +43,6 @@ export default function Homepage() {
                 className="w-100 d-block hero-banner-image"
               />
             </div>
-
             {/* Slide 2 */}
             <div className="carousel-item w-100">
               <img
@@ -42,7 +51,6 @@ export default function Homepage() {
                 className="w-100 d-block hero-banner-image"
               />
             </div>
-
           </div>
 
           {/* Controls */}
@@ -64,7 +72,6 @@ export default function Homepage() {
           >
             <ChevronRight size={22} />
           </button>
-
         </div>
       </section>
 
@@ -72,7 +79,6 @@ export default function Homepage() {
       <section className="py-4 bg-white border-top border-bottom shadow-sm">
         <div className="container">
           <div className="d-flex align-items-center justify-content-between gap-3 overflow-x-auto py-2">
-
             <Link to="/buy?type=residential" className="category-card-item text-center text-decoration-none">
               <div className="category-circle-bright ring-red mx-auto mb-2">
                 <div className="icon-bright-bg bg-red-gradient">
@@ -108,17 +114,16 @@ export default function Homepage() {
               </div>
               <span className="text-dark fw-bold d-block small">Prime Land Plots</span>
             </Link>
-
           </div>
         </div>
       </section>
 
+      {/* ABOUT US SECTION */}
       <About />
 
       {/* 3. FEATURED PROPERTIES */}
       <div className="container my-5">
         <FeaturedProperties />
-
         <div className="mt-4 text-center text-md-start">
           <Link
             to="/buy"
@@ -133,7 +138,6 @@ export default function Homepage() {
       {/* 4. PREMIUM BANNERS */}
       <div className="container py-4 mb-5">
         <div className="row g-4 align-items-stretch">
-
           {/* Card 1 */}
           <div className="col-lg-6">
             <div className="h-100 p-4 p-xl-5 rounded-4 shadow-sm d-flex flex-column justify-content-between card-brand-gold-border bg-white">
@@ -149,8 +153,12 @@ export default function Homepage() {
                 </p>
               </div>
               <div className="pt-3 border-top">
-                <Link to="/preapproval" className="btn btn-brand-gold rounded-pill px-4 py-2.5 fw-bold text-dark text-decoration-none d-inline-flex align-items-center justify-content-center w-100 w-sm-auto">
-                  See What I Qualify For <ArrowRight size={16} className="ms-2" />
+                <Link
+                  to="/preapproval"
+                  className="btn btn-brand-gold rounded-pill px-4 py-2.5 fw-bold text-dark text-decoration-none d-inline-flex align-items-center justify-content-center w-100 w-sm-auto"
+                >
+                  See What I Qualify For
+                  <ArrowRight size={16} className="ms-2" />
                 </Link>
               </div>
             </div>
@@ -173,20 +181,31 @@ export default function Homepage() {
                     </p>
                   </div>
                   <div>
-                    <Link to="/sell" className="btn btn-brand-outline rounded-pill px-4 py-2 fw-bold text-uppercase d-inline-block text-decoration-none">
+                    <Link
+                      to="/sell"
+                      className="btn btn-brand-outline rounded-pill px-4 py-2 fw-bold text-uppercase d-inline-block text-decoration-none"
+                    >
                       Learn More
                     </Link>
                   </div>
                 </div>
                 <div className="col-md-5 order-1 order-md-2 min-vh-25">
-                  <div className="w-100 h-100" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80")', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+                  <div
+                    className="w-100 h-100"
+                    style={{
+                      backgroundImage:
+                        'url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80")',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
+
       <CoreServices />
     </div>
   );
