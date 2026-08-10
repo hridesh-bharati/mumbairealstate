@@ -1,110 +1,168 @@
-/* src\pages\PropertyListings.css */
-/* --- Background Configuration --- */
-.app-main-bg {
-  background-color: #f8f9fa; /* Safe default app body white */
-}
-.section-subtitle {
-  font-size: 0.72rem;
-  color: #6c757d;
-}
-.tracking-wider {
-  letter-spacing: 1px;
+/* Standard App Styling */
+.text-gold {
+  color: #c9a84c !important;
 }
 
-/* ================= ANDROID NATIVE CARD BLUEPRINT ================= */
-.native-app-card {
-  background: #ffffff !important;
-  border-radius: 16px !important; /* Premium system curve shape */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.04) !important; /* Soft premium shadow layout */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-}
-.native-app-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.08) !important;
+.border-gold-subtle {
+  border-color: rgba(201, 168, 76, 0.4) !important;
 }
 
-.app-card-img {
-  height: 200px;
-  object-fit: cover;
-}
-
-/* Floating Elements Layout */
-.app-badge-container {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.app-top-badge {
-  font-size: 0.68rem;
+/* Badge Tag Top Header */
+.badge-luxury-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(201, 168, 76, 0.12);
+  color: #a38128;
+  font-size: 11px;
   font-weight: 700;
-  padding: 4px 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+}
+
+/* Luxury Card Main Structure */
+.luxury-card {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.luxury-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(26, 26, 46, 0.1) !important;
+  border-color: rgba(201, 168, 76, 0.3);
+}
+
+/* Media Box */
+.luxury-card-media {
+  height: 230px;
+  background-color: #1a1a2e;
+}
+
+.card-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Badges Positioning */
+.badge-for-sale {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #c9a84c;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.app-top-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 10px;
   border-radius: 6px;
   color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
+
 .app-img-counter {
   position: absolute;
   bottom: 12px;
   left: 12px;
   z-index: 3;
-  background-color: rgba(0, 0, 0, 0.75);
+  background: rgba(15, 23, 42, 0.75);
   color: #ffffff;
   font-size: 0.68rem;
   font-weight: 600;
-  padding: 3px 6px;
-  border-radius: 4px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
 }
 
-/* Native Layout Control Arrows */
+/* Hover-ready Arrows */
 .app-arrow {
-  background: #ffffff !important;
-  width: 28px;
-  height: 28px;
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #1a1a2e !important;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   top: 50%;
   transform: translateY(-50%);
   margin: 0 8px;
-  opacity: 0.9;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
-}
-.app-arrow span {
-  filter: invert(1) grayscale(100%) brightness(0%);
-  width: 10px;
-  height: 10px;
+  opacity: 0;
+  transition: all 0.2s ease;
 }
 
-.app-price {
-  font-size: 1.35rem;
-  letter-spacing: -0.5px;
+.luxury-card:hover .app-arrow {
+  opacity: 1;
 }
 
-/* ================= COLORFUL APP MINI SPECIFICATION NODES ================= */
-.mini-spec-node {
+.app-arrow:hover {
+  background: #c9a84c !important;
+  color: #ffffff !important;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Spec Pills */
+.property-type-pill {
+  font-size: 0.72rem;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  font-weight: 600;
+}
+
+.spec-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  border-radius: 12px; /* Smooth Material badge outline */
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
   font-size: 0.75rem;
   font-weight: 600;
 }
 
-/* Color Palette Constants */
-.bg-green-light { background-color: #e8f5e9; }
-.text-green { color: #4caf50; }
+.spec-pill-beds {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
 
-.bg-blue-light { background-color: #e3f2fd; }
-.text-blue { color: #2196f3; }
+.spec-pill-baths {
+  background: #e3f2fd;
+  color: #1565c0;
+}
 
-.bg-orange-light { background-color: #fff3e0; }
-.text-orange { color: #ff9800; }
+.spec-pill-sqft {
+  background: #fff3e0;
+  color: #ef6c00;
+}
 
-.bg-purple-light { background-color: #f3e5f5; }
-.text-purple { color: #9c27b0; }
+/* View Button */
+.view-btn-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f8f9fa;
+  color: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
 
-.bg-cyan-light { background-color: #e0f7fa; }
-.text-cyan { color: #00bcd4; }
+.luxury-card:hover .view-btn-circle {
+  background: #c9a84c;
+  color: #ffffff;
+}
