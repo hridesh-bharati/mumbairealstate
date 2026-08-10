@@ -7,6 +7,14 @@
   --brand-green: #28A745;
 }
 
+/* PWA App Body Viewport Protection */
+.pwa-app-container {
+  width: 100vw;
+  max-width: 100%;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Utility Classes */
 .text-brand-red {
   color: var(--brand-red) !important;
@@ -14,6 +22,12 @@
 
 .bg-brand-gold {
   background-color: var(--brand-gold) !important;
+}
+
+/* Active Scale touch response for PWA */
+.active-scale:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease;
 }
 
 /* Buttons */
@@ -48,24 +62,15 @@
 }
 
 /* ==========================================================================
-   1. HERO BANNER - PC ME NORMAL, ONLY MOBILE ME SPACE FIX
+   1. HERO BANNER - CAROUSEL AUTO-PLAY ENHANCEMENT
    ========================================================================== */
 .hero-banner-section {
   width: 100%;
   background-color: #ffffff;
   margin-top: 0;
-  /* PC me standard rakha h */
 }
 
-/* SIRF MOBILE SCREEN KE LIYE NAVBAR OVERLAP FIX */
 @media (max-width: 767.98px) {
-  .hero-banner-section {
-    margin-top: 65px;
-    /* Mobile navbar ke piche nhi chhupega */
-  }
-}
-
-@media (max-width: 575.98px) {
   .hero-banner-section {
     margin-top: 60px;
   }
@@ -125,15 +130,24 @@
 }
 
 /* ==========================================================================
-   2. CATEGORY STRIP & CARDS
+   2. CATEGORY STRIP - 100VW MOBILE GRID (NO OVERFLOW)
    ========================================================================== */
 .category-circle-bright {
-  width: 72px;
-  height: 72px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  padding: 3px;
+  padding: 2.5px;
   background: #ffffff;
   transition: transform 0.2s ease;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .category-circle-bright {
+    width: 72px;
+    height: 72px;
+    padding: 3px;
+  }
 }
 
 .category-card-item:hover .category-circle-bright {
@@ -147,6 +161,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.category-label {
+  font-size: 11.5px;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 768px) {
+  .category-label {
+    font-size: 14px;
+  }
 }
 
 .bg-red-gradient {
@@ -174,7 +202,7 @@
 }
 
 .ring-blue {
-  border: 2px solid #1D70B8;
+  border: 1px solid #1D70B8;
 }
 
 .ring-green {

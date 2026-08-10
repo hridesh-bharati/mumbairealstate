@@ -25,14 +25,14 @@ export default function Homepage() {
   }, []);
 
   return (
-    <div className="bg-white min-vh-100 text-dark overflow-x-hidden">
-      {/* 1. HERO BANNER CAROUSEL */}
+    <div className="bg-white min-vh-100 text-dark overflow-x-hidden pwa-app-container">
+      {/* 1. HERO BANNER CAROUSEL (Auto-play Enabled) */}
       <section className="hero-banner-section p-0 w-100 bg-white">
         <div
           id="heroBannerCarousel"
           className="carousel slide carousel-fade w-100"
           data-bs-ride="carousel"
-          data-bs-interval="5000"
+          data-bs-interval="4000"
         >
           <div className="carousel-inner w-100">
             {/* Slide 1 */}
@@ -75,45 +75,55 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* 2. CATEGORY HIGHLIGHT STRIP */}
-      <section className="py-4 bg-white border-top border-bottom shadow-sm">
-        <div className="container">
-          <div className="d-flex align-items-center justify-content-between gap-3 overflow-x-auto py-2">
-            <Link to="/buy?type=residential" className="category-card-item text-center text-decoration-none">
-              <div className="category-circle-bright ring-red mx-auto mb-2">
-                <div className="icon-bright-bg bg-red-gradient">
-                  <Home size={28} className="text-white" />
-                </div>
-              </div>
-              <span className="text-dark fw-bold d-block small">Luxury Villas</span>
-            </Link>
+      {/* 2. CATEGORY HIGHLIGHT STRIP (100vw Mobile Friendly Grid Setup) */}
+      <section className="py-3 bg-white border-top border-bottom shadow-sm w-100 overflow-hidden">
+        <div className="container-fluid px-2 px-md-4">
+          <div className="row g-2 justify-content-between align-items-center text-center">
 
-            <Link to="/buy?type=commercial" className="category-card-item text-center text-decoration-none">
-              <div className="category-circle-bright ring-gold mx-auto mb-2">
-                <div className="icon-bright-bg bg-gold-gradient">
-                  <Building2 size={28} className="text-dark" />
+            <div className="col-3 px-1">
+              <Link to="/buy?type=residential" className="category-card-item text-decoration-none d-block">
+                <div className="category-circle-bright ring-red mx-auto mb-1">
+                  <div className="icon-bright-bg bg-red-gradient">
+                    <Home size={22} className="text-white" />
+                  </div>
                 </div>
-              </div>
-              <span className="text-dark fw-bold d-block small">Commercial Hubs</span>
-            </Link>
+                <span className="text-dark fw-bold d-block category-label">Luxury Villas</span>
+              </Link>
+            </div>
 
-            <Link to="/buy?type=apartments" className="category-card-item text-center text-decoration-none">
-              <div className="category-circle-bright ring-blue mx-auto mb-2">
-                <div className="icon-bright-bg bg-blue-gradient">
-                  <Landmark size={28} className="text-white" />
+            <div className="col-3 px-1">
+              <Link to="/buy?type=commercial" className="category-card-item text-decoration-none d-block">
+                <div className="category-circle-bright ring-gold mx-auto mb-1">
+                  <div className="icon-bright-bg bg-gold-gradient">
+                    <Building2 size={22} className="text-dark" />
+                  </div>
                 </div>
-              </div>
-              <span className="text-dark fw-bold d-block small">Modern Apartments</span>
-            </Link>
+                <span className="text-dark fw-bold d-block category-label">Commercial Hubs</span>
+              </Link>
+            </div>
 
-            <Link to="/buy?type=plots" className="category-card-item text-center text-decoration-none">
-              <div className="category-circle-bright ring-green mx-auto mb-2">
-                <div className="icon-bright-bg bg-green-gradient">
-                  <Briefcase size={28} className="text-white" />
+            <div className="col-3 px-1">
+              <Link to="/buy?type=apartments" className="category-card-item text-decoration-none d-block">
+                <div className="category-circle-bright ring-blue mx-auto mb-1">
+                  <div className="icon-bright-bg bg-blue-gradient">
+                    <Landmark size={22} className="text-white" />
+                  </div>
                 </div>
-              </div>
-              <span className="text-dark fw-bold d-block small">Prime Land Plots</span>
-            </Link>
+                <span className="text-dark fw-bold d-block category-label">Modern Apartments</span>
+              </Link>
+            </div>
+
+            <div className="col-3 px-1">
+              <Link to="/buy?type=plots" className="category-card-item text-decoration-none d-block">
+                <div className="category-circle-bright ring-green mx-auto mb-1">
+                  <div className="icon-bright-bg bg-green-gradient">
+                    <Briefcase size={22} className="text-white" />
+                  </div>
+                </div>
+                <span className="text-dark fw-bold d-block category-label">Prime Land Plots</span>
+              </Link>
+            </div>
+
           </div>
         </div>
       </section>
@@ -122,12 +132,12 @@ export default function Homepage() {
       <About />
 
       {/* 3. FEATURED PROPERTIES */}
-      <div className="container-fluid my-5">
+      <div className="container-fluid my-5 px-3 px-md-4">
         <FeaturedProperties />
-        <div className="mt-4 text-center text-md-start">
+        <div className="mt-4 text-center">
           <Link
             to="/buy"
-            className="btn btn-brand-red rounded-pill px-5 py-3 fw-bold text-white border-0 d-inline-flex align-items-center gap-2 text-decoration-none text-uppercase shadow-sm"
+            className="btn btn-brand-red rounded-pill px-5 py-3 fw-bold text-white border-0 d-inline-flex align-items-center gap-2 text-decoration-none text-uppercase shadow-sm active-scale"
           >
             <span>View All CJ Groups</span>
             <ArrowRight size={18} />
@@ -136,7 +146,7 @@ export default function Homepage() {
       </div>
 
       {/* 4. PREMIUM BANNERS */}
-      <div className="container py-4 mb-5">
+      <div className="container py-4 mb-5 px-3 px-md-4">
         <div className="row g-4 align-items-stretch">
           {/* Card 1 */}
           <div className="col-lg-6">
@@ -155,7 +165,7 @@ export default function Homepage() {
               <div className="pt-3 border-top">
                 <Link
                   to="/preapproval"
-                  className="btn btn-brand-gold rounded-pill px-4 py-2.5 fw-bold text-dark text-decoration-none d-inline-flex align-items-center justify-content-center w-100 w-sm-auto"
+                  className="btn btn-brand-gold rounded-pill px-4 py-2.5 fw-bold text-dark text-decoration-none d-inline-flex align-items-center justify-content-center w-100"
                 >
                   See What I Qualify For
                   <ArrowRight size={16} className="ms-2" />
@@ -196,7 +206,8 @@ export default function Homepage() {
                       backgroundImage:
                         'url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80")',
                       backgroundSize: 'cover',
-                      backgroundPosition: 'center'
+                      backgroundPosition: 'center',
+                      minHeight: '200px'
                     }}
                   ></div>
                 </div>

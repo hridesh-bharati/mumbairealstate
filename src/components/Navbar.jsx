@@ -1,11 +1,10 @@
-// src/components/Navbar.jsx
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../services/authServices';
 import { useAuth } from '../context/AuthContext';
 import {
-  Menu, User, LogOut, Home, Info, Building2, Briefcase,
-  Image, PhoneCall, Layers, DollarSign, Key, Eye, Calendar,
+  Menu, User, LogOut, Home, Building2, Briefcase,
+  Layers, DollarSign, Key, Eye, Calendar,
   Database, FileText, UserPlus, Users, ChevronDown
 } from 'lucide-react';
 import './Navbar.css';
@@ -339,17 +338,17 @@ export default function Navbar() {
         <div className="offcanvas-body p-0 overflow-y-auto">
           <div className="py-2">
             <div className="section-label px-3 py-1">Core Actions</div>
+            <Link to="/" className="android-item" onClick={closeDrawer}>
+              <div className="console-box bg-vibrant-green text-white"><Home size={18} /></div>
+              <span className="title-node">Home</span>
+            </Link>
             <Link to="/buy" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-green text-white"><Home size={18} /></div>
+              <div className="console-box bg-vibrant-green text-white"><Building2 size={18} /></div>
               <span className="title-node">Buy Properties</span>
             </Link>
             <Link to="/sell" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-orange text-white"><DollarSign size={18} /></div>
+              <div className="console-box bg-vibrant-orange text-white"><DollarSign size={18} /></div>
               <span className="title-node">New Sales Request</span>
-            </Link>
-            <Link to="/buy" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-blue text-white"><Key size={18} /></div>
-              <span className="title-node">Rent Spaces</span>
             </Link>
           </div>
 
@@ -358,15 +357,15 @@ export default function Navbar() {
           <div className="py-2">
             <div className="section-label px-3 py-1">CJ Exclusives</div>
             <Link to="/exclusives/private" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-purple text-white"><Eye size={18} /></div>
+              <div className="console-box bg-vibrant-purple text-white"><Eye size={18} /></div>
               <span className="title-node">Private Exclusives</span>
             </Link>
             <Link to="/exclusives/coming-soon" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-blue text-white"><Calendar size={18} /></div>
+              <div className="console-box bg-vibrant-blue text-white"><Calendar size={18} /></div>
               <span className="title-node">Coming Soon</span>
             </Link>
             <Link to="/exclusives/listings" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-teal text-white"><Database size={18} /></div>
+              <div className="console-box bg-vibrant-teal text-white"><Database size={18} /></div>
               <span className="title-node">Property Catalog</span>
             </Link>
           </div>
@@ -376,11 +375,11 @@ export default function Navbar() {
           <div className="py-2">
             <div className="section-label px-3 py-1">New Development</div>
             <Link to="/development/current" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-cyan text-white"><Layers size={18} /></div>
+              <div className="console-box bg-vibrant-cyan text-white"><Layers size={18} /></div>
               <span className="title-node">Current Developments</span>
             </Link>
             <Link to="/development/marketing-group" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-orange text-white"><Briefcase size={18} /></div>
+              <div className="console-box bg-vibrant-orange text-white"><Briefcase size={18} /></div>
               <span className="title-node">Marketing Group</span>
             </Link>
           </div>
@@ -390,15 +389,15 @@ export default function Navbar() {
           <div className="py-2">
             <div className="section-label px-3 py-1">Agents</div>
             <Link to="/find-agent" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-green text-white"><Users size={18} /></div>
+              <div className="console-box bg-vibrant-green text-white"><Users size={18} /></div>
               <span className="title-node">Find an Agent</span>
             </Link>
             <Link to="/help-agent" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-pink text-white"><FileText size={18} /></div>
+              <div className="console-box bg-vibrant-pink text-white"><FileText size={18} /></div>
               <span className="title-node">Help Match Broker</span>
             </Link>
             <Link to="/join-agent" className="android-item" onClick={closeDrawer}>
-              <div className="console-box bg-dark-red text-white"><UserPlus size={18} /></div>
+              <div className="console-box bg-vibrant-red text-white"><UserPlus size={18} /></div>
               <span className="title-node">Join as Partner</span>
             </Link>
           </div>

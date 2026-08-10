@@ -216,15 +216,15 @@
   background-color: #dc3545;
 }
 
-/* ================= MOBILE DRAWER CONFIGS ================= */
+/* ================= MOBILE DRAWER CONFIGS (Increased Width) ================= */
 .android-offcanvas-width {
-  width: 70% !important;
-  max-width: 320px !important;
+  width: 82% !important;
+  max-width: 360px !important;
 }
 
 @media (min-width: 576px) {
   .android-offcanvas-width {
-    width: 50% !important;
+    width: 60% !important;
   }
 }
 
@@ -268,7 +268,7 @@
   height: 32px;
   border-radius: 8px;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
 }
 
 .title-node {
@@ -278,35 +278,35 @@
   text-overflow: ellipsis;
 }
 
-/* Mobile Console Dark Colors */
-.bg-dark-green {
-  background-color: #1b5e20 !important;
+/* Balanced, Vibrant Mobile Console Box Background Colors */
+.bg-vibrant-green {
+  background-color: #2e7d32 !important;
 }
 
-.bg-dark-red {
-  background-color: #b71c1c !important;
+.bg-vibrant-red {
+  background-color: #c62828 !important;
 }
 
-.bg-dark-blue {
-  background-color: #0d47a1 !important;
+.bg-vibrant-blue {
+  background-color: #1565c0 !important;
 }
 
-.bg-dark-orange {
-  background-color: #e65100 !important;
+.bg-vibrant-orange {
+  background-color: #ef6c00 !important;
 }
 
-.bg-dark-purple {
-  background-color: #4a148c !important;
+.bg-vibrant-purple {
+  background-color: #6a1b9a !important;
 }
 
-.bg-dark-teal {
-  background-color: #004d40 !important;
+.bg-vibrant-teal {
+  background-color: #00695c !important;
 }
 
-.bg-dark-cyan {
-  background-color: #006064 !important;
+.bg-vibrant-cyan {
+  background-color: #00838f !important;
 }
 
-.bg-dark-pink {
-  background-color: #880e4f !important;
+.bg-vibrant-pink {
+  background-color: #ad1457 !important;
 }
