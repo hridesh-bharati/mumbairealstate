@@ -23,7 +23,7 @@ export default function FeaturedProperties() {
     const q = query(
       collection(db, "properties"),
       orderBy("createdAt", "desc"),
-      limit(9)  
+      limit(6)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
