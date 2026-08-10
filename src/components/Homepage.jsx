@@ -132,91 +132,129 @@ export default function Homepage() {
       <About />
 
       {/* 3. FEATURED PROPERTIES */}
-      <div className="container-fluid my-5 px-3 px-md-4">
+      <div className="container-fluid my-5  p-0">
         <FeaturedProperties />
         <div className="mt-4 text-center">
           <Link
             to="/buy"
-            className="btn btn-brand-red rounded-pill px-5 py-3 fw-bold text-white border-0 d-inline-flex align-items-center gap-2 text-decoration-none text-uppercase shadow-sm active-scale"
+            className="btn btn-brand-red rounded-pill px-5 py-2 fw-bold text-white border-0 d-inline-flex align-items-center gap-2 text-decoration-none text-uppercase shadow-sm active-scale"
           >
-            <span>View All CJ Groups</span>
+            <span>View All </span>
             <ArrowRight size={18} />
           </Link>
         </div>
       </div>
 
-      {/* 4. PREMIUM BANNERS */}
-      <div className="container py-4 mb-5 px-3 px-md-4">
-        <div className="row g-4 align-items-stretch">
-          {/* Card 1 */}
-          <div className="col-lg-6">
-            <div className="h-100 p-4 p-xl-5 rounded-4 shadow-sm d-flex flex-column justify-content-between card-brand-gold-border bg-white">
+      {/* 4. PREMIUM BANNERS - Combined */}
+      <div className="container pt-5 px-1 px-md-4">
+        <div
+          className="rounded-4 shadow-lg position-relative border-0 p-4 pb-0 mb-0"
+          style={{
+            background: 'linear-gradient(135deg, #E6C58B 0%, #C89F59 35%, #9E7431 70%, #6E4D1B 100%)',
+            borderRadius: '24px',
+            minHeight: '420px',
+            overflow: 'hidden', // Fixed: 'visible' ko 'hidden' kar diya taaki neeche se image overflow na ho
+          }}
+        >
+          <div className="row h-100 align-items-center">
+            {/* Content (Left side zyada space - col-md-8) */}
+            <div className="col-md-8 z-2">
+              {/* CJ Group Financial */}
               <div className="mb-4">
-                <span className="badge rounded-pill bg-brand-gold text-dark px-3 py-2 text-uppercase fw-bold mb-3">
+                <span
+                  className="badge rounded-pill px-3 py-2 text-uppercase fw-bold mb-3 text-white shadow-sm"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.75)',
+                    backdropFilter: 'blur(4px)'
+                  }}
+                >
                   CJ Group Financial
                 </span>
-                <h3 className="fw-bold display-6 text-dark mb-3">
-                  Know your <span className="text-brand-red">buying power</span>
+                <h3 className="fw-bold mb-2" style={{ color: '#5A0B12' }}>
+                  Know your <span style={{ color: '#000000' }}>buying power</span>
                 </h3>
-                <p className="text-secondary fw-medium">
+                <p className="fw-medium small mb-0" style={{ color: '#2C0608' }}>
                   Get preapproved with custom luxury rates in minutes & unlock exclusive financing options.
                 </p>
               </div>
-              <div className="pt-3 border-top">
-                <Link
-                  to="/preapproval"
-                  className="btn btn-brand-gold rounded-pill px-4 py-2.5 fw-bold text-dark text-decoration-none d-inline-flex align-items-center justify-content-center w-100"
-                >
-                  See What I Qualify For
-                  <ArrowRight size={16} className="ms-2" />
-                </Link>
+
+              {/* Divider */}
+              <hr className="my-4" style={{ borderColor: 'rgba(90, 11, 18, 0.25)' }} />
+
+              {/* CJ Group Concierge */}
+              <div>
+                <span className="text-uppercase fw-bold d-block mb-2 small tracking-wide" style={{ color: '#5A0B12' }}>
+                  CJ Group Concierge
+                </span>
+                <h3 className="fw-bold mb-3 h3" style={{ color: '#5A0B12' }}>
+                  Sell your home faster,{' '}
+                  <span style={{ color: '#000000' }}>for more money.</span>
+                </h3>
+                <p className="fw-medium small mb-4" style={{ color: '#2C0608' }}>
+                  We cover home improvement costs upfront to maximize value—zero due until closing.*
+                </p>
+
+                <div className="d-flex flex-wrap gap-3">
+                  <Link
+                    to="/help-agent"
+                    className="btn rounded-pill px-4 py-2 fw-bold text-white text-decoration-none shadow-sm"
+                    style={{
+                      background: '#5A0B12',
+                      border: '1px solid #5A0B12'
+                    }}
+                  >
+                    Help asAgent
+                  </Link>
+                  <Link
+                    to="/sell"
+                    className="btn rounded-pill px-4 py-2 fw-bold text-uppercase text-decoration-none shadow-sm"
+                    style={{
+                      background: 'transparent',
+                      color: '#5A0B12',
+                      border: '2px solid #5A0B12'
+                    }}
+                  >
+                    Sell Home
+                  </Link>
+                </div>
               </div>
+            </div>
+
+            {/* Girl Image (Right side - PC view) */}
+            <div className="col-md-4 position-relative d-none d-md-block" style={{ minHeight: '380px' }}>
+              <img
+                src="/images/selling-girl.png"
+                alt="Sell your home"
+                className="selling-girl"
+              />
+            </div>
+
+            {/* Mobile view ke liye image container */}
+            <div className="d-block d-md-none text-center mt-4 mb-0">
+              <img
+                src="/images/selling-girl.png"
+                alt="Sell your home"
+                style={{ height: '240px', width: 'auto', display: 'inline-block' }}
+              />
             </div>
           </div>
 
-          {/* Card 2 */}
-          <div className="col-lg-6">
-            <div className="h-100 rounded-4 shadow-sm overflow-hidden card-brand-red-border bg-white">
-              <div className="row g-0 h-100">
-                <div className="col-md-7 p-4 p-xl-5 d-flex flex-column justify-content-between order-2 order-md-1">
-                  <div>
-                    <span className="text-uppercase fw-bold d-block mb-2 text-brand-red small">
-                      CJ Group Concierge
-                    </span>
-                    <h3 className="fw-bold text-dark mb-3 h4">
-                      Sell your home faster, <span className="text-brand-red">for more money.</span>
-                    </h3>
-                    <p className="text-secondary fw-medium small">
-                      We cover home improvement costs upfront to maximize value—zero due until closing.*
-                    </p>
-                  </div>
-                  <div>
-                    <Link
-                      to="/sell"
-                      className="btn btn-brand-outline rounded-pill px-4 py-2 fw-bold text-uppercase d-inline-block text-decoration-none"
-                    >
-                      Learn More
-                    </Link>
-                  </div>
-                </div>
-                <div className="col-md-5 order-1 order-md-2 min-vh-25">
-                  <div
-                    className="w-100 h-100"
-                    style={{
-                      backgroundImage:
-                        'url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80")',
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      minHeight: '200px'
-                    }}
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <style>
+            {`
+              .selling-girl {
+                position: absolute;
+                right: -20px;
+                bottom: -24px; /* Card ke andar bottom se perfectly align karne ke liye */
+                height: 395px; /* Height thodi adjust ki taaki card ke andar fit aaye */
+                width: auto;
+                z-index: 10;
+                pointer-events: none;
+                filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+              }
+            `}
+          </style>
         </div>
       </div>
-
       <CoreServices />
     </div>
   );

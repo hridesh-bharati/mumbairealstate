@@ -89,9 +89,9 @@ const AboutUsHomeSection = () => {
           <div className="col-lg-6" data-aos="fade-up">
 
             {/* Top Tag Pill */}
-            <div className="mb-3">
+            <div className="mb-3 text-center w-100">
               <span
-                className="d-inline-flex align-items-center gap-2 px-3 py-1-5 rounded-pill text-white shadow-sm"
+                className="d-inline-flex align-items-center text-center gap-2 px-4 py-1-5 rounded-pill text-white shadow-sm"
                 style={{
                   fontSize: '0.7rem',
                   fontWeight: 700,
