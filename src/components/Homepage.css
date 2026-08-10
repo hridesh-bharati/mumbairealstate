@@ -1,134 +1,175 @@
-/* ==========================================================================
-   AOS ANIMATION DYNAMICS (TOP TO BOTTOM ZOOM-IN)
-   ========================================================================== */
-[data-aos="fade-down"] {
-  transform: translateY(-40px) scale(0.92);
-  opacity: 0;
-  transition-property: transform, opacity;
+:root {
+  --brand-red: #C8232C;
+  --brand-red-dark: #A01B22;
+  --brand-gold: #D4AF37;
+  --brand-navy: #0A1128;
+  --brand-blue: #1D70B8;
+  --brand-green: #28A745;
 }
 
-[data-aos="fade-down"].aos-animate {
-  transform: translateY(0) scale(1);
-  opacity: 1;
+/* Utility Classes */
+.text-brand-red {
+  color: var(--brand-red) !important;
+}
+
+.bg-brand-gold {
+  background-color: var(--brand-gold) !important;
+}
+
+/* Buttons */
+.btn-brand-red {
+  background-color: var(--brand-red);
+  transition: all 0.25s ease;
+}
+
+.btn-brand-red:hover {
+  background-color: var(--brand-red-dark);
+  color: #ffffff;
+}
+
+.btn-brand-gold {
+  background-color: var(--brand-gold);
+  transition: all 0.25s ease;
+}
+
+.btn-brand-gold:hover {
+  background-color: #b8923a;
+}
+
+.btn-brand-outline {
+  border: 1.5px solid var(--brand-navy);
+  color: var(--brand-navy);
+  transition: all 0.25s ease;
+}
+
+.btn-brand-outline:hover {
+  background-color: var(--brand-navy);
+  color: #ffffff;
 }
 
 /* ==========================================================================
-   COMPONENT SEGMENTED TABS UTILITIES
+   1. HERO BANNER - SIMPLE FLUID ASPECT RATIO (NO HARDCODED HEIGHT HACKS)
    ========================================================================== */
-.custom-segmented-tabs {
-  width: fit-content;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+.hero-banner-section {
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* 1920x1080 Image dynamic fluid scaling */
+.hero-banner-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Carousel Control Nav Arrows */
+.custom-light-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  border: none;
+  color: var(--brand-navy);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.custom-light-nav:hover {
+  background: var(--brand-red);
+  color: #ffffff;
+}
+
+.carousel-control-prev.custom-light-nav {
+  left: 15px;
+}
+
+.carousel-control-next.custom-light-nav {
+  right: 15px;
+}
+
+@media (max-width: 575.98px) {
+  .custom-light-nav {
+    width: 32px;
+    height: 32px;
+  }
+
+  .carousel-control-prev.custom-light-nav {
+    left: 8px;
+  }
+
+  .carousel-control-next.custom-light-nav {
+    right: 8px;
+  }
+}
+
+/* ==========================================================================
+   2. CATEGORY STRIP & CARDS
+   ========================================================================== */
+.category-circle-bright {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  padding: 3px;
+  background: #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.category-card-item:hover .category-circle-bright {
+  transform: scale(1.06);
+}
+
+.icon-bright-bg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.tab-node {
-  width: 90px;
+.bg-red-gradient {
+  background: linear-gradient(135deg, #C8232C 0%, #E63946 100%);
 }
 
-.tab-indicator {
-  top: 4px;
-  bottom: 4px;
-  width: 90px;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  z-index: 0;
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
 }
 
-.slide-to-buy { 
-  transform: translateX(0px); 
+.bg-blue-gradient {
+  background: linear-gradient(135deg, #1D70B8 0%, #00B4D8 100%);
 }
 
-.slide-to-sell { 
-  transform: translateX(90px); 
+.bg-green-gradient {
+  background: linear-gradient(135deg, #28A745 0%, #38EF7D 100%);
 }
 
-/* ==========================================================================
-   TEXT AND LOOK UTILITIES
-   ========================================================================== */
-.transition-all { 
-  transition: all 0.25s ease-in-out; 
+.ring-red {
+  border: 2px solid #C8232C;
 }
 
-.text-shadow { 
-  text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.35); 
+.ring-gold {
+  border: 2px solid #D4AF37;
 }
 
-.text-shadow-strong { 
-  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.8), 0px 4px 20px rgba(0, 0, 0, 0.4); 
+.ring-blue {
+  border: 2px solid #1D70B8;
 }
 
-/* ==========================================================================
-   SCROLL DOWN INDICATOR (LINE & 3 ARROWS ANIMATION)
-   ========================================================================== */
-.scroll-down-wrapper {
-  margin-top: 4.5rem !important; /* सर्च बार से थोड़ा और नीचे खिसकाने के लिए */
+.ring-green {
+  border: 2px solid #28A745;
 }
 
-/* लाइन जो नीचे की तरफ पुश करती हुई दिखेगी */
-.push-line {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
-  animation: linePush 2s infinite ease-in-out;
-  transform-origin: top;
+.card-brand-gold-border {
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
 }
 
-/* तीनों ऐरो का कम्प्लीट बाउंसिंग इफ़ेक्ट */
-.scroll-bounce-animation {
-  animation: arrowBounce 2s infinite ease-in-out;
-  filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.6));
-}
-
-/* Keyframes for Line Push */
-@keyframes linePush {
-  0%, 100% {
-    transform: scaleY(0.8);
-    opacity: 0.3;
-  }
-  50% {
-    transform: scaleY(1.2);
-    opacity: 0.8;
-  }
-}
-
-/* Keyframes for Arrows Bounce */
-@keyframes arrowBounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-8px);
-  }
-  60% {
-    transform: translateY(-4px);
-  }
-}
-
-/* ==========================================================================
-   MOBILE RESPONSIVE PRESETS (MAX-WIDTH: 767px)
-   ========================================================================== */
-@media (max-width: 767.98px) {
-  .hero-wrapper-node {
-    min-height: calc(100vh - 40px) !important;
-    display: flex;
-    align-items: flex-start !important;
-    padding-top: 25vh !important;
-  }
-
-  .hero-wrapper-node h1.display-3 {
-    font-size: 2.25rem !important;
-    margin-bottom: 12px !important;
-  }
-
-  .hero-wrapper-node p.fs-5 {
-    font-size: 0.95rem !important;
-    margin-bottom: 20px !important;
-    padding: 0 10px;
-  }
-
-  .search-container-node {
-    margin-top: 5px !important;
-  }
-  
-  .scroll-down-wrapper {
-    margin-top: 2.5rem !important; /* मोबाइल स्क्रीन पर सही स्पेसिंग के लिए */
-  }
+.card-brand-red-border {
+  border: 1.5px solid rgba(200, 35, 44, 0.2);
 }

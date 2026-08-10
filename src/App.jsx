@@ -38,6 +38,7 @@ import DevelopmentMarketingGroup from './pages/Developments/DevelopmentMarketing
 import DevelopmentDetails from './pages/DevelopmentDetails';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import MapViewSearch from './pages/MapViewSearch';
+import About from './pages/About/About';
 
 // Route change hone par auto top scroll karne ke liye minimal handler
 function ScrollToTop() {
@@ -95,7 +96,7 @@ export default function App() {
     <Router>
       {/* Route badalne par smooth scroll to top trigger karega */}
       <ScrollToTop />
-      
+
       <AuthProvider>
         <Toaster position="top-center" richColors />
         <div className="d-flex flex-column min-vh-100 bg-white position-relative">
@@ -107,6 +108,8 @@ export default function App() {
             <Routes>
               {/* Baseline General Public Routes */}
               <Route path="/" element={<Homepage />} />
+              <Route path="/about" element={<About />} />
+
 
               {/* Filtered Files Routes */}
               <Route path="/buy" element={<PropertiesForBuy />} />
@@ -163,7 +166,7 @@ export default function App() {
                 width: '45px',
                 height: '45px',
                 zIndex: 1050,
-                bottom:"45px",
+                bottom: "45px",
                 border: '1px solid rgba(255,255,255,0.2)',
                 backgroundColor: '#181b1f',
                 transition: 'all 0.3s ease'

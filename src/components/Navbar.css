@@ -1,164 +1,200 @@
-/* ================= CORE CONFIGURATION UTILITIES ================= */
-.cursor-pointer { cursor: pointer; }
-.tracking-wider { letter-spacing: 2px; }
-.transition-all { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+:root {
+  --brand-red: #C8232C;
+  --brand-red-dark: #A01B22;
+  --brand-gold: #D4AF37;
+  --brand-gold-dark: #B8923A;
+  --brand-black: #000000;
+  --brand-navy: #040914;
+  --brand-light-bg: #FFFFFF;
+}
 
-/* Standard structural configurations shared by all default instances */
-.navbar {
-  top: 15px;
+/* Transparent Fixed Overlay Navbar */
+.navbar-clean {
+  position: fixed !important;
+  top: 0;
   left: 0;
-  right: 0;
-  width: auto !important;
-  margin: 0 24px;
-  border-radius: 20px !important; /* Default 20px Rounded PC Layout */
-  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, top 0.4s ease, margin 0.4s ease, border-radius 0.4s ease, padding 0.4s ease;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.04);
+  z-index: 1030 !important;
 }
 
-/* ================= A. ONLY HOME PAGE ("/") DEFAULT TRANSPARENT + WATER BLUR EFFECT ================= */
-.home-water-nav {
-  background-color: rgba(0, 0, 0, 0.25) !important;
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+/* Navigation Links */
+.nav-link-clean {
+  color: var(--brand-black) !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: relative;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 10px 14px !important;
+  margin: 0 2px;
+  background: transparent !important;
+  transition: color 0.2s ease;
 }
 
-/* ================= B. ALL OTHER PAGES SOLID WHITE (NO BACKGROUND PIC) ================= */
-.other-clear-nav {
-  background-color: #ffffff !important; /* Transparent hata kar Solid White kiya */
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid #eaeaea !important; /* Halka border taaki page se mix na ho */
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05) !important; /* Halki shadow look ke liye */
+/* Hover & Active State: Gold Text Color */
+.nav-link-clean:hover,
+.nav-link-clean.active {
+  color: var(--brand-gold-dark) !important;
 }
 
-/* ================= C. UNIVERSAL SCROLL EFFECT (PURE SOLID WHITE FOR ALL PAGES) ================= */
-.scrolled-nav {
-  top: 0 !important;
-  margin: 0 !important;
-  border-radius: 0px !important; 
-  background-color: #ffffff !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-bottom: 1px solid #eaeaea !important;
-  padding-top: 12px !important;
-  padding-bottom: 12px !important;
+/* Clean Underline on Active & Hover */
+.nav-link-clean::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 14px;
+  right: 14px;
+  height: 2.5px;
+  background-color: var(--brand-gold);
+  border-radius: 2px;
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-/* Responsive Viewports Overrides */
-@media (max-width: 991.98px) {
-  .navbar:not(.scrolled-nav) { margin: 0 12px; top: 10px; }
-  .scrolled-nav { top: 0 !important; margin: 0 !important; }
+.nav-link-clean:hover::after,
+.nav-link-clean.active::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
-/* ================= LINKS INTERACTION STATES ================= */
-.pc-nav-link { background-color: transparent; position: relative; }
-
-/* Home page standard hover configuration */
-.navbar.home-water-nav .pc-nav-link.text-white:hover {
-  background-color: #ffffff !important;
-  color: #000000 !important;
+.nav-swipe-wrapper {
+  position: relative;
 }
 
-/* Other pages / scrolled hover text styling */
-.navbar.other-clear-nav .pc-nav-link.text-dark:hover,
-.navbar.scrolled-nav .pc-nav-link.text-dark:hover {
-  background-color: #f1f3f4 !important;
-  color: #000000 !important;
+.hover-swipe-indicator {
+  display: none !important;
 }
 
-/* Active elements validation logic */
-.navbar.home-water-nav .pc-nav-link.active { background-color: rgba(255, 255, 255, 0.2) !important; }
-.navbar:not(.home-water-nav) .pc-nav-link.active { background-color: #f1f3f4 !important; font-weight: 600 !important; }
-
-/* Dynamic state for mega menu on hover - forces text readable dark */
-.navbar .dropdown:hover > .pc-nav-link {
-  color: #000000 !important;
-  background-color: #ffffff !important;
+/* Action Button Right */
+.btn-brand-action {
+  background-color: var(--brand-gold);
+  color: #FFFFFF !important;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border-radius: 6px;
+  border: none;
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
+  transition: all 0.3s ease;
 }
 
-/* Auth Buttons dynamic configuration rules */
-.hover-bg-dark:hover { background-color: #000000 !important; }
-.text-white-hover:hover { color: #ffffff !important; }
-.hover-bg-white:hover { background-color: #ffffff !important; color: #000000 !important; }
-
-/* LOGO MEASUREMENTS */
-.brand-logo-img { height: 40px; width: auto; object-fit: contain; }
-.drawer-logo { height: 48px; }
-
-/* ================= PC DESKTOP MEGA DROPDOWN SYSTEM ================= */
-.navbar .dropdown {
-  position: static;
+.btn-brand-action:hover {
+  background-color: var(--brand-gold-dark);
+  transform: translateY(-1px);
 }
 
-/* Bridge creation strictly under the link to fill the hover gap */
-.navbar .dropdown .pc-nav-link::after { 
-  content: ""; 
-  position: absolute; 
-  top: 100%; 
-  left: 0; 
-  width: 100%; 
-  height: 25px; 
-  display: block; 
-  z-index: 1; 
+.brand-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
 }
 
-.navbar .mega-menu {
-  display: none; 
-  position: absolute !important; 
-  left: 5% !important; 
-  right: 5% !important; 
-  width: 90% !important; 
-  margin: 0 auto !important; 
-  top: 100% !important;
-  background-color: #ffffff; 
-  border-radius: 16px !important; 
-  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.12) !important;
-  opacity: 0; 
-  transform: translateY(-10px); 
-  transition: opacity 0.25s ease, transform 0.25s ease; 
-  pointer-events: none; 
-  z-index: 1000;
+.drawer-logo {
+  height: 38px;
 }
 
-.navbar .dropdown:hover .mega-menu { 
-  display: block; 
-  opacity: 1; 
-  transform: translateY(0); 
-  pointer-events: auto; 
+/* Mobile Offcanvas Drawer */
+.android-offcanvas-width {
+  width: 70% !important;
+  max-width: 320px !important;
 }
 
-.navbar .dropdown:hover .arrow-icon { transform: rotate(180deg); }
-.arrow-icon { transition: transform 0.2s ease; }
-.mega-item { text-decoration: none; transition: background-color 0.2s ease; }
-.mega-item:hover { background-color: #f8f9fa; border-radius: 8px; }
-.extra-small { font-size: 11px; color: #757575; }
-.pc-badge { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; color: #ffffff; flex-shrink: 0; }
+@media (min-width: 576px) {
+  .android-offcanvas-width {
+    width: 50% !important;
+  }
+}
 
-/* Custom Badge background colors */
-.bg-purple { background-color: #6f42c1; }
-.bg-purple-light { background-color: #f3ebf9; }
-.text-purple { color: #6f42c1; }
+.android-divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 4px 0;
+}
 
-.bg-teal { background-color: #20c997; }
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #888888;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
 
-.bg-cyan { background-color: #0dcaf0; }
-.bg-cyan-light { background-color: #e6f9fc; }
-.text-cyan { color: #0aa2c0; }
+.android-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  margin: 2px 8px;
+  border-radius: 24px 0 0 24px;
+  text-decoration: none;
+  color: #212121;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
 
-.bg-pink { background-color: #d63384; }
-.bg-pink-light { background-color: #fce8f3; }
-.text-pink { color: #d63384; }
+.android-item:hover {
+  background-color: #f0f0f0;
+}
 
-.bg-red { background-color: #dc3545; }
+.console-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
 
-/* ================= MOBILE CONFIGS ================= */
-.mobile-login-btn { border-radius: 50% !important; width: 40px; height: 40px; }
-.mobile-login-btn.text-white { background-color: rgba(255, 255, 255, 0.15); }
-.mobile-login-btn.text-dark { background-color: rgba(0, 0, 0, 0.05); }
-.android-divider { height: 1px; background-color: #f0f0f0; margin: 4px 0; }
-.section-label { font-size: 11px; font-weight: 700; color: #757575; letter-spacing: 0.6px; text-transform: uppercase; }
-.android-item { display: flex; align-items: center; gap: 14px; padding: 8px 16px; margin: 2px 8px; border-radius: 24px; text-decoration: none; color: #444746; font-size: 14px; font-weight: 500; transition: background-color 0.2s; }
-.android-item:hover { background-color: #f1f3f4; }
-.bg-green { background-color: #4caf50; } .bg-blue { background-color: #2196f3; } .bg-orange { background-color: #ff9800; }
-.console-box { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0; }
-.title-node { flex-grow: 1; }
+.title-node {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Mobile Console Dark Colors */
+.bg-dark-green {
+  background-color: #1b5e20 !important;
+}
+
+.bg-dark-red {
+  background-color: #b71c1c !important;
+}
+
+.bg-dark-blue {
+  background-color: #0d47a1 !important;
+}
+
+.bg-dark-orange {
+  background-color: #e65100 !important;
+}
+
+.bg-dark-purple {
+  background-color: #4a148c !important;
+}
+
+.bg-dark-teal {
+  background-color: #004d40 !important;
+}
+
+.bg-dark-cyan {
+  background-color: #006064 !important;
+}
+
+.bg-dark-pink {
+  background-color: #880e4f !important;
+}
