@@ -1,3 +1,4 @@
+/* src\index.css */
 /* Custom App-style Admin Theme Palette & Styling */
 
 :root {
@@ -443,7 +444,7 @@
 
 /* INPUT CONTROLS & BUTTONS */
 .app-input {
-  border-radius: var(--input-radius) !important;
+  /* border-radius: var(--input-radius) !important; */
   padding: 0.75rem 1rem !important;
   font-size: 0.95rem;
 }

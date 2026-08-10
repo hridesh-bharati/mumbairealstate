@@ -1,0 +1,88 @@
+/* ================= AUTH MODULE DEDICATED STYLING ================= */
+
+/* Full screen vibrant gradient background wrapper */
+.auth-page-wrapper {
+  background: linear-gradient(135deg, #0dcaf0 0%, #00695c 100%) !important;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card with Dashboard Style Gradient and Water-drop Circle Effect */
+.auth-gradient-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--app-radius, 1.25rem);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Background water-drop ripple circle matching dashboard metrics */
+.auth-gradient-card::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 70%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.auth-gradient-card::before {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: -30px;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Glassmorphism Icon Box */
+.auth-glass-icon {
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Inputs styling inside gradient card */
+.auth-glass-input-group .input-group-text {
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(10px);
+  border: none !important;
+  color: #ffffff !important;
+}
+
+.auth-glass-input-group .form-control {
+  background: rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(10px);
+  border: none !important;
+  color: #ffffff !important;
+}
+
+.auth-glass-input-group .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.auth-glass-input-group .btn-eye-toggle {
+  background: rgba(255, 255, 255, 0.22) !important;
+  backdrop-filter: blur(10px);
+  border: none !important;
+  color: #ffffff !important;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

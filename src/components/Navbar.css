@@ -37,8 +37,8 @@
   position: relative;
   display: flex !important;
   align-items: center !important;
-  gap: 4px !important;
-  padding: 10px 14px !important;
+  gap: 6px !important;
+  padding: 8px 12px !important;
   margin: 0 2px;
   background: transparent !important;
   transition: color 0.2s ease;
@@ -75,7 +75,7 @@
   font-weight: 800;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  padding: 9px 20px;
+  padding: 8px 16px;
   border-radius: 6px;
   border: none;
   box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
@@ -88,7 +88,7 @@
 }
 
 .brand-logo-img {
-  height: 40px;
+  height: 38px;
   width: auto;
   object-fit: contain;
 }
@@ -160,36 +160,13 @@
   color: #757575;
 }
 
-.pc-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  color: #ffffff;
-  flex-shrink: 0;
-}
-
 /* Custom Colors for Badges */
-.bg-purple {
-  background-color: #6f42c1;
-}
-
 .bg-purple-light {
   background-color: #f3ebf9;
 }
 
 .text-purple {
   color: #6f42c1;
-}
-
-.bg-teal {
-  background-color: #20c997;
-}
-
-.bg-cyan {
-  background-color: #0dcaf0;
 }
 
 .bg-cyan-light {
@@ -200,20 +177,12 @@
   color: #0aa2c0;
 }
 
-.bg-pink {
-  background-color: #d63384;
-}
-
 .bg-pink-light {
   background-color: #fce8f3;
 }
 
 .text-pink {
   color: #d63384;
-}
-
-.bg-red {
-  background-color: #dc3545;
 }
 
 /* ================= MOBILE DRAWER CONFIGS (Increased Width) ================= */
@@ -278,7 +247,11 @@
   text-overflow: ellipsis;
 }
 
-/* Balanced, Vibrant Mobile Console Box Background Colors */
+/* Vibrant Color Tokens for Icons & Backgrounds */
+.text-vibrant-blue {
+  color: #1565c0 !important;
+}
+
 .bg-vibrant-green {
   background-color: #2e7d32 !important;
 }
