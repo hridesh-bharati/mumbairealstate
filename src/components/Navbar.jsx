@@ -1,10 +1,12 @@
+// src/components/Navbar.jsx
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../services/authServices';
 import { useAuth } from '../context/AuthContext';
 import {
   Menu, User, LogOut, Home, Info, Building2, Briefcase,
-  Image, PhoneCall, Layers, DollarSign, Key, Eye, Calendar, Database, FileText, UserPlus, Users
+  Image, PhoneCall, Layers, DollarSign, Key, Eye, Calendar,
+  Database, FileText, UserPlus, Users, ChevronDown
 } from 'lucide-react';
 import './Navbar.css';
 
@@ -36,6 +38,7 @@ export default function Navbar() {
 
   const isActive = (path) => location.pathname === path;
 
+  // Sliding Indicator Line Logic
   const updateIndicator = (element) => {
     if (element && navListRef.current) {
       const navRect = navListRef.current.getBoundingClientRect();
@@ -68,18 +71,19 @@ export default function Navbar() {
       <nav className="navbar navbar-expand-lg navbar-clean py-2 px-3">
         <div className="container-fluid px-lg-4">
 
-          {/* Logo */}
+          {/* BRAND LOGO */}
           <Link className="navbar-brand d-flex align-items-center m-0 p-0" to="/" onClick={closeDrawer}>
             <img src="/images/logo.png" alt="CJ Group Logo" className="brand-logo-img" />
           </Link>
 
-          {/* Mobile Avatar & Menu Button */}
+          {/* MOBILE AVATAR / ADMIN PIC & MENU BUTTON */}
           <div className="d-flex align-items-center gap-2 d-lg-none ms-auto">
             {!loading && (
               user ? (
                 <Link
                   to={isAdmin ? "/admin-dashboard" : "/"}
                   className="p-0 border-0 bg-transparent text-decoration-none d-flex align-items-center"
+                  aria-label="Dashboard"
                 >
                   <img
                     src={user.photoURL || '/images/logo.png'}
@@ -107,7 +111,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* PC Navigation Links */}
+          {/* PC DESKTOP NAVIGATION LINKS */}
           <div className="collapse navbar-collapse d-none d-lg-flex w-100">
             <ul
               className="navbar-nav mx-auto align-items-center position-relative nav-swipe-wrapper"
@@ -127,79 +131,186 @@ export default function Navbar() {
 
               <li className="nav-item position-relative z-1">
                 <Link
-                  className={`nav-link nav-link-clean ${isActive('/about') ? 'active' : ''}`}
-                  to="/about"
-                  onMouseEnter={(e) => updateIndicator(e.currentTarget)}
-                >
-                  <Info size={14} strokeWidth={2.4} />
-                  <span>ABOUT US</span>
-                </Link>
-              </li>
-
-              <li className="nav-item position-relative z-1">
-                <Link
                   className={`nav-link nav-link-clean ${isActive('/buy') ? 'active' : ''}`}
                   to="/buy"
                   onMouseEnter={(e) => updateIndicator(e.currentTarget)}
                 >
                   <Building2 size={14} strokeWidth={2.4} />
-                  <span>PROJECTS</span>
+                  <span>BUY</span>
                 </Link>
               </li>
 
               <li className="nav-item position-relative z-1">
                 <Link
-                  className={`nav-link nav-link-clean ${isActive('/services') ? 'active' : ''}`}
-                  to="/services"
+                  className={`nav-link nav-link-clean ${isActive('/sell') ? 'active' : ''}`}
+                  to="/sell"
+                  onMouseEnter={(e) => updateIndicator(e.currentTarget)}
+                >
+                  <DollarSign size={14} strokeWidth={2.4} />
+                  <span>SELL</span>
+                </Link>
+              </li>
+
+              {/* PC Dropdown: CJ Exclusives */}
+              <li className="nav-item dropdown position-static z-1">
+                <span
+                  className={`nav-link nav-link-clean cursor-pointer ${location.pathname.startsWith('/exclusives') ? 'active' : ''}`}
+                  role="button"
+                  onMouseEnter={(e) => updateIndicator(e.currentTarget)}
+                >
+                  <Eye size={14} strokeWidth={2.4} />
+                  <span>CJ EXCLUSIVES</span>
+                  <ChevronDown size={12} className="arrow-icon ms-1" />
+                </span>
+                <div className="dropdown-menu mega-menu border-0 m-0 p-4 shadow-lg bg-white row w-100">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-md-4 border-end pe-4">
+                        <span className="badge bg-purple-light text-purple mb-2 px-2 py-1 rounded">Market Secret</span>
+                        <h5 className="fw-bold text-dark mb-2">CJ Exclusives</h5>
+                        <p className="text-muted small">Access premium residential properties managed exclusively by our experts.</p>
+                      </div>
+                      <div className="col-md-8 ps-4 d-grid gap-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
+                        <Link className="mega-item d-flex align-items-start gap-3 p-3 rounded-3" to="/exclusives/private" onClick={closeDrawer}>
+                          <div className="pc-badge bg-purple"><Eye size={16} /></div>
+                          <div>
+                            <div className="fw-bold text-dark small mb-1">Private Exclusives</div>
+                            <div className="text-muted extra-small">Browse secret premium listings.</div>
+                          </div>
+                        </Link>
+                        <Link className="mega-item d-flex align-items-start gap-3 p-3 rounded-3" to="/exclusives/coming-soon" onClick={closeDrawer}>
+                          <div className="pc-badge bg-blue"><Calendar size={16} /></div>
+                          <div>
+                            <div className="fw-bold text-dark small mb-1">Coming Soon</div>
+                            <div className="text-muted extra-small">Properties arriving on the marketplace within 30 days.</div>
+                          </div>
+                        </Link>
+                        <Link className="mega-item d-flex align-items-start gap-3 p-3 rounded-3" to="/exclusives/listings" onClick={closeDrawer}>
+                          <div className="pc-badge bg-teal"><Database size={16} /></div>
+                          <div>
+                            <div className="fw-bold text-dark small mb-1">Property Catalog</div>
+                            <div className="text-muted extra-small">Explore complete verified nationwide property lists.</div>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              {/* PC Dropdown: New Development */}
+              <li className="nav-item dropdown position-static z-1">
+                <span
+                  className={`nav-link nav-link-clean cursor-pointer ${location.pathname.startsWith('/development') ? 'active' : ''}`}
+                  role="button"
                   onMouseEnter={(e) => updateIndicator(e.currentTarget)}
                 >
                   <Layers size={14} strokeWidth={2.4} />
-                  <span>SERVICES</span>
-                </Link>
+                  <span>NEW DEVELOPMENT</span>
+                  <ChevronDown size={12} className="arrow-icon ms-1" />
+                </span>
+                <div className="dropdown-menu mega-menu border-0 m-0 p-4 shadow-lg bg-white row w-100">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-md-4 border-end pe-4">
+                        <span className="badge bg-cyan-light text-cyan mb-2 px-2 py-1 rounded">Modern Living</span>
+                        <h5 className="fw-bold text-dark mb-2">New Projects</h5>
+                        <p className="text-muted small">Discover luxury architectural spaces and early pre-sale properties.</p>
+                      </div>
+                      <div className="col-md-8 ps-4 d-grid gap-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
+                        <Link className="mega-item d-flex align-items-start gap-3 p-3 rounded-3" to="/development/current" onClick={closeDrawer}>
+                          <div className="pc-badge bg-cyan"><Layers size={16} /></div>
+                          <div>
+                            <div className="fw-bold text-dark small mb-1">Current Developments</div>
+                            <div className="text-muted extra-small">Active construction sites open for early booking.</div>
+                          </div>
+                        </Link>
+                        <Link className="mega-item d-flex align-items-start gap-3 p-3 rounded-3" to="/development/marketing-group" onClick={closeDrawer}>
+                          <div className="pc-badge bg-orange"><Briefcase size={16} /></div>
+                          <div>
+                            <div className="fw-bold text-dark small mb-1">Marketing Group</div>
+                            <div className="text-muted extra-small">Developer panels and asset branding management.</div>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </li>
 
-              <li className="nav-item position-relative z-1">
-                <Link
-                  className={`nav-link nav-link-clean ${isActive('/careers') ? 'active' : ''}`}
-                  to="/careers"
+              {/* PC Dropdown: Agents */}
+              <li className="nav-item dropdown position-static z-1">
+                <span
+                  className={`nav-link nav-link-clean cursor-pointer ${['/find-agent', '/help-agent', '/join-agent'].includes(location.pathname) ? 'active' : ''}`}
+                  role="button"
                   onMouseEnter={(e) => updateIndicator(e.currentTarget)}
                 >
-                  <Briefcase size={14} strokeWidth={2.4} />
-                  <span>CAREERS</span>
-                </Link>
+                  <Users size={14} strokeWidth={2.4} />
+                  <span>AGENTS</span>
+                  <ChevronDown size={12} className="arrow-icon ms-1" />
+                </span>
+                <div className="dropdown-menu mega-menu border-0 m-0 p-4 shadow-lg bg-white row w-100">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-md-4 border-end pe-4">
+                        <span className="badge bg-pink-light text-pink mb-2 px-2 py-1 rounded">Expert Advisors</span>
+                        <h5 className="fw-bold text-dark mb-2">Broker Networks</h5>
+                        <p className="text-muted small">Partner with premium neighborhood advisors for seamless guidance.</p>
+                      </div>
+                      <div className="col-md-8 ps-4 d-grid gap-2" style={{ gridTemplateColumns: '1fr 1fr' }}>
+                        <Link className="mega-item d-flex align-items-start gap-3 p-3 rounded-3" to="/find-agent" onClick={closeDrawer}>
+                          <div className="pc-badge bg-green"><Users size={16} /></div>
+                          <div>
+                            <div className="fw-bold text-dark small mb-1">Find an Agent</div>
+                            <div className="text-muted extra-small">Search from thousands of vetted area experts.</div>
+                          </div>
+                        </Link>
+                        <Link className="mega-item d-flex align-items-start gap-3 p-3 rounded-3" to="/help-agent" onClick={closeDrawer}>
+                          <div className="pc-badge bg-pink"><FileText size={16} /></div>
+                          <div>
+                            <div className="fw-bold text-dark small mb-1">Help Match Broker</div>
+                            <div className="text-muted extra-small">Let our smart metrics route you to the absolute perfect agent.</div>
+                          </div>
+                        </Link>
+                        <Link className="mega-item d-flex align-items-start gap-3 p-3 rounded-3" to="/join-agent" onClick={closeDrawer}>
+                          <div className="pc-badge bg-red"><UserPlus size={16} /></div>
+                          <div>
+                            <div className="fw-bold text-dark small mb-1">Join as Partner</div>
+                            <div className="text-muted extra-small">Take your real estate workspace architecture to the next level.</div>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </li>
 
-              <li className="nav-item position-relative z-1">
-                <Link
-                  className={`nav-link nav-link-clean ${isActive('/gallery') ? 'active' : ''}`}
-                  to="/gallery"
-                  onMouseEnter={(e) => updateIndicator(e.currentTarget)}
-                >
-                  <Image size={14} strokeWidth={2.4} />
-                  <span>GALLERY</span>
-                </Link>
-              </li>
-
-              <li className="nav-item position-relative z-1">
-                <Link
-                  className={`nav-link nav-link-clean ${isActive('/contact') ? 'active' : ''}`}
-                  to="/contact"
-                  onMouseEnter={(e) => updateIndicator(e.currentTarget)}
-                >
-                  <PhoneCall size={14} strokeWidth={2.4} />
-                  <span>CONTACT US</span>
-                </Link>
-              </li>
-
+              {/* SLIDING ANIMATED INDICATOR LINE */}
+              <div
+                className="hover-swipe-indicator"
+                style={{
+                  left: `${indicatorStyle.left}px`,
+                  width: `${indicatorStyle.width}px`,
+                  opacity: indicatorStyle.opacity
+                }}
+              />
             </ul>
 
-            {/* Right Action Buttons */}
+            {/* RIGHT ACTION BUTTONS */}
             <div className="d-flex align-items-center gap-2 ms-auto">
               {!loading && user ? (
                 <>
                   {isAdmin && (
-                    <Link to="/admin-dashboard" className="btn btn-brand-action">
-                      ADMIN
+                    <Link to="/admin-dashboard" className="btn btn-brand-action d-flex align-items-center gap-2">
+                      <img
+                        src={user.photoURL || '/images/logo.png'}
+                        alt="Admin Avatar"
+                        className="rounded-circle border border-white object-fit-cover"
+                        width="20"
+                        height="20"
+                        onError={(e) => { e.target.src = '/images/logo.png'; }}
+                      />
+                      <span>ADMIN</span>
                     </Link>
                   )}
                   <button onClick={handleLogout} className="btn btn-outline-danger btn-sm rounded-2 fw-bold d-flex align-items-center gap-1 px-3 py-2">
@@ -207,7 +318,7 @@ export default function Navbar() {
                   </button>
                 </>
               ) : (
-                <Link to="/contact" className="btn btn-brand-action">
+                <Link to="/signin" className="btn btn-brand-action">
                   GET IN TOUCH
                 </Link>
               )}
@@ -298,7 +409,7 @@ export default function Navbar() {
                 <LogOut size={16} /> <span>LOGOUT</span>
               </button>
             ) : (
-              <Link to="/contact" className="btn btn-brand-action w-100 py-2.5 text-center" onClick={closeDrawer}>
+              <Link to="/signin" className="btn btn-brand-action w-100 py-2.5 text-center" onClick={closeDrawer}>
                 GET IN TOUCH
               </Link>
             )}

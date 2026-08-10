@@ -1,185 +1,56 @@
-/* ==========================================================================
-   GLOBAL UTILITIES & DEFAULT SYSTEM CLEAN FONTS
-   ========================================================================== */
-.sell-page-global-wrapper {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  overflow-x: hidden;
+/* Custom Parallax Backgrounds */
+.sell-hero-bg {
+  background: linear-gradient(rgba(5, 11, 20, 0.85), rgba(10, 22, 40, 0.75)),
+    url("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80") no-repeat center center / cover;
+  background-attachment: fixed;
 }
 
-.max-w-600 { max-width: 600px; }
-.max-w-700 { max-width: 700px; }
-.min-vh-75 { min-height: 75vh; }
-.extra-small { font-size: 11.5px; }
-
-/* ==========================================================================
-   AOS LAYER INTERACTION ADJUSTMENTS (OPTIONAL GLOBAL CUSTOMS)
-   ========================================================================== */
-[data-aos] {
-  pointer-events: none;
-}
-[data-aos].aos-animate {
-  pointer-events: auto;
+.sell-mid-parallax {
+  background: linear-gradient(rgba(10, 22, 40, 0.5), rgba(5, 11, 20, 0.55)),
+    url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80") no-repeat center center / cover;
+  background-attachment: fixed;
 }
 
-/* ==========================================================================
-   COLOR CONSOLE MATRIX (MATCHES DRAWERS/NAVBARS)
-   ========================================================================== */
-.bg-green { background-color: #4caf50 !important; } 
-.bg-blue { background-color: #2196f3 !important; } 
-.bg-orange { background-color: #ff9800 !important; }
-
-.console-box {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-
-/* ==========================================================================
-   1. HERO CONTAINER & PARALLAX ENGINE
-   ========================================================================== */
-.sell-hero-section {
-  background-color: #050b14;
-}
-
-.absolute-hero-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(5, 11, 20, 0.82), rgba(10, 22, 40, 0.72)), 
-              url("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80") no-repeat center center;
-  background-size: cover;
-  background-attachment: fixed !important;
-  z-index: 1;
-}
-
-.main-hero-title {
-  line-height: 1.2;
-  letter-spacing: -1px;
-}
-
-.text-shadow-strong {
-  text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.9), 0px 4px 30px rgba(0, 0, 0, 0.6);
-}
-
-.sub-hero-para {
-  font-weight: 400;
-  line-height: 1.6;
-}
-
-/* Hero Content Metrics Card Styling */
-.metric-glass-card {
+/* Glassmorphism Effect for Hero Cards */
+.glass-card {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-.metric-glass-card:hover {
-  transform: translateX(5px);
-  background-color: rgba(255, 255, 255, 0.15) !important;
+  transition: transform 0.3s ease;
 }
 
-/* ==========================================================================
-   2. ROADMAP SECTIONS
-   ========================================================================== */
-.roadmap-node {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.roadmap-node:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05) !important;
+.glass-card:hover {
+  transform: translateX(6px);
 }
 
-/* ==========================================================================
-   3. MID PARALLAX BANNER (SHADOW MINIMIZED - IMAGE VISIBLE)
-   ========================================================================== */
-.mid-parallax-banner {
-  background-attachment: fixed !important;
-  z-index: 1;
-}
-
-/* ==========================================================================
-   4. MATERIAL CARD PRESET FORM STYLING (IMAGE_B01DE7 FORMAT)
-   ========================================================================== */
-.material-sell-card {
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02) !important;
-}
-
-.material-form-title {
-  font-family: Georgia, serif;
-  font-size: 2.5rem;
-  font-weight: 500;
-}
-
-.material-input-group {
-  position: relative;
-  width: 100%;
-  border-bottom: 1px solid #000000;
-}
-
-.material-control {
-  width: 100%;
-  padding: 8px 0;
-  font-size: 16px;
-  color: #000000;
-  background-color: transparent;
+/* Material Bottom-Border Input Override */
+.form-material-input {
   border: none;
+  border-bottom: 1.5px solid #000000;
   border-radius: 0;
+  background: transparent;
+  padding-left: 0;
+  padding-right: 0;
 }
-.material-control:focus {
-  outline: none;
+
+.form-material-input:focus {
+  background: transparent;
   box-shadow: none;
-}
-.material-control::placeholder {
-  color: #718096;
+  border-color: #000000;
 }
 
-.material-submit-btn {
-  background-color: #000000 !important;
-  color: #ffffff !important;
-  font-size: 15px;
-  border: none;
-  transition: opacity 0.25s ease;
-}
-.material-submit-btn:hover {
-  opacity: 0.85;
-}
-
-/* ==========================================================================
-   5. PERKS COMPARISON UTILITIES
-   ========================================================================== */
-.perk-box {
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-.perk-box:hover {
-  background-color: #f1f3f4 !important;
-  transform: translateY(-2px);
-}
-
-/* ==========================================================================
-   6. FLOATING WHATSAPP TRIGGER ENGINE
-   ========================================================================== */
-.floating-whatsapp-trigger {
+/* Floating WhatsApp Button */
+.floating-wa-btn {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
-  background-color: #25d366;
+  bottom: 25px;
+  right: 25px;
+  width: 58px;
+  height: 58px;
   z-index: 9999;
-  cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s;
+  transition: transform 0.3s ease;
 }
-.floating-whatsapp-trigger:hover {
-  transform: scale(1.1) rotate(8deg);
-  background-color: #20ba5a;
+
+.floating-wa-btn:hover {
+  transform: scale(1.1) rotate(6deg);
 }
 
 .badge-pulse {
@@ -188,38 +59,28 @@
   right: 2px;
   width: 12px;
   height: 12px;
+  background-color: #dc3545;
+  border: 2px solid #198754;
   border-radius: 50%;
-  background-color: #ff3b30;
-  border: 2px solid #25d366;
-  animation: notificationPulse 1.8s infinite alternate;
+  animation: pulse 1.5s infinite alternate;
 }
 
-@keyframes notificationPulse {
-  0% { transform: scale(0.8); opacity: 0.5; }
-  100% { transform: scale(1.3); opacity: 1; }
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
 }
 
-/* ==========================================================================
-   RESPONSIVE OVERRIDES (MAX-WIDTH: 991px)
-   ========================================================================== */
-@media (max-width: 991.98px) {
-  .absolute-hero-bg, .mid-parallax-banner {
-    background-attachment: scroll !important;
-  }
-  .main-hero-title {
-    font-size: 2.25rem !important;
-  }
-  .sell-hero-section {
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
-  .material-form-title {
-    font-size: 2rem;
-  }
-  .floating-whatsapp-trigger {
-    bottom: 20px;
-    right: 20px;
-    width: 54px;
-    height: 54px;
+@media (max-width: 991px) {
+
+  .sell-hero-bg,
+  .sell-mid-parallax {
+    background-attachment: scroll;
   }
 }

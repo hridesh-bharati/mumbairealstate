@@ -2,21 +2,18 @@ import React, { useEffect, useState } from 'react';
 import {
   Sparkles,
   ArrowRight,
-  ShieldCheck,
-  Building,
   Target,
   Eye,
-  CheckCircle2,
-  TrendingUp,
   Award,
-  Layers,
-  ChevronRight
+  ChevronRight,
+  Building2,
+  CheckCircle2,
+  Trophy
 } from 'lucide-react';
 
 const AboutUsHomeSection = () => {
   const [activeTab, setActiveTab] = useState('vision');
 
-  // Dynamic AOS Script Injector
   useEffect(() => {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -28,9 +25,9 @@ const AboutUsHomeSection = () => {
     script.onload = () => {
       if (window.AOS) {
         window.AOS.init({
-          duration: 800,
+          duration: 600,
           once: true,
-          easing: 'ease-in-out'
+          easing: 'ease-out'
         });
       }
     };
@@ -42,222 +39,371 @@ const AboutUsHomeSection = () => {
     };
   }, []);
 
+  // Image waale exact Gradient colors aur Outer Ring Borders
+  const getTabTheme = () => {
+    switch (activeTab) {
+      case 'vision':
+        return {
+          cardBg: 'linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%)',
+          borderColor: '#e03131',
+          iconBg: 'linear-gradient(135deg, #ff4d4d 0%, #dc2626 100%)',
+          textColor: '#c92a2a',
+          ringColor: '#ff8787'
+        };
+      case 'mission':
+        return {
+          cardBg: 'linear-gradient(135deg, #fff9db 0%, #fff3bf 100%)',
+          borderColor: '#f59f00',
+          iconBg: 'linear-gradient(135deg, #fcc419 0%, #f59f00 100%)',
+          textColor: '#e67700',
+          ringColor: '#ffe066'
+        };
+      case 'quality':
+        return {
+          cardBg: 'linear-gradient(135deg, #e7f5ff 0%, #d0ebff 100%)',
+          borderColor: '#1c7ed6',
+          iconBg: 'linear-gradient(135deg, #38bdf8 0%, #0284c7 100%)',
+          textColor: '#1864ab',
+          ringColor: '#74c0fc'
+        };
+      default:
+        return {};
+    }
+  };
+
+  const currentTheme = getTabTheme();
+
   return (
     <section
       id="about-us-home-alt"
-      className="py-5 position-relative overflow-hidden"
+      className="py-4 py-md-5 position-relative overflow-hidden user-select-none"
       style={{
-        backgroundImage: `linear-gradient(135deg, rgba(248, 250, 252, 0.94) 0%, rgba(238, 242, 255, 0.96) 100%), url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
+        backgroundColor: '#f8fafc',
+        backgroundImage: `radial-gradient(circle at 10% 20%, rgba(224, 49, 49, 0.05) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(2, 132, 199, 0.05) 0%, transparent 40%)`
       }}
     >
-      {/* GLOW DECORATIONS */}
-      <div
-        className="position-absolute rounded-circle pointer-events-none"
-        style={{
-          width: '500px',
-          height: '500px',
-          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.08) 50%, transparent 70%)',
-          top: '-150px',
-          left: '-150px',
-          filter: 'blur(45px)',
-          zIndex: 0
-        }}
-      />
-      <div
-        className="position-absolute rounded-circle pointer-events-none"
-        style={{
-          width: '400px',
-          height: '400px',
-          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%)',
-          bottom: '-100px',
-          right: '-100px',
-          filter: 'blur(40px)',
-          zIndex: 0
-        }}
-      />
+      <div className="container position-relative z-1 py-2">
+        <div className="row align-items-center g-4">
 
-      <div className="container position-relative z-1 py-4">
-        <div className="row align-items-center g-5">
+          {/* LEFT COLUMN - MOBILE APP UI WITH GRADIENT ICONS */}
+          <div className="col-lg-6" data-aos="fade-up">
 
-          {/* LEFT COLUMN - CONTENT & INTERACTIVE TABS */}
-          <div className="col-lg-6" data-aos="fade-right">
-            <span
-              className="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill text-uppercase fw-bold small mb-3 text-white shadow-sm"
-              style={{
-                background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <Sparkles size={16} />
-              Who We Are
-            </span>
+            {/* Top Tag Pill */}
+            <div className="mb-3">
+              <span
+                className="d-inline-flex align-items-center gap-2 px-3 py-1-5 rounded-pill text-white shadow-sm"
+                style={{
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.8px',
+                  background: 'linear-gradient(135deg, #ef4444 0%, #f59f00 100%)'
+                }}
+              >
+                <Sparkles size={12} /> WHO WE ARE
+              </span>
+            </div>
 
-            <h2 className="display-6 fw-bold text-dark mb-3">
-              Building Legacy Structures with <span style={{ background: 'linear-gradient(135deg, #2563eb, #059669)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Unmatched Precision</span>
+            {/* Mobile App Title */}
+            <h2 className="fw-extrabold text-dark mb-2 fs-3 fs-md-2 tracking-tight">
+              Building Legacy Structures with{' '}
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, #ef4444, #0284c7)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}
+              >
+                Precision
+              </span>
             </h2>
 
-            <p className="text-secondary fs-6 mb-4">
-              CJ Group is a premier real estate developer committed to redefining urban infrastructure through smart technology, sustainable engineering, and transparent client partnerships.
+            <p className="text-secondary small mb-3 lh-sm">
+              CJ Group redefines urban living with smart technology, sustainable engineering, and 100% legal RERA transparency.
             </p>
 
-            {/* TAB SELECTOR BUTTONS */}
-            <div className="d-flex gap-2 p-1 rounded-4 glass-card mb-4" style={{ background: 'rgba(255, 255, 255, 0.6)' }}>
+            {/* APP-LIKE TAB BAR WITH IMAGE GRADIENTS */}
+            <div
+              className="p-1 rounded-4 shadow-sm mb-3 d-flex gap-1"
+              style={{
+                background: '#ffffff',
+                border: '1px solid #e2e8f0'
+              }}
+            >
               <button
+                type="button"
                 onClick={() => setActiveTab('vision')}
-                className={`btn flex-fill py-2 rounded-3 fw-bold small transition-all d-flex align-items-center justify-content-center gap-2 ${activeTab === 'vision' ? 'bg-primary text-white shadow-sm' : 'text-dark border-0'
+                className={`btn flex-fill py-2 rounded-3 fw-bold transition-all d-flex align-items-center justify-content-center gap-1-5 ${activeTab === 'vision' ? 'text-white shadow-sm' : 'text-muted border-0'
                   }`}
+                style={{
+                  fontSize: '0.78rem',
+                  background: activeTab === 'vision' ? 'linear-gradient(135deg, #ff4d4d 0%, #dc2626 100%)' : 'transparent'
+                }}
               >
-                <Eye size={16} /> Our Vision
+                <Eye size={15} /> <span>Vision</span>
               </button>
+
               <button
+                type="button"
                 onClick={() => setActiveTab('mission')}
-                className={`btn flex-fill py-2 rounded-3 fw-bold small transition-all d-flex align-items-center justify-content-center gap-2 ${activeTab === 'mission' ? 'bg-primary text-white shadow-sm' : 'text-dark border-0'
+                className={`btn flex-fill py-2 rounded-3 fw-bold transition-all d-flex align-items-center justify-content-center gap-1-5 ${activeTab === 'mission' ? 'text-dark shadow-sm' : 'text-muted border-0'
                   }`}
+                style={{
+                  fontSize: '0.78rem',
+                  background: activeTab === 'mission' ? 'linear-gradient(135deg, #fcc419 0%, #f59f00 100%)' : 'transparent'
+                }}
               >
-                <Target size={16} /> Our Mission
+                <Target size={15} /> <span>Mission</span>
               </button>
+
               <button
+                type="button"
                 onClick={() => setActiveTab('quality')}
-                className={`btn flex-fill py-2 rounded-3 fw-bold small transition-all d-flex align-items-center justify-content-center gap-2 ${activeTab === 'quality' ? 'bg-primary text-white shadow-sm' : 'text-dark border-0'
+                className={`btn flex-fill py-2 rounded-3 fw-bold transition-all d-flex align-items-center justify-content-center gap-1-5 ${activeTab === 'quality' ? 'text-white shadow-sm' : 'text-muted border-0'
                   }`}
+                style={{
+                  fontSize: '0.78rem',
+                  background: activeTab === 'quality' ? 'linear-gradient(135deg, #38bdf8 0%, #0284c7 100%)' : 'transparent'
+                }}
               >
-                <Award size={16} /> Quality Assurance
+                <Award size={15} /> <span>Quality</span>
               </button>
             </div>
 
-            {/* DYNAMIC TAB CONTENT CARD */}
-            <div className="p-4 rounded-4 glass-card shadow-sm mb-4 border-0">
+            {/* DYNAMIC TAB CARD WITH RING GRADIENT ICON */}
+            <div
+              className="p-3 rounded-4 shadow-sm mb-3 border-start border-4 transition-all"
+              style={{
+                background: currentTheme.cardBg,
+                borderColor: currentTheme.borderColor
+              }}
+            >
               {activeTab === 'vision' && (
-                <div data-aos="fade-in">
-                  <h6 className="fw-bold text-dark mb-2 d-flex align-items-center gap-2">
-                    <Eye className="text-primary" size={20} /> Sustainable Urban Landmarks
-                  </h6>
-                  <p className="small text-muted mb-0">
-                    To pioneer eco-friendly residential and commercial hubs across India that seamlessly blend modern luxury with long-term environmental sustainability.
-                  </p>
+                <div className="d-flex align-items-center gap-3" data-aos="zoom-in-up">
+                  {/* Outer Ring Circle Like Image */}
+                  <div
+                    className="rounded-circle p-1 d-flex align-items-center justify-content-center flex-shrink-0"
+                    style={{ border: `2px solid ${currentTheme.ringColor}` }}
+                  >
+                    <div
+                      className="rounded-circle text-white shadow-sm d-flex align-items-center justify-content-center"
+                      style={{ background: currentTheme.iconBg, width: '42px', height: '42px' }}
+                    >
+                      <Eye size={20} />
+                    </div>
+                  </div>
+                  <div>
+                    <h6 className="fw-bold mb-1 small text-dark">Sustainable Urban Landmarks</h6>
+                    <p className="mb-0 text-muted" style={{ fontSize: '0.75rem', lineHeight: '1.3' }}>
+                      Pioneering eco-friendly residential & commercial hubs with modern luxury standards.
+                    </p>
+                  </div>
                 </div>
               )}
 
               {activeTab === 'mission' && (
-                <div data-aos="fade-in">
-                  <h6 className="fw-bold text-dark mb-2 d-flex align-items-center gap-2">
-                    <Target className="text-success" size={20} /> Timely Delivery & Transparency
-                  </h6>
-                  <p className="small text-muted mb-0">
-                    To provide 100% legal RERA registered properties delivered strictly on-schedule with zero compromises on raw material standards and construction quality.
-                  </p>
+                <div className="d-flex align-items-center gap-3" data-aos="zoom-in-up">
+                  <div
+                    className="rounded-circle p-1 d-flex align-items-center justify-content-center flex-shrink-0"
+                    style={{ border: `2px solid ${currentTheme.ringColor}` }}
+                  >
+                    <div
+                      className="rounded-circle text-dark shadow-sm d-flex align-items-center justify-content-center"
+                      style={{ background: currentTheme.iconBg, width: '42px', height: '42px' }}
+                    >
+                      <Target size={20} />
+                    </div>
+                  </div>
+                  <div>
+                    <h6 className="fw-bold mb-1 small text-dark">100% On-Time & Legal</h6>
+                    <p className="mb-0 text-muted" style={{ fontSize: '0.75rem', lineHeight: '1.3' }}>
+                      RERA registered properties with strict schedule delivery and raw material checks.
+                    </p>
+                  </div>
                 </div>
               )}
 
               {activeTab === 'quality' && (
-                <div data-aos="fade-in">
-                  <h6 className="fw-bold text-dark mb-2 d-flex align-items-center gap-2">
-                    <Award className="text-warning" size={20} /> Certified Structural Standards
-                  </h6>
-                  <p className="small text-muted mb-0">
-                    Every project undergoes multi-layer structural safety audits designed by top-tier certified architects and earthquake-resistant engineering protocols.
-                  </p>
+                <div className="d-flex align-items-center gap-3" data-aos="zoom-in-up">
+                  <div
+                    className="rounded-circle p-1 d-flex align-items-center justify-content-center flex-shrink-0"
+                    style={{ border: `2px solid ${currentTheme.ringColor}` }}
+                  >
+                    <div
+                      className="rounded-circle text-white shadow-sm d-flex align-items-center justify-content-center"
+                      style={{ background: currentTheme.iconBg, width: '42px', height: '42px' }}
+                    >
+                      <Award size={20} />
+                    </div>
+                  </div>
+                  <div>
+                    <h6 className="fw-bold mb-1 small text-dark">Structural Safety Audits</h6>
+                    <p className="mb-0 text-muted" style={{ fontSize: '0.75rem', lineHeight: '1.3' }}>
+                      Multi-layer certified architect checks with earthquake-resistant engineering.
+                    </p>
+                  </div>
                 </div>
               )}
             </div>
 
-            {/* KEY STATS BAR */}
-            <div className="row g-3 mb-4">
+            {/* APP WIDGET STATS ROW WITH CIRCULAR GRADIENTS */}
+            <div className="row g-2 mb-3">
+              {/* Red Gradient Widget */}
               <div className="col-4">
-                <div className="p-3 rounded-4 text-center glass-card">
-                  <h4 className="fw-bold text-primary mb-0">50+</h4>
-                  <small className="text-muted fw-medium">Projects Done</small>
+                <div
+                  className="p-2 rounded-4 text-center border-0 shadow-sm h-100 d-flex flex-column align-items-center justify-content-center"
+                  style={{ background: '#ffffff' }}
+                >
+                  <div
+                    className="rounded-circle p-0-5 d-flex align-items-center justify-content-center mb-1"
+                    style={{ border: '2px solid #ff8787' }}
+                  >
+                    <div
+                      className="rounded-circle text-white d-flex align-items-center justify-content-center"
+                      style={{ background: 'linear-gradient(135deg, #ff4d4d, #dc2626)', width: '32px', height: '32px' }}
+                    >
+                      <Building2 size={16} />
+                    </div>
+                  </div>
+                  <h5 className="fw-bold mb-0 text-dark fs-6">50+</h5>
+                  <small className="text-muted fw-semibold" style={{ fontSize: '0.65rem' }}>Projects</small>
                 </div>
               </div>
+
+              {/* Green Gradient Widget */}
               <div className="col-4">
-                <div className="p-3 rounded-4 text-center glass-card">
-                  <h4 className="fw-bold text-success mb-0">100%</h4>
-                  <small className="text-muted fw-medium">On-Time Delivery</small>
+                <div
+                  className="p-2 rounded-4 text-center border-0 shadow-sm h-100 d-flex flex-column align-items-center justify-content-center"
+                  style={{ background: '#ffffff' }}
+                >
+                  <div
+                    className="rounded-circle p-0-5 d-flex align-items-center justify-content-center mb-1"
+                    style={{ border: '2px solid #86efac' }}
+                  >
+                    <div
+                      className="rounded-circle text-white d-flex align-items-center justify-content-center"
+                      style={{ background: 'linear-gradient(135deg, #34d399, #059669)', width: '32px', height: '32px' }}
+                    >
+                      <CheckCircle2 size={16} />
+                    </div>
+                  </div>
+                  <h5 className="fw-bold mb-0 text-dark fs-6">100%</h5>
+                  <small className="text-muted fw-semibold" style={{ fontSize: '0.65rem' }}>On-Time</small>
                 </div>
               </div>
+
+              {/* Blue Gradient Widget */}
               <div className="col-4">
-                <div className="p-3 rounded-4 text-center glass-card">
-                  <h4 className="fw-bold text-purple mb-0" style={{ color: '#7c3aed' }}>25+</h4>
-                  <small className="text-muted fw-medium">Awards Won</small>
+                <div
+                  className="p-2 rounded-4 text-center border-0 shadow-sm h-100 d-flex flex-column align-items-center justify-content-center"
+                  style={{ background: '#ffffff' }}
+                >
+                  <div
+                    className="rounded-circle p-0-5 d-flex align-items-center justify-content-center mb-1"
+                    style={{ border: '2px solid #74c0fc' }}
+                  >
+                    <div
+                      className="rounded-circle text-white d-flex align-items-center justify-content-center"
+                      style={{ background: 'linear-gradient(135deg, #38bdf8, #0284c7)', width: '32px', height: '32px' }}
+                    >
+                      <Trophy size={16} />
+                    </div>
+                  </div>
+                  <h5 className="fw-bold mb-0 text-dark fs-6">25+</h5>
+                  <small className="text-muted fw-semibold" style={{ fontSize: '0.65rem' }}>Awards</small>
                 </div>
               </div>
             </div>
 
-            {/* CTA BUTTONS */}
-            <div className="d-flex flex-wrap gap-3 align-items-center">
-              <a
-                href="/about"
-                className="btn px-4 py-3 fw-bold rounded-3 shadow-sm d-inline-flex align-items-center gap-2 text-white"
-                style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #2563eb 100%)', border: 'none' }}
-              >
-                Discover Our Story <ArrowRight size={18} />
-              </a>
-              <a
-                href="#projects"
-                className="btn btn-outline-dark px-4 py-3 fw-bold rounded-3 glass-btn d-inline-flex align-items-center gap-2"
-              >
-                View Projects <ChevronRight size={18} />
-              </a>
+            {/* APP ACTION BUTTONS */}
+            <div className="row g-2">
+              <div className="col-7">
+                <a
+                  href="/about"
+                  className="btn w-100 py-2-5 px-2 fw-bold rounded-3 shadow-sm d-flex align-items-center justify-content-center gap-1-5 text-white active-scale"
+                  style={{
+                    background: 'linear-gradient(135deg, #ff4d4d 0%, #dc2626 100%)',
+                    fontSize: '0.8rem',
+                    border: 'none'
+                  }}
+                >
+                  <span>Our Story</span> <ArrowRight size={15} />
+                </a>
+              </div>
+              <div className="col-5">
+                <a
+                  href="#projects"
+                  className="btn btn-light w-100 py-2-5 px-2 fw-bold rounded-3 shadow-sm d-flex align-items-center justify-content-center gap-1 text-dark active-scale"
+                  style={{ fontSize: '0.8rem', border: '1px solid #e2e8f0' }}
+                >
+                  <span>Projects</span> <ChevronRight size={15} />
+                </a>
+              </div>
             </div>
+
           </div>
 
-          {/* RIGHT COLUMN - STACKED GLASS GRID WITH MULTIPLE PHOTOS */}
-          <div className="col-lg-6" data-aos="fade-left">
+          {/* RIGHT COLUMN - MOBILE IMAGE CARDS WITH GREEN GRADIENT BADGE */}
+          <div className="col-lg-6" data-aos="fade-up">
             <div className="position-relative">
 
               {/* MAIN TOP IMAGE */}
-              <div className="rounded-4 overflow-hidden shadow-lg border border-4 border-white mb-4">
+              <div className="rounded-4 overflow-hidden shadow-sm border border-2 border-white mb-2">
                 <img
                   src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=500&fit=crop"
                   alt="Modern Architectural Tower"
                   className="img-fluid w-100 object-fit-cover"
-                  style={{ maxHeight: '320px' }}
+                  style={{ height: '180px' }}
                 />
               </div>
 
-              {/* TWO SMALLER STACKED IMAGES */}
-              <div className="row g-3">
+              {/* TWO SMALLER IMAGES */}
+              <div className="row g-2">
                 <div className="col-6">
-                  <div className="rounded-4 overflow-hidden shadow-md border border-3 border-white">
+                  <div className="rounded-4 overflow-hidden shadow-sm border border-2 border-white">
                     <img
                       src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop"
                       alt="Luxury Residential Villa"
                       className="img-fluid w-100 object-fit-cover"
-                      style={{ height: '180px' }}
+                      style={{ height: '100px' }}
                     />
                   </div>
                 </div>
                 <div className="col-6">
-                  <div className="rounded-4 overflow-hidden shadow-md border border-3 border-white">
+                  <div className="rounded-4 overflow-hidden shadow-sm border border-2 border-white">
                     <img
                       src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop"
                       alt="Commercial Hub Design"
                       className="img-fluid w-100 object-fit-cover"
-                      style={{ height: '180px' }}
+                      style={{ height: '100px' }}
                     />
                   </div>
                 </div>
               </div>
 
-              {/* OVERLAY GLASS BADGE */}
+              {/* OVERLAY BADGE WITH IMAGE GREEN GRADIENT */}
               <div
-                className="position-absolute top-50 start-0 translate-middle-y ms-n2 p-3 rounded-4 shadow-lg glass-card d-flex align-items-center gap-3 text-dark"
+                className="position-absolute bottom-0 start-50 translate-middle-x p-2 rounded-3 shadow-lg d-flex align-items-center gap-2 text-dark mb-2"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.85)',
-                  backdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255, 255, 255, 0.8)',
-                  maxWidth: '260px'
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid #e2e8f0',
+                  width: '85%'
                 }}
               >
-                <div className="p-3 rounded-circle text-white shadow-sm" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}>
-                  <TrendingUp size={24} />
+                <div
+                  className="rounded-circle p-0-5 d-flex align-items-center justify-content-center flex-shrink-0"
+                  style={{ border: '2px solid #86efac' }}
+                >
+                  <div
+                    className="rounded-circle text-white d-flex align-items-center justify-content-center"
+                    style={{ background: 'linear-gradient(135deg, #34d399, #059669)', width: '28px', height: '28px' }}
+                  >
+                    <CheckCircle2 size={15} />
+                  </div>
                 </div>
                 <div>
-                  <h6 className="fw-bold mb-0">Eco-Friendly Living</h6>
-                  <small className="text-muted">40% Integrated Green Area</small>
+                  <h6 className="fw-bold mb-0 text-dark" style={{ fontSize: '0.72rem' }}>Prime Green Living</h6>
+                  <small className="text-muted d-block" style={{ fontSize: '0.65rem' }}>40% Green Area Land Plot</small>
                 </div>
               </div>
 
@@ -267,27 +413,35 @@ const AboutUsHomeSection = () => {
         </div>
       </div>
 
-      {/* GLASSMORPHISM & TRANSITION CSS */}
       <style jsx>{`
-        .glass-card {
-          background: rgba(255, 255, 255, 0.7) !important;
-          backdrop-filter: blur(14px) !important;
-          -webkit-backdrop-filter: blur(14px) !important;
-          border: 1px solid rgba(255, 255, 255, 0.6) !important;
-        }
-
-        .glass-btn {
-          background: rgba(255, 255, 255, 0.8) !important;
-          backdrop-filter: blur(8px) !important;
-          border: 1px solid rgba(255, 255, 255, 0.5) !important;
-        }
-
         .transition-all {
-          transition: all 0.3s ease;
+          transition: all 0.25s ease-in-out;
         }
 
-        .transition-all:hover {
-          transform: translateY(-3px);
+        .active-scale:active {
+          transform: scale(0.96);
+        }
+
+        .fw-extrabold {
+          font-weight: 800;
+        }
+
+        .py-1-5 {
+          padding-top: 0.35rem !important;
+          padding-bottom: 0.35rem !important;
+        }
+
+        .py-2-5 {
+          padding-top: 0.65rem !important;
+          padding-bottom: 0.65rem !important;
+        }
+
+        .gap-1-5 {
+          gap: 0.38rem !important;
+        }
+
+        .p-0-5 {
+          padding: 2px !important;
         }
       `}</style>
     </section>

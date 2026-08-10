@@ -1,3 +1,4 @@
+/* ================= ROOT STYLING & BRAND TOKENS ================= */
 :root {
   --brand-red: #C8232C;
   --brand-red-dark: #A01B22;
@@ -6,6 +7,10 @@
   --brand-black: #000000;
   --brand-navy: #040914;
   --brand-light-bg: #FFFFFF;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 /* Transparent Fixed Overlay Navbar */
@@ -45,33 +50,21 @@
   color: var(--brand-gold-dark) !important;
 }
 
-/* Clean Underline on Active & Hover */
-.nav-link-clean::after {
-  content: "";
-  position: absolute;
-  bottom: 0px;
-  left: 14px;
-  right: 14px;
-  height: 2.5px;
-  background-color: var(--brand-gold);
-  border-radius: 2px;
-  opacity: 0;
-  transform: scaleX(0);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.nav-link-clean:hover::after,
-.nav-link-clean.active::after {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
 .nav-swipe-wrapper {
   position: relative;
 }
 
+/* Animated Sliding Indicator Line */
 .hover-swipe-indicator {
-  display: none !important;
+  display: block !important;
+  position: absolute;
+  bottom: 0px;
+  height: 2.5px;
+  background-color: var(--brand-gold);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* Action Button Right */
@@ -104,7 +97,126 @@
   height: 38px;
 }
 
-/* Mobile Offcanvas Drawer */
+/* ================= MEGA DROPDOWN SYSTEM ================= */
+.navbar .dropdown {
+  position: static;
+}
+
+.navbar .dropdown .nav-link-clean::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  display: block;
+}
+
+.navbar .mega-menu {
+  display: none;
+  position: absolute !important;
+  left: 5% !important;
+  right: 5% !important;
+  width: 90% !important;
+  margin: 0 auto !important;
+  top: 100% !important;
+  background-color: #ffffff;
+  border-radius: 12px !important;
+  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.12) !important;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.navbar .dropdown:hover .mega-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.navbar .dropdown:hover .arrow-icon {
+  transform: rotate(180deg);
+}
+
+.arrow-icon {
+  transition: transform 0.2s ease;
+}
+
+.mega-item {
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.mega-item:hover {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.extra-small {
+  font-size: 11px;
+  color: #757575;
+}
+
+.pc-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+/* Custom Colors for Badges */
+.bg-purple {
+  background-color: #6f42c1;
+}
+
+.bg-purple-light {
+  background-color: #f3ebf9;
+}
+
+.text-purple {
+  color: #6f42c1;
+}
+
+.bg-teal {
+  background-color: #20c997;
+}
+
+.bg-cyan {
+  background-color: #0dcaf0;
+}
+
+.bg-cyan-light {
+  background-color: #e6f9fc;
+}
+
+.text-cyan {
+  color: #0aa2c0;
+}
+
+.bg-pink {
+  background-color: #d63384;
+}
+
+.bg-pink-light {
+  background-color: #fce8f3;
+}
+
+.text-pink {
+  color: #d63384;
+}
+
+.bg-red {
+  background-color: #dc3545;
+}
+
+/* ================= MOBILE DRAWER CONFIGS ================= */
 .android-offcanvas-width {
   width: 70% !important;
   max-width: 320px !important;

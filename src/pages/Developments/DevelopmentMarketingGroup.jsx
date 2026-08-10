@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Globe, ArrowUpRight } from 'lucide-react';
+import { Globe, ArrowUpRight, Sparkles, Building2, TrendingUp, Award } from 'lucide-react';
 
 // Import AOS
 import AOS from 'aos';
@@ -11,7 +11,7 @@ export default function DevelopmentMarketingGroup() {
   useEffect(() => {
     // Initialize AOS Animations
     AOS.init({
-      duration: 1000,
+      duration: 800,
       once: true,
       easing: 'ease-out-cubic'
     });
@@ -207,171 +207,175 @@ export default function DevelopmentMarketingGroup() {
   ];
 
   return (
-    <div className="bg-dark text-white font-sans overflow-hidden">
+    <div className="bg-white text-dark font-sans user-select-none pb-5" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
 
-      {/* ================= 1. HERO SECTION ================= */}
+      {/* ================= 1. ANDROID PWA APP HERO BAR ================= */}
       <section
-        className="position-relative min-vh-100 d-flex align-items-end p-4 p-md-5"
+        className="position-relative text-white py-5 px-3 px-md-4 d-flex align-items-center"
         style={{
-          backgroundImage: 'linear-gradient(to top, rgba(10,14,18,0.95), rgba(10,14,18,0.3)), url("https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+          borderBottomLeftRadius: '24px',
+          borderBottomRightRadius: '24px',
+          boxShadow: '0 10px 25px -5px rgba(15, 23, 42, 0.15)'
         }}
       >
-        <div className="container py-5 text-center position-relative z-1">
-          <div className="mx-auto" style={{ maxWidth: '850px' }}>
-            <p
-              className="fs-5 text-white-50 leading-relaxed mb-4"
-              data-aos="fade-down"
-            >
-              At <strong className="text-white">CJ Group Development Marketing Group</strong>, we elevate modern real estate through strategic design, bespoke marketing, and unmatched developer services. Leveraging decades of experience and innovation, we transform developments into dynamic communities.
-            </p>
-            <button
-              className="btn text-white rounded-0 px-4 py-2.5 text-uppercase fw-semibold tracking-wider border-0"
-              style={{ backgroundColor: '#583beb', fontSize: '12px' }}
-              data-aos="zoom-in"
-              data-aos-delay="200"
-            >
-              Learn More
-            </button>
-          </div>
+        <div className="container py-4 text-center position-relative z-1">
+          <span
+            className="badge text-white px-3 py-1-5 rounded-pill shadow-sm mb-3 d-inline-flex align-items-center gap-1"
+            style={{ fontSize: '0.68rem', fontWeight: 700, background: 'linear-gradient(135deg, #ef4444 0%, #f59f00 100%)' }}
+          >
+            <Sparkles size={12} /> DEVELOPER PORTFOLIO
+          </span>
+          <h1 className="h3 fw-extrabold mb-2 text-white">Development Marketing</h1>
+          <p className="text-white-50 small mx-auto mb-4" style={{ maxWidth: '650px', lineHeight: '1.5' }}>
+            At <strong className="text-white">CJ Group Development Marketing Group</strong>, we elevate modern real estate through strategic design, bespoke marketing, and unmatched developer services. Leveraging decades of experience and innovation, we transform developments into dynamic communities.
+          </p>
+          <button
+            className="btn text-white rounded-pill px-4 py-2.5 fw-bold shadow-sm active-scale border-0"
+            style={{ background: 'linear-gradient(135deg, #ff4d4d 0%, #dc2626 100%)', fontSize: '0.78rem' }}
+            data-aos="zoom-in"
+          >
+            Learn More
+          </button>
         </div>
       </section>
 
-      {/* ================= 2. NATIONAL PRESENCE (DYNAMIC CITY LINK SYNCED CAROUSEL) ================= */}
-      <section className="bg-white text-dark py-5 px-3 px-md-5">
-        <div className="container py-4">
-          <h2
-            className="display-5 fw-normal mb-3"
-            data-aos="fade-right"
-          >
-            An Established National Presence in <span className="fst-italic" style={{ color: '#583beb' }}>{activeTab}</span>
+      {/* ================= 2. NATIVE CHIP TABS & APP CAROUSEL ================= */}
+      <section className="container py-5">
+        <div className="mb-3" data-aos="fade-right">
+          <span className="text-uppercase fw-bold text-muted" style={{ fontSize: '0.65rem', letterSpacing: '0.8px' }}>Nationwide Presence</span>
+          <h2 className="fw-extrabold h4 text-dark m-0 mt-1">
+            An Established National Presence in <span style={{ background: 'linear-gradient(135deg, #ef4444, #0284c7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{activeTab}</span>
           </h2>
-          <p
-            className="text-muted mb-4"
-            style={{ maxWidth: '780px' }}
-            data-aos="fade-right"
-            data-aos-delay="100"
-          >
+          <p className="text-muted small mt-2 mb-3" style={{ maxWidth: '750px' }}>
             CJ Group has the largest digital and agent reach of any brokerage firm in the United States. We activate that advantage to deliver value to our clients every day.
           </p>
+        </div>
 
-          {/* Dynamic Cities Grid Selector */}
-          <div className="row g-3 my-4 fs-6" data-aos="fade-up" data-aos-delay="200">
-            {cityColumns.map((col, idx) => (
-              <div key={idx} className="col-6 col-sm-3 d-flex flex-column gap-2">
-                {col.map((cityName) => (
-                  <span
-                    key={cityName}
-                    onClick={() => setActiveTab(cityName)}
-                    className={`user-select-none transition-all ${activeTab === cityName ? 'fw-bold' : 'text-muted'
-                      }`}
-                    style={{
-                      cursor: 'pointer',
-                      color: activeTab === cityName ? '#583beb' : ''
-                    }}
-                  >
-                    {cityName}
-                  </span>
-                ))}
+        {/* Dynamic Cities Grid Selector (App-style Chips / Clickable Matrix) */}
+        <div className="row g-2 my-3 fs-6" data-aos="fade-up" data-aos-delay="100">
+          {cityColumns.map((col, idx) => (
+            <div key={idx} className="col-3 d-flex flex-column gap-1">
+              {col.map((cityName) => (
+                <span
+                  key={cityName}
+                  onClick={() => setActiveTab(cityName)}
+                  className={`user-select-none transition-all py-2 px-3 rounded-3 shadow-sm ${activeTab === cityName ? 'fw-bold text-white' : 'bg-white text-secondary border'}`}
+                  style={{
+                    cursor: 'pointer',
+                    fontSize: '0.8rem',
+                    background: activeTab === cityName ? 'linear-gradient(135deg, #38bdf8 0%, #0284c7 100%)' : '#ffffff',
+                    borderColor: activeTab === cityName ? 'transparent' : '#e2e8f0'
+                  }}
+                >
+                  {cityName}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {/* Dynamic Carousel Instance re-rendered using key={activeTab} */}
+        <div
+          key={activeTab}
+          id="luxuryResidencesCarousel"
+          className="carousel slide shadow-sm rounded-4 overflow-hidden mt-4 border bg-white"
+          data-bs-ride="carousel"
+          data-aos="zoom-in"
+          data-aos-delay="200"
+        >
+          <div className="carousel-indicators mb-3">
+            {currentSlides.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                data-bs-target="#luxuryResidencesCarousel"
+                data-bs-slide-to={index}
+                className={index === 0 ? 'active rounded-pill' : 'rounded-pill'}
+                style={{ width: index === 0 ? '20px' : '6px', height: '6px', backgroundColor: '#fff' }}
+                aria-current={index === 0 ? 'true' : 'false'}
+              ></button>
+            ))}
+          </div>
+
+          <div className="carousel-inner">
+            {currentSlides.map((slide, index) => (
+              <div
+                key={index}
+                className={`carousel-item ${index === 0 ? 'active' : ''}`}
+                data-bs-interval="4000"
+              >
+                <div
+                  className="d-flex align-items-end p-4 p-md-5 transition-all"
+                  style={{
+                    minHeight: '420px',
+                    backgroundImage: `linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.2) 60%), url("${slide.img}")`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
+                >
+                  <div className="text-white z-1 w-100 d-flex justify-content-between align-items-end">
+                    <div>
+                      <span className="badge text-white px-2.5 py-1 rounded-pill mb-2 shadow-sm" style={{ fontSize: '0.68rem', background: 'rgba(255,255,255,0.25)', backdropFilter: 'blur(6px)' }}>
+                        {slide.sub}
+                      </span>
+                      <h3 className="fw-bold fs-5 mb-0 text-white">{slide.title}</h3>
+                    </div>
+                    <div className="bg-white text-dark rounded-circle shadow-sm d-flex align-items-center justify-content-center" style={{ width: 36, height: 36 }}>
+                      <ArrowUpRight size={18} />
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Dynamic Carousel Instance re-rendered using key={activeTab} */}
-          <div
-            key={activeTab}
-            id="luxuryResidencesCarousel"
-            className="carousel slide shadow-lg rounded-0 overflow-hidden mt-5"
-            data-bs-ride="carousel"
-            data-aos="zoom-in"
-            data-aos-delay="300"
-          >
-            <div className="carousel-indicators mb-3">
-              {currentSlides.map((_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  data-bs-target="#luxuryResidencesCarousel"
-                  data-bs-slide-to={index}
-                  className={index === 0 ? 'active' : ''}
-                  aria-current={index === 0 ? 'true' : 'false'}
-                ></button>
-              ))}
-            </div>
+          <button className="carousel-control-prev" type="button" data-bs-target="#luxuryResidencesCarousel" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button className="carousel-control-next" type="button" data-bs-target="#luxuryResidencesCarousel" data-bs-slide="next">
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
 
-            <div className="carousel-inner">
-              {currentSlides.map((slide, index) => (
-                <div
-                  key={index}
-                  className={`carousel-item ${index === 0 ? 'active' : ''}`}
-                  data-bs-interval="4000"
-                >
-                  <div
-                    className="d-flex align-items-end p-4 p-md-5 transition-all"
-                    style={{
-                      minHeight: '480px',
-                      backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.1)), url("${slide.img}")`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
-                    }}
-                  >
-                    <div className="text-white z-1">
-                      <span className="text-uppercase tracking-widest text-white-50 small">{slide.sub}</span>
-                      <h3 className="fw-normal my-1">{slide.title}</h3>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button className="carousel-control-prev" type="button" data-bs-target="#luxuryResidencesCarousel" data-bs-slide="prev">
-              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button className="carousel-control-next" type="button" data-bs-target="#luxuryResidencesCarousel" data-bs-slide="next">
-              <span className="carousel-control-next-icon" aria-hidden="true"></span>
-              <span className="visually-hidden">Next</span>
-            </button>
-          </div>
-
-          <div className="text-center mt-5" data-aos="fade-up">
-            <button className="btn text-white rounded-0 px-4 py-3 text-uppercase fw-semibold tracking-wider border-0" style={{ backgroundColor: '#583beb', fontSize: '12px' }}>
-              View Current Availability
-            </button>
-          </div>
+        <div className="text-center mt-4" data-aos="fade-up">
+          <button className="btn text-white rounded-pill px-4 py-2.5 text-uppercase fw-bold shadow-sm active-scale border-0" style={{ background: 'linear-gradient(135deg, #ef4444 0%, #f59f00 100%)', fontSize: '0.75rem' }}>
+            View Current Availability
+          </button>
         </div>
       </section>
 
-      {/* ================= 3. DELIVERING THE NUMBERS (GAP-FREE SLANTED STRIP) ================= */}
+      {/* ================= 3. DELIVERING THE NUMBERS (SLANTED CARDS STRIP) ================= */}
       <section className="bg-light text-dark py-5 border-top border-bottom overflow-hidden">
-        <div className="container py-4">
-          <div className="row align-items-center mb-5" data-aos="fade-up">
+        <div className="container py-3">
+          <div className="row align-items-center mb-4" data-aos="fade-up">
             <div className="col-md-6">
-              <h2 className="display-5 fw-normal mb-0" >
-                <span className="fst-italic">Delivering</span> <strong className="fw-semibold">The Numbers</strong>
+              <h2 className="h4 fw-extrabold mb-0">
+                <span className="fw-normal fst-italic">Delivering</span> <strong>The Numbers</strong>
               </h2>
             </div>
-            <div className="col-md-6 text-md-end mt-3 mt-md-0">
-              <p className="text-muted mb-0 ms-auto" style={{ maxWidth: '480px', fontSize: '0.95rem' }}>
+            <div className="col-md-6 text-md-end mt-2 mt-md-0">
+              <p className="text-muted small mb-0 ms-auto" style={{ maxWidth: '480px' }}>
                 Sales. Faster and higher. That’s our goal, and it’s what we’ve delivered for top developers from coast to coast.
               </p>
             </div>
           </div>
 
           {/* Slanted Interactive Bar */}
-          <div className="numbers-slanted-wrapper shadow-lg my-4" data-aos="flip-up" data-aos-duration="1200">
+          <div className="numbers-slanted-wrapper shadow-sm my-4 rounded-4 overflow-hidden" data-aos="flip-up" data-aos-duration="1000">
             <div className="slanted-box hover-box-orange">
               <div className="slanted-content">
-                <h1 className="display-4 fw-medium text-white mb-0">$18B+</h1>
-                <span className="text-white-50 small mt-1 text-uppercase tracking-wider">Completed Sales</span>
+                <h2 className="fw-extrabold text-white mb-0 fs-3">$18B+</h2>
+                <span className="text-white-50 extra-small mt-1 text-uppercase tracking-wider">Completed Sales</span>
               </div>
             </div>
 
             <div className="slanted-box hover-box-purple">
               <div className="slanted-content">
-                <h1 className="display-4 fw-bold text-white mb-1">$23B+</h1>
-                <span className="text-white opacity-90 text-uppercase fw-medium" style={{ fontSize: '11px', letterSpacing: '0.5px' }}>
+                <h2 className="fw-extrabold text-white mb-1 fs-3">$23B+</h2>
+                <span className="text-white opacity-90 text-uppercase fw-medium" style={{ fontSize: '10px', letterSpacing: '0.5px' }}>
                   In New Development Sales & Rentals
                 </span>
               </div>
@@ -379,15 +383,15 @@ export default function DevelopmentMarketingGroup() {
 
             <div className="slanted-box hover-box-teal">
               <div className="slanted-content">
-                <h1 className="display-4 fw-medium text-white mb-0">21K+</h1>
-                <span className="text-white-50 small mt-1 text-uppercase tracking-wider">Units Represented</span>
+                <h2 className="fw-extrabold text-white mb-0 fs-3">21K+</h2>
+                <span className="text-white-50 extra-small mt-1 text-uppercase tracking-wider">Units Represented</span>
               </div>
             </div>
 
             <div className="slanted-box hover-box-gold">
               <div className="slanted-content">
-                <h1 className="display-4 fw-medium text-white mb-0">11K+</h1>
-                <span className="text-white-50 small mt-1 text-uppercase tracking-wider">Happy Clients</span>
+                <h2 className="fw-extrabold text-white mb-0 fs-3">11K+</h2>
+                <span className="text-white-50 extra-small mt-1 text-uppercase tracking-wider">Happy Clients</span>
               </div>
             </div>
           </div>
@@ -396,25 +400,16 @@ export default function DevelopmentMarketingGroup() {
 
       {/* ================= 4. A DEPTH OF EXPERTISE (GLASS OVERLAY & SLIDE UP) ================= */}
       <section className="bg-black text-white py-5">
-        <div className="container py-5 text-center">
-          <h2
-            className="display-4 fw-normal mb-3"
-            data-aos="fade-up"
-          >
-            A Depth of <span className="fst-italic">Expertise</span>
-          </h2>
-          <p
-            className="text-white-50 mb-4 mx-auto"
-            style={{ maxWidth: '680px', fontSize: '1.05rem' }}
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
+        <div className="container py-4 text-center">
+          <span className="text-uppercase small fw-bold text-warning tracking-wider">Core Pillars</span>
+          <h2 className="h4 fw-extrabold mb-2" data-aos="fade-up">A Depth of Expertise</h2>
+          <p className="text-white-50 mb-4 mx-auto small" style={{ maxWidth: '650px' }} data-aos="fade-up" data-aos-delay="100">
             Led by industry experts with decades of collective experience, CJ Group combines an entrepreneurial mindset with the wisdom gained from years in the field.
           </p>
 
           <button
-            className="btn text-white rounded-0 px-4 py-2.5 text-uppercase fw-semibold tracking-wider mb-5 border-0"
-            style={{ backgroundColor: '#583beb', fontSize: '12px' }}
+            className="btn text-white rounded-pill px-4 py-2.5 text-uppercase fw-bold mb-4 border-0 shadow-sm active-scale"
+            style={{ backgroundColor: '#583beb', fontSize: '0.75rem' }}
             data-aos="zoom-in"
             data-aos-delay="200"
           >
@@ -422,43 +417,40 @@ export default function DevelopmentMarketingGroup() {
           </button>
 
           <div
-            className="position-relative border border-white border-opacity-25 rounded-0 overflow-hidden my-4"
+            className="position-relative border border-white border-opacity-25 rounded-4 overflow-hidden my-3 shadow"
             style={{
-              backgroundImage: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80")',
+              backgroundImage: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80")',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              minHeight: '600px'
+              minHeight: '500px'
             }}
             data-aos="zoom-in-up"
             data-aos-delay="300"
           >
-            <div className="row g-0 h-100 position-relative z-1" style={{ minHeight: '600px' }}>
+            <div className="row g-0 h-100 position-relative z-1" style={{ minHeight: '500px' }}>
               {expertiseItems.map((item, index) => (
                 <div
                   key={item.id}
-                  className={`col-12 col-md-6 p-0 expertise-grid-item ${index % 2 === 0 ? 'border-end-md' : ''
-                    } ${index < 2 ? 'border-bottom-md' : ''}`}
-                  style={{ minHeight: '300px' }}
+                  className={`col-12 col-md-6 p-0 expertise-grid-item ${index % 2 === 0 ? 'border-end-md' : ''} ${index < 2 ? 'border-bottom-md' : ''}`}
+                  style={{ minHeight: '250px' }}
                   data-aos="fade-up"
-                  data-aos-delay={index * 150}
+                  data-aos-delay={index * 120}
                 >
-                  <div className="expertise-card-inner w-100 h-100 p-4 p-lg-5 d-flex flex-column align-items-center justify-content-center text-center position-relative overflow-hidden">
-
-                    <h4 className="fw-semibold tracking-widest text-uppercase mb-0 default-title">
+                  <div className="expertise-card-inner w-100 h-100 p-4 d-flex flex-column align-items-center justify-content-center text-center position-relative overflow-hidden">
+                    <h4 className="fw-bold tracking-widest text-uppercase mb-0 default-title fs-6">
                       {item.title}
                     </h4>
 
                     {/* Smooth Glass Overlay */}
-                    <div className="hover-card-overlay p-4 p-lg-5 d-flex flex-column align-items-center justify-content-center">
-                      <h4 className="fw-bold tracking-widest text-uppercase text-white mb-3" style={{ fontSize: '1.2rem' }}>
+                    <div className="hover-card-overlay p-4 d-flex flex-column align-items-center justify-content-center">
+                      <h4 className="fw-bold tracking-widest text-uppercase text-white mb-2 fs-6">
                         {item.title}
                       </h4>
-                      <p className="text-white-50 fs-6 mb-4 leading-relaxed" style={{ maxWidth: '420px', fontWeight: '300' }}>
+                      <p className="text-white-50 small mb-3 leading-relaxed" style={{ maxWidth: '380px', fontWeight: '300' }}>
                         {item.desc}
                       </p>
-                      <ArrowUpRight size={26} className="text-white hover-arrow-icon" />
+                      <ArrowUpRight size={22} className="text-white hover-arrow-icon" />
                     </div>
-
                   </div>
                 </div>
               ))}
@@ -469,28 +461,28 @@ export default function DevelopmentMarketingGroup() {
 
       {/* ================= 5. IN GOOD COMPANY ================= */}
       <section className="bg-white text-dark py-5">
-        <div className="container py-4">
-          <div className="row align-items-center mb-4">
+        <div className="container py-3">
+          <div className="row align-items-center g-4">
             <div className="col-md-5" data-aos="fade-right">
-              <h2 className="display-5 fw-bold" >
-                In <span className="fst-italic">Good</span> Company
-              </h2>
-              <p className="text-muted">
+              <span className="text-uppercase fw-bold text-muted" style={{ fontSize: '0.65rem', letterSpacing: '0.8px' }}>Trusted Network</span>
+              <h2 className="fw-extrabold h4 mb-2">In <span style={{ background: 'linear-gradient(135deg, #ef4444, #0284c7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Good</span> Company</h2>
+              <p className="text-muted small mb-3">
                 We are proud to work alongside leading developers, architectural visionaries, and investment groups nationwide.
               </p>
-              <button className="btn text-white rounded-0 px-4 py-2.5 text-uppercase fw-semibold tracking-wider mt-2 border-0" style={{ backgroundColor: '#583beb', fontSize: '12px' }}>
+              <button className="btn text-white rounded-pill px-4 py-2.5 text-uppercase fw-bold shadow-sm active-scale border-0" style={{ backgroundColor: '#583beb', fontSize: '0.75rem' }}>
                 View Portfolio
               </button>
             </div>
 
-            <div className="col-md-7 mt-5 mt-md-0" data-aos="fade-left" data-aos-delay="200">
-              <div className="row g-4 align-items-center text-center opacity-75">
-                <div className="col-6 col-sm-4 p-3"><div className="fw-bold tracking-widest text-uppercase fs-5" style={{ letterSpacing: '3px' }}>OPTIMUM</div></div>
-                <div className="col-6 col-sm-4 p-3"><div className="fw-bold fs-4" >Rudin</div></div>
-                <div className="col-6 col-sm-4 p-3"><div className="fw-light tracking-widest text-uppercase" style={{  letterSpacing: '4px' }}>SILVERSTEIN</div></div>
-                <div className="col-6 col-sm-4 p-3"><div className="fw-bold text-uppercase fs-5" style={{ letterSpacing: '2px' }}>BLACKSTONE</div></div>
-                <div className="col-6 col-sm-4 p-3"><div className="fw-bold tracking-wider fs-4" style={{ letterSpacing: '3px' }}>EXTELL</div></div>
-                <div className="col-6 col-sm-4 p-3"><div className="fw-bold fs-4">GLUCK+</div></div>
+            <div className="col-md-7" data-aos="fade-left" data-aos-delay="200">
+              <div className="row g-2 text-center opacity-75">
+                {['OPTIMUM', 'RUDIN', 'SILVERSTEIN', 'BLACKSTONE', 'EXTELL', 'GLUCK+'].map((partner, idx) => (
+                  <div key={idx} className="col-6 col-sm-4 p-2">
+                    <div className="p-3 bg-light rounded-3 text-dark fw-bold border shadow-sm small tracking-widest">
+                      {partner}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -499,20 +491,20 @@ export default function DevelopmentMarketingGroup() {
 
       {/* ================= 6. EXPERIENCE THE DIFFERENCE ================= */}
       <section
-        className="text-white py-5 text-center position-relative dotted-cta-bg"
-        style={{ minHeight: '320px' }}
+        className="text-white py-5 text-center position-relative dotted-cta-bg rounded-4 mx-3 mx-md-5 my-4 shadow-sm"
+        style={{ minHeight: '260px' }}
       >
-        <div className="container py-5 d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '260px' }}>
+        <div className="container py-4 d-flex flex-column align-items-center justify-content-center">
           <h2
-            className="display-4 fw-normal mb-4"
-            style={{ fontFamily: "'Playfair Display', serif", letterSpacing: '0.5px' }}
+            className="h3 fw-bold mb-3"
+            style={{ fontFamily: "'Playfair Display', serif" }}
             data-aos="fade-up"
           >
-            <span className="fst-italic">Experience</span> the Difference
+            <span className="fst-italic fw-normal">Experience</span> the Difference
           </h2>
           <button
-            className="btn text-white rounded-0 px-4 py-3 text-uppercase fw-semibold tracking-widest border-0"
-            style={{ backgroundColor: '#583beb', fontSize: '12px' }}
+            className="btn text-white rounded-pill px-4 py-2.5 text-uppercase fw-bold tracking-wider border-0 shadow-sm active-scale"
+            style={{ backgroundColor: '#583beb', fontSize: '0.75rem' }}
             data-aos="zoom-in"
             data-aos-delay="200"
           >
@@ -521,45 +513,35 @@ export default function DevelopmentMarketingGroup() {
         </div>
       </section>
 
-      {/* ================= 7. MINIMAL WHITE BOOTSTRAP FOOTER ================= */}
-      <footer className="bg-white text-dark py-4 border-top">
+      {/* ================= 7. MINIMAL FOOTER ================= */}
+      <footer className="bg-white text-dark py-3 border-top">
         <div className="container d-flex align-items-center justify-content-center gap-3">
           <span className="small text-secondary fw-normal">Follow Us</span>
-
           <div className="d-flex align-items-center gap-3">
-            {/* Instagram */}
             <a href="#instagram" className="text-dark opacity-75 hover-opacity-100 text-decoration-none">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-              </svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
-
-            {/* Facebook */}
             <a href="#facebook" className="text-dark opacity-75 hover-opacity-100 text-decoration-none">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.6 13.77 5.6c1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 3h-2.33v6.8c4.56-.93 8-4.96 8-9.8z" />
-              </svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.6 13.77 5.6c1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 3h-2.33v6.8c4.56-.93 8-4.96 8-9.8z" /></svg>
             </a>
-
-            {/* LinkedIn */}
             <a href="#linkedin" className="text-dark opacity-75 hover-opacity-100 text-decoration-none">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.72a1.4 1.4 0 1 0 1.4 1.4 1.4 1.4 0 0 0-1.4-1.4z" />
-              </svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.72a1.4 1.4 0 1 0 1.4 1.4 1.4 1.4 0 0 0-1.4-1.4z" /></svg>
             </a>
           </div>
         </div>
       </footer>
 
-      {/* ================= COMPONENT CSS ================= */}
+      {/* ================= COMPONENT APP STYLING ================= */}
       <style>{`
-        /* Slanted Numbers Section (Gap-Free) */
+        .active-scale:active { transform: scale(0.96); transition: transform 0.1s ease; }
+        .extra-small { font-size: 10px !important; }
+        .fw-extrabold { font-weight: 800 !important; }
+
+        /* Slanted Numbers Section */
         .numbers-slanted-wrapper {
           display: flex;
           background-color: #181b1f;
-          min-height: 190px;
+          min-height: 160px;
           overflow: hidden;
           position: relative;
         }
@@ -592,7 +574,7 @@ export default function DevelopmentMarketingGroup() {
           align-items: center;
           justify-content: center;
           text-align: center;
-          padding: 1.5rem;
+          padding: 1rem;
           z-index: 2;
         }
 
@@ -602,13 +584,8 @@ export default function DevelopmentMarketingGroup() {
         .hover-box-gold:hover { background-color: #d4af37 !important; }
 
         /* Depth of Expertise Grid */
-        .border-end-md {
-          border-right: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .border-bottom-md {
-          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
+        .border-end-md { border-right: 1px solid rgba(255, 255, 255, 0.2); }
+        .border-bottom-md { border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
 
         .expertise-card-inner {
           position: relative;
@@ -617,22 +594,20 @@ export default function DevelopmentMarketingGroup() {
         }
 
         .default-title {
-          transition: opacity 0.4s ease, transform 0.4s ease;
-          letter-spacing: 2.5px;
-          font-size: 1rem;
+          transition: opacity 0.3s ease, transform 0.3s ease;
+          letter-spacing: 2px;
         }
 
         .hover-card-overlay {
           position: absolute;
           inset: 0;
-          background-color: rgba(10, 14, 18, 0.75);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          background-color: rgba(10, 14, 18, 0.85);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           border: 1px solid rgba(255, 255, 255, 0.1);
           opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
-                      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+          transform: translateY(20px);
+          transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
           z-index: 5;
         }
 
@@ -643,44 +618,36 @@ export default function DevelopmentMarketingGroup() {
 
         .expertise-card-inner:hover .default-title {
           opacity: 0;
-          transform: translateY(-12px);
+          transform: translateY(-10px);
         }
 
         .hover-arrow-icon {
-          transition: transform 0.35s ease;
+          transition: transform 0.3s ease;
         }
 
         .expertise-card-inner:hover .hover-arrow-icon {
-          transform: translate(4px, -4px);
+          transform: translate(3px, -3px);
         }
 
         /* Dotted CTA Pattern */
         .dotted-cta-bg {
           background-color: #080a0d;
-          background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
-          background-size: 16px 16px;
+          background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+          background-size: 14px 14px;
         }
 
-        .hover-opacity-100:hover {
-          opacity: 1 !important;
-        }
+        .hover-opacity-100:hover { opacity: 1 !important; }
 
         /* Mobile Viewport Handling */
         @media (max-width: 768px) {
-          .numbers-slanted-wrapper {
-            flex-direction: column;
-          }
+          .numbers-slanted-wrapper { flex-direction: column; }
           .slanted-box, .slanted-box:first-child, .slanted-box:last-child {
             clip-path: none !important;
             margin-left: 0 !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           }
-          .border-end-md {
-            border-right: none !important;
-          }
-          .border-bottom-md {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
-          }
+          .border-end-md { border-right: none !important; }
+          .border-bottom-md { border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important; }
         }
       `}</style>
 

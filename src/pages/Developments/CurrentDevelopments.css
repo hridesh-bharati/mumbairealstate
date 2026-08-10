@@ -1,92 +1,24 @@
-/* Hero Header with Background Image Overlay */
-.hero-image-bg {
-  position: relative;
-  background: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-  isolation: isolate;
-}
-
-/* Dark gradient overlay for text readability */
-.hero-image-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
-  z-index: -1;
-}
-
-/* Footer CTA section with background image */
-.footer-cta-bg {
-  position: relative;
-  background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-  isolation: isolate;
-}
-
-.footer-cta-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.88);
-  z-index: -1;
-}
-
-/* Card Visual Polish */
-.dev-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-radius: 16px !important;
-}
-
-.dev-card:hover {
+.shadow-hover:hover {
   transform: translateY(-6px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1) !important;
 }
 
-.card-image-wrapper {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+.hover-zoom {
+  transition: transform 0.6s ease;
 }
 
-.card-image-wrapper img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.5s ease;
+.dev-card:hover .hover-zoom {
+  transform: scale(1.08);
 }
 
-.dev-card:hover .card-image-wrapper img {
-  transform: scale(1.04);
+.hover-bg-gray:hover {
+  background-color: #e2e8f0 !important;
 }
 
-.image-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 60%);
-  pointer-events: none;
+.hover-scale:hover {
+  transform: scale(1.02);
 }
 
-/* Primary Indigo Button */
-.btn-indigo {
-  background-color: #6366f1;
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 16px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.btn-indigo:hover {
-  background-color: #4f46e5;
-  color: #ffffff;
-}
-
-/* Hide horizontal scrollbar for mobile filters */
-.filter-scroll::-webkit-scrollbar {
-  display: none;
-}
-.filter-scroll {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.placeholder-light::placeholder {
+  color: rgba(148, 148, 148, 0.75) !important;
 }

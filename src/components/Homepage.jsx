@@ -122,7 +122,7 @@ export default function Homepage() {
       <About />
 
       {/* 3. FEATURED PROPERTIES */}
-      <div className="container my-5">
+      <div className="container-fluid my-5">
         <FeaturedProperties />
         <div className="mt-4 text-center text-md-start">
           <Link

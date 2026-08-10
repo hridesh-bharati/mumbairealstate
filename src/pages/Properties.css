@@ -1,168 +1,163 @@
-/* Standard App Styling */
-.text-gold {
-  color: #c9a84c !important;
+/* Custom App Typography & Helpers */
+.fw-extrabold {
+  font-weight: 800 !important;
 }
 
-.border-gold-subtle {
-  border-color: rgba(201, 168, 76, 0.4) !important;
+.px-2-5 {
+  padding-left: 0.6rem !important;
+  padding-right: 0.6rem !important;
 }
 
-/* Badge Tag Top Header */
-.badge-luxury-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(201, 168, 76, 0.12);
-  color: #a38128;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  padding: 4px 12px;
-  border-radius: 20px;
-  border: 1px solid rgba(201, 168, 76, 0.3);
+.py-1-5 {
+  padding-top: 0.35rem !important;
+  padding-bottom: 0.35rem !important;
 }
 
-/* Luxury Card Main Structure */
-.luxury-card {
-  border: 1px solid rgba(0, 0, 0, 0.06);
+.gap-1-5 {
+  gap: 0.38rem !important;
+}
+
+/* App Card Container & Active Tap Effect */
+.app-property-card,
+.property-pro-card {
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
 }
 
-.luxury-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 32px rgba(26, 26, 46, 0.1) !important;
-  border-color: rgba(201, 168, 76, 0.3);
+.app-property-card:hover,
+.property-pro-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px -5px rgba(15, 23, 42, 0.08) !important;
 }
 
-/* Media Box */
-.luxury-card-media {
-  height: 230px;
-  background-color: #1a1a2e;
+.app-property-card:active,
+.property-pro-card:active {
+  transform: scale(0.98);
 }
 
-.card-image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
-  z-index: 2;
-  pointer-events: none;
+/* Media Frame */
+.media-frame {
+  height: 200px;
+  background-color: #f1f5f9;
 }
 
-/* Badges Positioning */
-.badge-for-sale {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  color: #c9a84c;
-  border: 1px solid rgba(201, 168, 76, 0.4);
-  font-size: 0.65rem;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 6px;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+.property-img {
+  transition: transform 0.4s ease;
 }
 
-.app-top-badge {
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 6px;
-  color: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+.app-property-card:hover .property-img,
+.property-pro-card:hover .property-img {
+  transform: scale(1.04);
 }
 
-.app-img-counter {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  z-index: 3;
-  background: rgba(15, 23, 42, 0.75);
-  color: #ffffff;
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 6px;
-  backdrop-filter: blur(4px);
-}
-
-/* Hover-ready Arrows */
-.app-arrow {
-  background: rgba(255, 255, 255, 0.9) !important;
-  color: #1a1a2e !important;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 8px;
-  opacity: 0;
-  transition: all 0.2s ease;
-}
-
-.luxury-card:hover .app-arrow {
-  opacity: 1;
-}
-
-.app-arrow:hover {
-  background: #c9a84c !important;
+/* 1. SOFT & SUBTLE TOP BADGES (Jyada chatak nahi) */
+.badge-for-sale,
+.glass-badge {
   color: #ffffff !important;
-  transform: translateY(-50%) scale(1.1);
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: rgba(15, 23, 42, 0.65) !important;
+  /* Soft dark glass overlay */
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
 }
 
-/* Spec Pills */
-.property-type-pill {
-  font-size: 0.72rem;
-  background-color: #f8f9fa;
-  color: #6c757d;
-  padding: 3px 8px;
-  border-radius: 6px;
-  border: 1px solid #e9ecef;
-  font-weight: 600;
+/* Gradient Top Badges ke liye subtle opacity tweak */
+.badge-subtle-tag {
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.4px;
+  background: rgba(30, 41, 59, 0.75) !important;
+  color: #f8fafc !important;
+  backdrop-filter: blur(6px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
 
-.spec-pill {
+/* 2. SUBTLE CAROUSEL ARROW BUTTONS (Soft Glassmorphism) */
+.app-touch-arrow,
+.custom-hover-nav {
+  width: 28px !important;
+  height: 28px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 6px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.65) !important;
+  /* Subtle translucent white */
+  color: #1e293b !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0.7 !important;
+  transition: all 0.2s ease !important;
+  z-index: 4 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+}
+
+.app-property-card:hover .app-touch-arrow,
+.property-pro-card:hover .custom-hover-nav {
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+.app-touch-arrow:active,
+.custom-hover-nav:active {
+  transform: translateY(-50%) scale(0.92) !important;
+  background: rgba(255, 255, 255, 1) !important;
+}
+
+/* Specs Inner Circles & Rings */
+.app-spec-pill,
+.spec-tag {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 5px 10px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  gap: 6px;
+  padding: 3px 8px 3px 4px;
+  border-radius: 50px;
 }
 
-.spec-pill-beds {
-  background: #e8f5e9;
-  color: #2e7d32;
-}
-
-.spec-pill-baths {
-  background: #e3f2fd;
-  color: #1565c0;
-}
-
-.spec-pill-sqft {
-  background: #fff3e0;
-  color: #ef6c00;
-}
-
-/* View Button */
-.view-btn-circle {
-  width: 32px;
-  height: 32px;
+.app-icon-ring {
+  border-width: 1.5px;
+  border-style: solid;
   border-radius: 50%;
-  background: #f8f9fa;
-  color: #1a1a2e;
+  padding: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: justify-center;
+}
+
+.app-icon-inner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
 }
 
-.luxury-card:hover .view-btn-circle {
-  background: #c9a84c;
-  color: #ffffff;
+/* Card Action Button */
+.app-action-btn,
+.card-action-btn {
+  transition: transform 0.25s ease;
+}
+
+.app-property-card:hover .app-action-btn,
+.property-pro-card:hover .card-action-btn {
+  transform: rotate(45deg);
+}
+
+@media (max-width: 768px) {
+
+  .app-touch-arrow,
+  .custom-hover-nav {
+    opacity: 0.8 !important;
+  }
 }
